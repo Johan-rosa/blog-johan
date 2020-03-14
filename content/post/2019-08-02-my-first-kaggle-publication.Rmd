@@ -8,7 +8,7 @@ categories:
 tags:
   - R Markdown
 ---
-
+ 
 # Exploratory Data Analysis of Gas Prices in Brazil
 
 ### Intention

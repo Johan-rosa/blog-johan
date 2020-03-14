@@ -233,7 +233,7 @@ library(ggridges) # another tool to add elements to ggplot graphs </code></pre>
 <div id="importing-and-cleanign-the-data-for-analysis" class="section level3">
 <h3>Importing and cleanign the data for analysis</h3>
 <p>This time the data comes in a <code>.tsv</code> format, which stands for Tab Separated Values. To import this type of text files the function <code>read_delim()</code> comes into play. This function, as the others in the <code>readr</code> package, has a better performance than their parallel in base <code>R</code> (<code>read.table</code> in this case) sice this provide a better automatic variable type identification, saving mutating code after importing the data.</p>
-<p>run <code>gas2 &lt;- read.table(&quot;2004-2019.tsv&quot;, sep = &quot;\t&quot;, header = TRUE)</code> an compare the results.</p>
+<p>run <code>gas2 &lt;- read.table("2004-2019.tsv", sep = "\t", header = TRUE)</code> an compare the results.</p>
 <pre class="r"><code>gas &lt;- read_delim(&quot;data/2004-2019.tsv&quot;, delim = &quot;\t&quot;)</code></pre>
 <p>Before showing the results of the data importing process, it is important to tune a bit the names of the variables in the <code>gas</code> data frame. This job was not automatic and consisted in writing by hand a short English translation of the names in Portuguese.</p>
 <pre class="r"><code># This asignation structure helps when trying to sabe space in the cell

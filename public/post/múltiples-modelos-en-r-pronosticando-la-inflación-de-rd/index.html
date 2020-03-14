@@ -275,7 +275,7 @@ glimpse(ipc_articulos, 70)</code></pre>
         y = &quot;índice&quot;,
         title = &quot;IPC e índice de los grupos de bienes y servicios&quot;
     )</code></pre>
-<p><img src="/post/2020-02-04-múltiples-modelos-en-r-pronosticando-la-inflación-de-república-dominicana_files/figure-html/indice_plot-1.png" width="672" /></p>
+<p><img src="/post/2020-02-04-multiples-modelos-en-r-pronosticando-la-inflacion-de-republica-dominicana_files/figure-html/indice_plot-1.png" width="672" /></p>
 <pre class="r"><code>ipc_grupos %&gt;%
     ggplot(aes(x = mes, y = variacion_mes * 100, color = nombre)) +
     geom_line(show.legend = FALSE) +
@@ -287,7 +287,7 @@ glimpse(ipc_articulos, 70)</code></pre>
         y = &quot;Variación mensual&quot;,
         title = &quot;Variación mensual del IPC y de los grupos de bienes y servicios de la canasta&quot;
     )</code></pre>
-<p><img src="/post/2020-02-04-múltiples-modelos-en-r-pronosticando-la-inflación-de-república-dominicana_files/figure-html/vm_plot-1.png" width="672" /></p>
+<p><img src="/post/2020-02-04-multiples-modelos-en-r-pronosticando-la-inflacion-de-republica-dominicana_files/figure-html/vm_plot-1.png" width="672" /></p>
 </div>
 <div id="generando-las-proyecciones" class="section level2">
 <h2>Generando las proyecciones</h2>
@@ -320,11 +320,11 @@ head(by_grupos)</code></pre>
 ## # Groups:   nombre, ponderador [13]
 ##   nombre                                ponderador           data
 ##   &lt;fct&gt;                                      &lt;dbl&gt; &lt;list&lt;df[,7]&gt;&gt;
-## 1 &quot;Indice General&quot;                          100.        [103 x 7]
+## 1 Indice General                            100.        [103 x 7]
 ## 2 &quot;Alimentos y Bebidas No\nAlcohólicas&quot;      25.1       [103 x 7]
 ## 3 &quot;Bebidas Alcohólicas y\nTabaco&quot;             2.32      [103 x 7]
 ## 4 &quot;Prendas de Vestir y\nCalzado&quot;              4.56      [103 x 7]
-## 5 &quot;Vivienda&quot;                                 11.6       [103 x 7]
+## 5 Vivienda                                   11.6       [103 x 7]
 ## 6 &quot;Muebles y Artículos para\nel Hogar&quot;        6.46      [103 x 7]</code></pre>
 <p>En el objeto <code>by_grupo</code>, la fila 1 de la columna <code>data</code> tiene la serie del índice general.</p>
 <pre class="r"><code># desagregando la data de la primera fila
@@ -335,15 +335,16 @@ by_grupos %&gt;%
     head()</code></pre>
 <pre><code>## # A tibble: 6 x 9
 ## # Groups:   nombre, ponderador [13]
-##   nombre ponderador division codigo mes        indice fecha_ym variacion_mes
-##   &lt;fct&gt;       &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;date&gt;      &lt;dbl&gt; &lt;yearmo&gt;         &lt;dbl&gt;
-## 1 Indic~       100. Indice ~ 0      2011-02-01   102. Feb 2011       0.0121 
-## 2 Indic~       100. Indice ~ 0      2011-03-01   104. Mar 2011       0.0116 
-## 3 Indic~       100. Indice ~ 0      2011-04-01   105. Apr 2011       0.00868
-## 4 Indic~       100. Indice ~ 0      2011-05-01   105. May 2011       0.00220
-## 5 Indic~       100. Indice ~ 0      2011-06-01   106. Jun 2011       0.0102 
-## 6 Indic~       100. Indice ~ 0      2011-07-01   107. Jul 2011       0.00850
-## # ... with 1 more variable: variacion_interanual &lt;dbl&gt;</code></pre>
+##   nombre ponderador division codigo mes        indice fecha_ym
+##   &lt;fct&gt;       &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;date&gt;      &lt;dbl&gt; &lt;yearmo&gt;
+## 1 Indic~       100. Indice ~ 0      2011-02-01   102. Feb 2011
+## 2 Indic~       100. Indice ~ 0      2011-03-01   104. Mar 2011
+## 3 Indic~       100. Indice ~ 0      2011-04-01   105. Apr 2011
+## 4 Indic~       100. Indice ~ 0      2011-05-01   105. May 2011
+## 5 Indic~       100. Indice ~ 0      2011-06-01   106. Jun 2011
+## 6 Indic~       100. Indice ~ 0      2011-07-01   107. Jul 2011
+## # ... with 2 more variables: variacion_mes &lt;dbl&gt;,
+## #   variacion_interanual &lt;dbl&gt;</code></pre>
 </div>
 <div id="paso-2" class="section level3">
 <h3>Paso 2</h3>
@@ -523,7 +524,7 @@ by_grupos %&gt;%
     title = &quot;Proyección de la variación interanual del IPC&quot;
   ) +
   theme(legend.position = &quot;bottom&quot;)</code></pre>
-<p><img src="/post/2020-02-04-múltiples-modelos-en-r-pronosticando-la-inflación-de-república-dominicana_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+<p><img src="/post/2020-02-04-multiples-modelos-en-r-pronosticando-la-inflacion-de-republica-dominicana_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 Ahora las variaciones mensuales proyectadas para cada grupo de la canasta. Este es otro gráfico instructivo ya que combina dos geometrías. <code>geom_ribbon</code> y <code>geom_line</code>.</p>
 <pre class="r"><code>by_grupo_last %&gt;%
   # restringiendo el output para una sola metodología
@@ -568,7 +569,7 @@ Ahora las variaciones mensuales proyectadas para cada grupo de la canasta. Este 
     y = &quot;Variación mensual&quot;,
     title = &quot;Proyección de la variación mensual por grupo&quot;
   )</code></pre>
-<p><img src="/post/2020-02-04-múltiples-modelos-en-r-pronosticando-la-inflación-de-república-dominicana_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/post/2020-02-04-multiples-modelos-en-r-pronosticando-la-inflacion-de-republica-dominicana_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Por último el forecast con las dos estrategias de pronóstico principales. En este caso, salta a la vista que la metodología de agregación de pronósticos es un poco más volátil, quizás porque recoge mejor las fluctuaciones estacionales de la serie.</p>
 <pre class="r"><code># Uniendo los resultados de los diferentes modelos
 # para los 2 enfoques de pronóstico
@@ -636,7 +637,7 @@ bind_rows(
     title = &quot;Forecast de la inflación mensual&quot;,
     subtitle = &quot;Resultados según metodología y enfoque de pronóstico&quot;
   )</code></pre>
-<p><img src="/post/2020-02-04-múltiples-modelos-en-r-pronosticando-la-inflación-de-república-dominicana_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2020-02-04-multiples-modelos-en-r-pronosticando-la-inflacion-de-republica-dominicana_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="comentarios-finales" class="section level2">
 <h2>Comentarios finales</h2>
