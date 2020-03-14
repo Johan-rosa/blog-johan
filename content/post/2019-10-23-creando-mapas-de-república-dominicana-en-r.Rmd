@@ -1,0 +1,475 @@
+---
+title: Creando Mapas de República Dominicana en R
+author: Johan Rosa
+date: '2019-10-23'
+image: img/banner/maps.jpg
+slug: creando-mapas-de-república-dominicana-en-r
+categories:
+  - R
+tags:
+  - R Markdown
+---
+ 
+```{r, include=FALSE}
+load("data/ws_maps2")
+```
+
+Una manera muy interesante de visualizar los datos es mediante mapas, vestir la cartografía con información. Los mapas constituyen una herramienta muy poderosa para comunicar, ya que llaman la atención de los lectores y suelen ser interpretados casi intuitivamente.
+
+Los software tradicionales para hacer este tipo de cosas son Qgis, ArcGIS y otros, pero si estás aprendiendo R resultaría muy útil dominar algunos paquetes que no tienen nada que envidiarles a las herramientas mencionadas.  
+
+### Paqutes
+
+```{r message=FALSE, warning=FALSE, echo=TRUE}
+library(tmap) # graficar objetos de poligonos espaciales
+library(rgdal) # lectura de objetos "spatialpolygonsdataframe"
+library(tidyverse) # visualización y manipulación de datos
+#library(xlsx) # leer archivos de excel
+library(kableExtra) # para dar formato a las tablas
+library(leaflet) #mapas interactivos
+library(raster) # descargar shape files (también otras cosas)
+library(gridExtra) # poner variaor gráficos juntos
+library(janitor) # limpiar datos
+library(sf) # Para manejar un tipo de data espacial
+library(viridis) # Mapas
+```
+
+### objetos tipo `SpatialPolygonsDataFrame`
+
+En R, los objetos `SpatialPolygonsDataFrame` son una especie de lista que contiene los objetos necesarios para hacer mapas. Tradicionalmente a estos objetos se les denomina shapefiles y tienen un componente con los polígonos de las entidades geográficas, un componente que almacena la información referida al sistema de coordenadas geográficas de los polígonos, un data frame con una fila para cada entidad geográfica del shapefile, y un metadato sobre la proyección geográfica con la que se construyó el archivo. 
+
+Los shapefiles de la cartografía dominicana se pueden encontrar en la página web de la Oficina Nacional de Estadística. Hay archivos con los polígonos a diferentes niveles de desagregación, desde regiones y provincias, hasta llegar a barrios, el nivel mínimo. Con el siguiente enlace pueden acceder a ellos. [**Repositorio personal**](https://drive.google.com/open?id=0B4NNutK6xZ26dm5LUkFOYV9YTm8) o [**web ONE**](https://www.one.gob.do/Multimedia/Download?ObjId=3320).
+
+### Importar, visualizar y manipular shapefiles
+
+Ya que tenemos los archivos `.shp` de la cartografía nacional, podemos importar los correspondientes a regiones de planificación. Para esto usaremos la función `readOGR()`.
+
+```{r "importar mapas", eval=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+map_region <- readOGR(dsn = "/cloud/project/mapas_rd/shape_files/REGCenso2010.shp")
+map_provincia <- readOGR(dsn = "/cloud/project/mapas_rd/shape_files/PROVCenso2010.shp")
+```
+
+Una vez importado el objeto y nombrado en el ambiente de trabajo como `map_provincia`, mostrar el mapa resulta muy sencillo, ya que la función básica `plot` de `R` puede manejar este tipo de archivos.
+
+```{r fig.height=5, fig.width=6, fig.align='center'}
+plot(map_region)
+```
+
+**Accediendo al componente data**
+
+El componente data de los `SpatialPolygonsDataFrame` es el elemento que con más frecuencia tendremos que manipular. Esto porque por lo general los shapefiles no traen información sobre las áreas geográficas más que aquellas sirven para identificar las mismas.
+
+`map_region` simplemente tiene el código de la región y el nombre, pero más adelante le agregaremos otros datos. 
+
+
+```{r}
+map_region@data %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condense"), full_width = T)
+```
+
+Para agregar información al componente data del shapefile, vamos a descargar unos cuadros que publica la ONE con las proyecciones de población y las tasas de pobreza por regiones. Estos archivos fueron creados con fines de impresión y aunque están en excel contienen headers y subheaders en celdas unificadas, por lo que se necesitará limpiar la data. Los pasos para hacer esto los compartiré, con fines de garantizar la reproducibilidad de todo el contenido, pero no daré muchos detalles porque el documento es sobre visualización cartográfica más que manipulación de datos con R.
+
+```{r "importar pobreza y poblacion", eval=FALSE}
+
+# Descargar archivos ---------------------------------------------------------------
+url_poblacion <- "https://www.one.gob.do/Multimedia/Download?ObjId=29649"
+url_pobreza <- "https://www.one.gob.do/Multimedia/Download?ObjId=88791"
+
+download.file(url_poblacion, "mapas_rd/proy-poblacion.xlsx")
+download.file(url_pobreza, "mapas_rd/tasa_pobreza.xlsx")
+
+# Importar archivos ---------------------------------------------------------------
+poblacion <-  read.xlsx(
+  "/cloud/project/mapas_rd/proy-poblacion.xlsx",
+  sheetIndex = 1,
+  startRow = 9,
+  header = F
+)
+
+pobreza <- read.xlsx(
+  "mapas_rd/tasa_pobreza.xlsx",
+  sheetIndex = 1,
+  startRow = 7,
+  endRow = 26,
+  header = F
+)
+
+# Adecuar para hacer join con la data del shapefile --------------------------------
+
+# crear header en base a los archivos originales, pero adecuados para ser usados
+# en r. En otro post del blog les mostraré como adecuar estos header de otra manera
+
+header_poblacion <- c(
+  "region",
+  paste(
+    rep(c("total", "hombre", "mujer"), times = 31),
+    rep(2000:2030, each = 3), sep = "_")
+  )
+
+header_pobreza <- c(
+  "year",
+  paste(
+    rep(
+      c("Cibao Norte", "Cibao Sur", "Cibao Noreste", "Cibao Noroeste", "Valdesia",
+          "Enriquillo", "El Valle", "Yuma", "Higuamo", "Ozama", "Pais"),
+      times = 2),
+    rep(c("pgeneral", "pextrema"), each = 11), sep = "_")
+)
+
+# Agregando los nuevos headers
+names(pobreza) <- header_pobreza
+names(poblacion) <- header_poblacion
+```
+
+Vamos a utilizar los datos de población y tasas de pobreza para el 2018 para agregar datos al shapefile
+
+
+<div class = "row">
+<div class = "col-md-6">
+**Proyecciones de población - 2018**
+```{r, eval=FALSE}
+poblacion2018 <- 
+poblacion %>%
+  gather(sexo, poblacion, -region) %>%
+  separate(col = sexo, into = c("sexo", "year")) %>%
+  filter(!is.na(poblacion)) %>%
+  filter(!region == "Total país") %>%
+  filter(str_detect(region, "Región"),
+         sexo == "total",
+         year == "2018") %>%
+  dplyr::select(-sexo, -year) %>%
+    mutate(region = str_remove(region, "^Región ") %>%
+           str_trim(),
+         region = recode(
+           region,
+           "Metropolitana" = "Ozama", 
+           "Del Valle" = "El Valle"))
+```
+
+```{r}
+# Mostrar la tabla
+poblacion2018 %>%
+  mutate(
+    poblacion = format(poblacion, big.mark = ",")) %>%
+  arrange(region) %>%
+  kable() %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condense"),
+    full_width = T)
+
+```
+</div>
+<div class = "col-md-6">
+**pobreza general y extrema - 2018**
+```{r eval= FALSE}
+pobreza2018 <- 
+pobreza %>%
+ filter(
+   !is.na(`Cibao Norte_pgeneral`),
+   year == "2018 ENCFT") %>%
+  gather(region, tasa_pobreza, -year) %>%
+  separate(
+    region, c("region", "tipo_pobreza"), "_") %>%
+  spread(tipo_pobreza, tasa_pobreza) %>%
+  filter(!region == "Pais") %>%
+  mutate(
+    region = recode(region, "Cibao Noreste" = "Cibao Nordeste")) %>%
+  dplyr::select(-year)
+```
+
+```{r}
+# Mostrar la tabla
+pobreza2018 %>%
+  arrange(region) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condense"), full_width = TRUE)
+
+```
+</div>
+</div>
+
+Para agregar información a la data de los shapefiles simplemente haremos un join por región.
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+# Join de los 3 dataframes
+map_region@data <- map_region@data %>%
+  rename(region = TOPONIMIA) %>%
+  mutate(
+    region = str_to_title(region) %>%
+      str_remove("^Región ") %>%
+      #str_trim() %>%
+      recode("Ozama O Metropolitana" = "Ozama")) %>%
+  left_join(poblacion2018) %>%
+  left_join(pobreza2018)
+```
+
+```{r "data del mapa"}
+# Mostrar la tabla
+map_region@data %>%
+  mutate_at(.vars = c("poblacion", "pextrema", "pgeneral"), round, digits = 2)%>%
+  mutate_at(.vars = c("poblacion", "pextrema", "pgeneral"), format, big.mark = ",") %>%
+  arrange(region) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condense"), full_width = TRUE)
+```
+
+
+### Mapas estáticos 
+
+Primero vamos a explorar un poco más los gráficos con la función base `plot()`. Para esto vamos a hacer dos cosas, filtrar áreas geográficas y graficarlas (Aunque tenemos el mapa nacional con todas la regiones, no siempre querríamos graficar todas) y Colorear en el mapa regiones específicas. 
+
+La lógica de filtrar los shape files es muy similar a la de filtrar un dataframe, aquí mostraremos como seleccionar y graficar las áreas de la región norte o Cibao.
+
+Para resaltar áreas geográficas específicas simplemente se utilizar una condición lógica similar a la del mapa anterior, pero antes se grafica el mapa general y se le agrega un layer con los colores de las zonas a resaltar. A continuación muestro el código para realizar ambas acciones.
+
+<div class = "row">
+<div class = "col-md-6">
+**Filtrar el shapefiles**
+```{r "Filtrar áreas"}
+map_region[str_detect(map_region$region, "Cibao"),] %>%
+  plot()
+```
+</div>
+<div class = "col-md-6">
+**Resaltar áreas en base a algún criterio**
+```{r "resaltar áreas"}
+plot(map_region)
+plot(map_region[map_region$pgeneral > mean(map_region$pgeneral),], col = "turquoise", add = T) 
+```
+</div>
+</div>
+
+Otro tipo de mapa estático que se puede realizar es colocando colores a los polígonos dependiendo de intervalos de alguna variable, de manera que si se usa la escala de color adecuada permite identificar las distribución de esta en las diferentes zonas. Para hacer este tipo de mapas recurriremos al paquete `tmap`, el cuál es un paquete basado el la gramática de gráficos en capas en la que se basa `ggplot2`.
+
+
+```{r eval=FALSE, include=FALSE}
+# Mapa en blanco
+mapa_blanco <- 
+tm_shape(map_region) +
+  tm_polygons()
+
+mapa_intervalos <- 
+tm_shape(map_region) +
+  tm_polygons("poblacion")
+```
+
+<div class = "row">
+<div class = "col-md-4">
+**Mapa plano con tmap**
+```{r}
+tm_shape(map_region) +
+  tm_polygons()
+```
+</div>
+<div class = "col-md-4">
+**Colores en base a una variable**
+```{r}
+tm_shape(map_region) +
+  tm_polygons("poblacion")
+```
+</div>
+<div class = "col-md-4">
+**Ajustar los intervalos**
+```{r}
+tm_shape(map_region) +
+  tm_polygons("poblacion",
+              palette = "Blues", #"reds", "Puerples",
+              breaks = c(0, 500000, 1000000, 2000000,4000000)) 
+```
+</div>
+</div>
+
+## Mapas interactivos
+
+Los mapas interactivos se crean por lo general en formato HTML y permiten que el usuario cambie aspectos de los mismos, o bien, ellos cambian automáticamente dependiendo de algunas acciones. Entre las cosas más comunes que admiten este tipo de objetos están la posibilidad de modificar la escala del gráfico (Zoom), desplegar leyendas y etiquetas al desplazar el puntero por el gráfico y la aparición o desaparición de elementos en la medida que se modifica la escala del gráfico.
+
+La librería que utilizo por excelencia para hacer este tipo de mapas es `leaflet` la cual admite shape files o crea gráficos en base a [**openstreetmap**](https://www.openstreetmap.org/#map=8/18.741/-70.162).
+
+Hagamos dos mapas con `leaflet`, primero uno solo con los layers de openstreetmap y luego otro con los polígonos que venimos utilizando desde el principio de la publicación. 
+
+Lo primero que hay que hacer para utilizar los shapefiles que descargamos de la ONE es cambiar el sistema de coordenadas geográficas con el que viene por defecto. La mayoría de paquetes para hacer mapas usan principalmente la coordenadas basadas en grados, minutos y segundos; pero el objeto `map_region` tiene una proyección distinta [**la UTM**](https://es.wikipedia.org/wiki/Sistema_de_coordenadas_universal_transversal_de_Mercator)
+
+A continuación coloco el comando para transformar la proyección del mapa. Como ven, este es otro de los elementos que le podemos modificar a este tipo de objetos.
+
+
+Para aprender un poco más sobre los sistemas de referencia y coordenadas puede consultar este [enlace](https://rspatial.org/raster/spatial/6-crs.html)
+
+```{r eval=FALSE}
+map_region <- spTransform(map_region, CRS("+proj=longlat +datum=WGS84"))
+map_provincia <- spTransform(map_provincia, CRS("+proj=longlat +datum=WGS84"))
+```
+
+
+**Mapa de las regiones**
+```{r}
+leaflet() %>%
+  addPolygons(
+    data = map_region,
+    color = "gray")
+```
+**Mapa sobre la capa de openstreetmap**
+```{r}
+leaflet() %>%
+addTiles() %>%
+  addPolygons(
+    data = map_region,
+    color = "gray")
+```
+
+**Mapas con popups**
+
+La idea ahora es hacer un mapas con una escala de color relativa una de las variables del dataframe. Similar al que hicimos con `tmap` más arriba, pero esta vez el mapa reaccionará mostrándonos datos sobre el poligono al que le hagamos click.
+
+Para realizar este mapa hay que crear los popups de cada polígono y una escala de color en base a la cantidad de áreas del shapefile. Estos se crean en html como verán a continuación (El hecho de que R sea un software vectorizado ayuda mucho).
+
+Recuerden hacer click en cualquiera de las regiones para ver la población proyectada al 2018 y la tasa de pobreza estimada.
+
+```{r}
+# esta función combierte los valores en colores 
+paleta_de_color <- colorQuantile("YlGn", NULL, n = nrow(map_region@data))
+
+# popups de cada poligono
+region_popup <- paste0(
+  "<strong>Región: </strong>",
+  map_region$region,
+  "<br><strong>Poblacion 2018: </strong>",
+  format(map_region$poblacion, big.mark = ","),
+  "<br><strong>Tasa pobreza 2018: </strong>",
+  round(map_region$pgeneral, 2)
+  )
+
+# Mapa 
+leaflet(data = map_region) %>%
+  addTiles() %>%
+  addPolygons(
+    fillColor = ~paleta_de_color(poblacion),
+    fillOpacity = 0.8,
+    color = "#BDBDC3",
+    weight = 1,
+    popup = region_popup
+  )
+
+
+```
+
+En los casos en los que se tenga datos exactos de la ubicación de algo (viviendas, personas, vehículos, unidades productivas, etc.) resultaría interesante graficar los puntos de ubicación en el mapa. `leaflett` tiene varias funciones para lograr esto, simplemente hay que tener las latitudes y longitudes de los puntos.
+
+Para este ejemplo usaremos una data que encontré en el ministerio de deporte, en la que tienen georeferenciadas todas las instalaciones deportivas del país. La data se descarga y se importa de la siguientes manera.
+
+```{r, eval=FALSE}
+# Descargar archivos
+url_canchas <- paste0("http://miderec.gob.do/transparencia/index.php/transparecia%",
+                      "20files/300/instalaciones-deportivas/10354/ubicacion-",
+                      "instalaciones-deportivas-y-deportes-que-se-realizan.xlsx")
+download.file(url_canchas, "mapas_rd/ubicacion_canchas.xlsx")
+
+# Importar archivo
+canchas <- read.xlsx(
+  "mapas_rd/ubicacion_canchas.xlsx",
+  sheetIndex = 1,
+  header = TRUE
+)
+
+# Las latitudes y longitudes se importan como factores y para combertirlas a numericas es necesrio
+# primero convertirlas a caracter y luego a numero
+
+canchas <- canchas %>%
+  mutate(
+    GPS.Latitud = parse_number(as.character(GPS.Latitud)),
+    GPS.Longitud = parse_number(as.character(GPS.Longitud))
+  )
+
+canchas <- clean_names(canchas)
+
+```
+
+**Mapa con puntos**
+
+Con este mapa, si son de República Dominicana, les invito a que busquen una instalación deportiva a la que hayan ido o que conozcan. Yo probé buscando las que estaban cerca de mi casa y están bien señalizadas.
+
+```{r}
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(lat = canchas$gps_latitud, lng = canchas$gps_longitud)
+```
+
+
+
+Este mapa con puntos se ve bien a una escala grande, pero no tanto cuando vemos el mapa del país completo. Una forma interesante de ver la distribución de las canchas en el país es visualizando la distribución por municipio.
+
+Para hacer esto recomiendo un forma alternativa a importar los mapas por municipio y hacer un join en base al nombre de este. No recomiendo hacerlo así porque nada garantiza que los nombres de los municipios correspondan exactamente con los nombre de los objetos spatialPolygonDataframe. 
+
+La estrategia que recomiendo y que veremos aquí, ya que puede ser de mucha utilidad en el futuro, es convertir a spatialPoints los puntos de las canchas y contar con el shapefile a nivel de municipio los puntos que caen en cada polígono.
+
+```{r, eval=FALSE}
+# Importando el mapa a nivel de barrios
+map_municipio <- readOGR(dsn = "shape_files/MUNCenso2010.shp",
+                      stringsAsFactors = FALSE)
+
+# Cambiar la proyección de los mapas
+map_municipio <- spTransform(map_municipio, CRS("+proj=longlat +datum=WGS84"))
+
+# Crear un objeto spatialPoints con las ubicaciones de las canchas
+# la proyección de este objeto debe ser la misma que las del mapa
+
+cancha_points <- SpatialPointsDataFrame(
+  coords =  dplyr::select(canchas, gps_longitud, gps_latitud),
+  data =  dplyr::select(canchas, nombre, deporte_1),
+  proj4string=CRS("+proj=longlat +datum=WGS84")
+  )
+
+# Voy a transformar los objetos canca_point y map_municipio a sf,
+# este tipo de objetos una versisimplificada de los point/polygonDataFrame
+
+# Para más informació:
+"https://cran.r-project.org/web/packages/sf/vignettes/sf1.html"
+
+cancha_sf <-  cancha_points %>%
+st_as_sf(
+  coords = c("gps_longitud", "gps_latitud"),
+  agr = "constant",
+  crs = 32619,
+  stringsAsFactors = FALSE,
+  remove = TRUE
+) %>%
+  st_transform(32619)
+
+map_municipio_sf <- st_as_sf(map_municipio) %>% st_transform(32619)
+
+# Join de las canchas y los municipios. Aquí el join se hace en la medida en la que
+# una cancha cae dentro de un poligono
+canchas_en_map_municipio <- st_join(cancha_sf, map_municipio_sf, join = st_within)
+
+# Cuenta de las canchas en cada poligono
+map_municipio_sf <- left_join(map_municipio_sf, count(as_tibble(canchas_en_map_municipio), TOPONIMIA, name = "n_canchas"))
+```
+
+```{r}
+# Mapa 
+map_municipio_sf %>%
+ggplot(aes(fill = n_canchas, color = n_canchas)) +
+  geom_sf() +
+  coord_sf() +
+  scale_fill_viridis(labels = scales::comma_format()) +
+  scale_color_viridis(guide = FALSE)
+
+```
+
+### Referencias y contenido relacionado
+
+Aquí les coloco los enlaces hacia los contenidos que accedí para completar esta entrada del blog. Es probable que haya visto algunas otras cosas, pero sin duda estas fuentes fueron las de más ayuda. 
+
+- https://rstudio.github.io/leaflet/
+- https://mran.microsoft.com/snapshot/2017-01-20/web/packages/tmap/vignettes/tmap-nutshell.html
+- https://mattherman.info/blog/point-in-poly/
+- https://juliasilge.com/blog/something-strange/
+- https://rpubs.com/walkerke/leaflet_choropleth
+- https://gis.stackexchange.com/questions/124295/convert-coordinates-from-readshapepoly-in-r-to-long-lat-coordinates
+- https://github.com/grantmcdermott/two-col-test
+- https://www.diva-gis.org/gdata
+
+
+
+
+

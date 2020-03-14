@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>forecast on Johan Rosa</title>
+    <link>/tags/forecast/</link>
+    <description>Recent content in forecast on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/forecast/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Múltiples modelos en R: pronosticando la inflación de RD</title>
+      <link>/post/m%C3%BAltiples-modelos-en-r-pronosticando-la-inflaci%C3%B3n-de-rd/</link>
+      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/m%C3%BAltiples-modelos-en-r-pronosticando-la-inflaci%C3%B3n-de-rd/</guid>
+      <description>El Banco Central de la República Dominicana opera bajo un esquema de metas de inflación, en el que establece una meta explícita durante un horizonte de política determinado y se compromete a tomar decisiones que lleven a la consecución del objetivo. Esta estrategia genera certidumbre en los agentes económicos y ha resultado ser unos de los pilares de la estabilidad macroeconómica del país en los últimos años.
+La adopción de este esquema de política por parte de las autoridades monetarias hace de la inflación una variable interesante, alrededor de la cual existe todo un sistema de proyecciones.</description>
+    </item>
+    
+  </channel>
+</rss>

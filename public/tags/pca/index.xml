@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PCA on Johan Rosa</title>
+    <link>/tags/pca/</link>
+    <description>Recent content in PCA on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/pca/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>La grandeza de Kobe Bryant I: Componentes Principales</title>
+      <link>/post/la-grandeza-de-kobe-bryant-i-componentes-principales/</link>
+      <pubDate>Tue, 28 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/la-grandeza-de-kobe-bryant-i-componentes-principales/</guid>
+      <description>kobe %&amp;gt;% as.legend(&#39;forever&#39;)Esta semana recibí una de las noticias más impactantes de los últimos años, la trágica muerte de Kobe Bryant. Los que me conocen saben lo seguidor que soy de Kobe, siempre me he declarado su fanático, casi al extremo del término. Gran parte de mi niñez, toda mi adolescencia y ahora mi vida de adulto me la pasé viendo sus juegos, revisando sus jugadas, tratando imitar lo que hacía, discutiendo con mi hermano a ver quién se quedaría con el honor de decir que era él, comentando sus entrevistas, defendiendo su posición como top 2 histórico, etc.</description>
+    </item>
+    
+  </channel>
+</rss>

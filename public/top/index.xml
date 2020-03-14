@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tops on Johan Rosa</title>
+    <link>/top/</link>
+    <description>Recent content in Tops on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/top/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hoja de vida</title>
+      <link>/top/cv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/top/cv/</guid>
+      <description>Principales competencias Pensamiento anlítico Capacidad de analizar y resumir datos de manera que contribuyan en la toma de decisiones y a la solución de problemas. Experiencia en el manejo de grandes volúmenes de datos (Series temporales, datos de encuestas, banco de textos, ect.) aplicando técnicas y herramientas sofisticadas.
+Desarrollo de modelos Experiencia en el desarrollo de modelos para analizar y predecir variables, aplicando algoritmos de aprendizaje automático, aprendizaje supervisado y no supervisado, econometría y otras técnicas.</description>
+    </item>
+    
+    <item>
+      <title>Sobre Johan</title>
+      <link>/top/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/top/about/</guid>
+      <description>Soy Johan Rosa y trabajo en el Banco Central de la República Dominicana. Disfruto el análisis de datos, la programación en R, el basketball y aprender.
+Estudié economía en la Universidad Autónoma de Santo Domingo (UASD) y luego hice una maestría en estadística en la misma universidad. En general me introduje en el mundo de R luego de terminar los programas académicos que mencioné, pero he dedicado mucho tiempo en los últimos dos años para aprender usando recursos online como DataCamp y los blogs de otras personas.</description>
+    </item>
+    
+  </channel>
+</rss>

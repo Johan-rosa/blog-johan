@@ -1,0 +1,188 @@
+---
+title: Creating maps with sf and ggplot2
+author: Johan Rosa
+date: '2019-11-13'
+image: img/banner/maps_pp.jpg
+slug: creating-maps-with-sf-and-ggplot2
+categories:
+  - R
+  - tutorial
+tags:
+  - R Markdown
+  - sf
+  - ggplot2
+  - ggrepel
+  - scales
+---
+
+
+
+<p>Recently a coworker asked my help with a map he needed to complete the slides of a presentation. He wanted three maps of a specific province of the Dominican Republic, disaggregated by municipality.</p>
+<p>When he ask for it, I immediately took it as the perfect opportunity to complete my shift from <code>rgdals</code> and <code>tmap</code> packages to <code>sf</code> and <code>ggplo2</code> for maps visualization. The package <code>sf</code> provide spatial objects with the structure of a data frame where the polygons are contains in a list-column, making the use of spatial data more intuitive for the user. On the other hand, ggplot2 is ggplot2.</p>
+<p>Since I already had the shapefiles and he gave me the data to plot, it was only about loading every file and creating the visualizations. Fidel was very specific about the details of the maps, sending me a list of RGB colors for the fill, the outline and the background of the plot.</p>
+<div id="packages" class="section level2">
+<h2>packages</h2>
+<pre class="r"><code>library(sf)
+library(tidyverse)
+library(ggrepel)
+library(scales)</code></pre>
+</div>
+<div id="the-data" class="section level2">
+<h2>The data</h2>
+<p>The link to the shapefiles of the Dominican Republic is <a href="https://drive.google.com/open?id=1av41L5wYZ9baN0q29JNaLPifFZoL0RU1">here</a>, just download and place these 7 files in a folder and you’ll be ready to start. There are different files because each component of the spatial data comes individually. If you want to know more about this read this <a href="https://gisgeography.com/arcgis-shapefile-files-types-extensions/">article</a>.</p>
+<p>The two demographic variables to plot are the province’s population and the number of people in working ages. He got this data from the National Statistic Office.</p>
+<pre class="r"><code># reading the shape files
+map_municipio &lt;- st_read(
+  dsn = &quot;/cloud/project/mapas_rd/shape_files/MUNCenso2010.shp&quot;
+  )
+
+# Demographic data of Puerto Plata 
+datos_m_pp &lt;-  structure(
+  list(
+    municipio = c(
+      &quot;Puerto Plata&quot;, &quot;Altamira&quot;, &quot;Guananico&quot;,
+      &quot;Imbert&quot;, &quot;Los Hidalgos&quot;, &quot;Luperón&quot;, &quot;Sosúa&quot;,
+      &quot;Villa Isabela&quot;, &quot;Villa Montellano&quot;),
+    
+    population_2018 = c(
+      164494L, 19550L, 6562L, 22855L,
+      13096L, 17059L, 51386L, 17790L, 20430L),
+    
+    pet = c(
+      199557L,37492L, 9874L, 27504L, 16170L,
+      20914L, 17027L, 9232L, 10863L)
+    ),
+  class = &quot;data.frame&quot;,
+  row.names = c(NA,-9L)
+  )</code></pre>
+<p>We already have the <code>sf</code> object <code>map_municipio</code> in our environment, containing all the polygons of the country’s municipalities in a variable call <code>geometry</code> and a few other variables with identification codes for each area, like the province, region code and the name of the municipality.</p>
+<pre class="r"><code>glimpse(map_municipio)</code></pre>
+<pre><code>## Observations: 155
+## Variables: 6
+## $ PROV      &lt;fct&gt; 01, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 03, 03, 03, 0...
+## $ MUN       &lt;fct&gt; 01, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 01, 02, 03, 0...
+## $ REG       &lt;fct&gt; 10, 05, 05, 05, 05, 05, 05, 05, 05, 05, 05, 06, 06, 06, 0...
+## $ TOPONIMIA &lt;fct&gt; SANTO DOMINGO DE GUZMÁN, AZUA, LAS CHARCAS, LAS YAYAS DE ...
+## $ ENLACE    &lt;fct&gt; 100101, 050201, 050202, 050203, 050204, 050205, 050206, 0...
+## $ geometry  &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((397122.7 20..., MULTIPOLYGON...</code></pre>
+<p>The glimpse of this object let you see that it is a data frame. We can perform any manipulation over <code>map_municipio</code>, like filtering, joins, add new columns etc.</p>
+<p>The data manipulation here consist of three steps:</p>
+<ul>
+<li>Filter <code>map_municipio</code> to keep the rows corresponding to Puerto Plata, which <code>PROV</code> code is 18</li>
+<li>Add a new column call <code>municipio</code> with a to title transformation of <code>TOPONIMIA</code>. We are going to use this new variable to join the demographic data and to label the plot.</li>
+<li>Join <code>map_municipio</code> and <code>datos_m_pp</code> together.</li>
+</ul>
+<pre class="r"><code>map_puerto_plata &lt;- map_municipio %&gt;%
+  filter(PROV == 18) %&gt;%
+  mutate(
+    municipio = str_to_title(TOPONIMIA)
+  ) %&gt;%
+  left_join(
+    datos_m_pp
+  ) </code></pre>
+<pre class="r"><code>glimpse(map_municipio)</code></pre>
+<pre><code>## Observations: 155
+## Variables: 6
+## $ PROV      &lt;fct&gt; 01, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 03, 03, 03, 0...
+## $ MUN       &lt;fct&gt; 01, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 01, 02, 03, 0...
+## $ REG       &lt;fct&gt; 10, 05, 05, 05, 05, 05, 05, 05, 05, 05, 05, 06, 06, 06, 0...
+## $ TOPONIMIA &lt;fct&gt; SANTO DOMINGO DE GUZMÁN, AZUA, LAS CHARCAS, LAS YAYAS DE ...
+## $ ENLACE    &lt;fct&gt; 100101, 050201, 050202, 050203, 050204, 050205, 050206, 0...
+## $ geometry  &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((397122.7 20..., MULTIPOLYGON...</code></pre>
+</div>
+<div id="visualizations" class="section level2">
+<h2>Visualizations</h2>
+<p>Before the plotting process, we will create four object with the hexadecimal color code for each element of the maps. I do it this way to avoid copying and pasting multiple times these codes.</p>
+<pre class="r"><code> polygons_fill &lt;- &quot;#D9D9D9&quot;
+ polygons_line &lt;- &quot;#0070C0&quot;
+ text_color &lt;- &quot;#005472&quot;
+ 
+ 
+ polygons_fill_continuous &lt;-  scale_fill_gradient(
+   low = &quot;#F5F5F5&quot;,
+   high = &quot;#131F56&quot;,
+   label = scales::comma)</code></pre>
+<p>The easy part of using <code>sf</code> packages in combination with <code>ggplot2</code> is that it brings a set of new geometries like <code>geom_sf</code> and <code>geom_sf_label</code> to handle the aesthetics and attributes of the plot.</p>
+<pre class="r"><code>map_puerto_plata %&gt;%
+  ggplot() +
+  geom_sf() +
+  geom_sf_label(aes(label = municipio))</code></pre>
+<p><img src="/post/2019-11-13-creating-maps-with-sf-and-ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>To avoid overlapping of the labels in the following maps, we are going to use the <code>geom_label_repel</code> from the <code>ggrepel</code>. This function place the labels with no overlaps at all.</p>
+<p>This time let’s do the same map, but using Fidel’s specifications:</p>
+<ul>
+<li>Polygon’s fill and border color</li>
+<li>Label text color</li>
+<li>No background</li>
+<li>label box without outline</li>
+<li>plot border black</li>
+<li>legend within the plot area</li>
+</ul>
+<pre class="r"><code>map_puerto_plata %&gt;%
+  ggplot() +
+  geom_sf(fill = polygons_fill, color = polygons_line) +
+  
+  # there is not a geom_sf_label_repel function, so we need to use
+  # the basic one and add a few elements
+  ggrepel::geom_label_repel(
+    aes(label = municipio, geometry = geometry),
+    stat = &quot;sf_coordinates&quot;,
+    min.segment.length = 0,
+    label.size = NA, # with this we 
+    color = text_color
+    ) +
+  
+  # Theme elements 
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.background = element_blank(),
+    panel.border = element_rect(color = &quot;black&quot;, fill = NA),
+    panel.grid = element_blank()
+    ) +
+  
+  labs(
+    x = &quot;&quot;,
+    y = &quot;&quot;
+  )</code></pre>
+<p><img src="/post/2019-11-13-creating-maps-with-sf-and-ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Finally, les’t fill the polygons with colors in a continuous scale base in a numeric variable (population). This time the label will display the population as well. To do this we just paste together the municipality and population.</p>
+<pre class="r"><code>map_puerto_plata %&gt;%
+  # mutating the population vairable to show big mark separator
+  mutate(
+    population = format(
+      round(population_2018),
+      big.mark = &quot;,&quot;)
+    ) %&gt;%
+  ggplot() +
+  geom_sf(
+    aes(fill = population_2018),
+    color = polygons_line
+    ) +
+  ggrepel::geom_label_repel(
+    # new labels: combination of population and the name 
+    aes(label = paste(municipio, population, sep = &quot;: &quot;), geometry = geometry),
+    stat = &quot;sf_coordinates&quot;,
+    min.segment.length = 0,
+    label.size=NA,
+    color = text_color
+    ) +
+ # scale defined to fill the polygons base on a continuous
+ # vairable
+ polygons_fill_continuous +
+ # Others theme aspect mentioned above 
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    legend.position = c(.03, .03),
+    legend.justification = c(&quot;left&quot;, &quot;bottom&quot;),
+    panel.background = element_blank(),
+    panel.border = element_rect(color = &quot;black&quot;, fill = NA)
+  )+
+  labs(
+    fill = &quot;Population&quot;,
+    x = &quot;&quot;,
+    y = &quot;&quot;
+    )</code></pre>
+<p><img src="/post/2019-11-13-creating-maps-with-sf-and-ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>

@@ -1,0 +1,164 @@
+---
+title: Pirámides de población con ggplot2
+author: Johan Rosa
+date: '2020-02-19'
+image: img/banner/piramid_plot.jpg
+slug: pirámides-de-población-con-ggplot2
+categories:
+  - R
+  - tutorial
+tags:
+  - ggplot2
+  - gganimate
+  - tidyverse
+---
+
+
+
+<p>Las pirámides de población son de los gráficos más comunes en el análisis demográfico y es probable que los que realizan trabajos o investigaciones en las ciencias sociales terminen creando algunos de cuando en vez. Como no existe una geometría en <code>ggplot2</code> para hacer este tipo de visualizaciones, hacerlas podría resultar un poco difícil.</p>
+<p>En esta publicación haremos pirámides de población usando ggplot2. Mostraremos la distribución porcentual de la población por grupos quinquenales de edad y luego por edad específica. Finalmente terminaremos con una animación en la que se presenta la evolución de la composición demográfica del país según las estimaciones y proyecciones oficiales de población. El código y la data para reproducir todo el contenido lo pueden encontrar en el repositorio en <a href="https://github.com/Johan-rosa/poramides_de_poblacion">github de la publicación</a>.</p>
+<div id="paquetes" class="section level2">
+<h2>Paquetes</h2>
+<pre class="r"><code>library(tidyverse)
+library(gganimate)</code></pre>
+</div>
+<div id="la-data" class="section level2">
+<h2>La data</h2>
+<p>El set de datos lo publicó la Oficina Nacional de Estadísticas (ONE), aunque, por la forma en la que comparten la información, hubo antes que reestructurar los resultados (El excel con los archivos originales está en la ruta <a href="https://github.com/Johan-rosa/poramides_de_poblacion/blob/master/data/proyeccion_poblacion_edad.xlsx">“data/proyeccion_poblacion_edad.xlsx”</a> del repositorio, por otro lado, la manipulación realizada está en el script <a href="https://github.com/Johan-rosa/poramides_de_poblacion/blob/master/scripts/data_wrangling.R">“scripts/data_wrangling.R”</a>). La reestructuración consistió en combinar los datos para hombres y mujeres y separar en columnas distintas la edad simple y en grupos quinquenales.</p>
+<pre class="r"><code>poblacion &lt;- readRDS(&quot;data/poblacion.RDS&quot;)
+head(poblacion)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##    edad edad_quinquenal  year poblacion sexo      total porcentaje_total
+##   &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;            &lt;dbl&gt;
+## 1     0 0-4              2000    102282 Hombres 8397802             1.22
+## 2     1 0-4              2000    101945 Hombres 8397802             1.21
+## 3     2 0-4              2000    102298 Hombres 8397802             1.22
+## 4     3 0-4              2000    102526 Hombres 8397802             1.22
+## 5     4 0-4              2000    102585 Hombres 8397802             1.22
+## 6     5 5-9              2000    102524 Hombres 8397802             1.22</code></pre>
+</div>
+<div id="a-crear-pirámides-de-población" class="section level2">
+<h2>A crear pirámides de población</h2>
+<p>El primer paso para crear las pirámides es hacer negativos los valores de uno de los dos sexos, así es posible que los resultados de cada uno se desplieguen en direcciones opuestas en el gráfico. En este ejemplo, la cantidad o porcentaje de hombres según edad estará en negativo.</p>
+<pre class="r"><code>poblacion_piramide &lt;- poblacion %&gt;%
+  mutate(
+    porcentaje_total = ifelse(
+      sexo == &quot;Hombres&quot;,
+      -porcentaje_total, porcentaje_total),
+    poblacion = ifelse(sexo == &quot;Hombres&quot;, -poblacion, poblacion)
+    )</code></pre>
+<div id="pirámide-para-un-año-con-geom_col" class="section level3">
+<h3>Pirámide para un año con <code>geom_col()</code></h3>
+<p>La geometría <code>geom_col()</code> es quizás la más común para la creación de este tipo de gráficos. En este primer caso la estrategia es mapear <code>edad_quinquenal</code> al eje X y <code>porcentaje_total</code> al eje Y.</p>
+<p>La estructura de la data podría conducir a la realización de pasos innecesarios, porque como la desagregación de los datos es a nivel de edades simples, cualquiera podría pensar que debe sumar la población de las edades simples en cada grupo quinquenal, pero en realidad para tener barras con las edades en grupos quinquenales solo hay que apilar las barras de las edades simples. La función la función <code>geom_col()</code> tiene distintas posiciones, el argumento <code>position = "stack"</code> ayuda en este sentido. De igual forma, se coloca comentado el paso que intuitivamente se hubiese tenido que dar por si es necesaria una ilustración.</p>
+<p>El eje del gráfico es el próximo elemento a configurar, porque el porcentaje de hombres está en negativo y no sería adecuado dejar las etiquetas del eje así, así no tendría sentido. La solución sería utilizar función <code>scale_y_continuous(labels = abs)</code>, en esta el argumento <code>labels</code> puede recibir una función para transformar las etiquetas que por defecto genera ggplot, en este caso la del valor absoluto.</p>
+<pre class="r"><code>subset(poblacion_piramide, year == 2020) %&gt;%
+  # group_by(edad_quinquenal, sexo) %&gt;%
+  # summarise(
+  #   poblacion = sum(poblacion),
+  #   porcentaje_total = sum(porcentaje_total)
+  #   ) %&gt;%
+  ggplot(
+    aes(x = edad_quinquenal,
+        y = porcentaje_total, fill = sexo)
+    ) +
+  # agregar el argumento color = &quot;white&quot;, si gustan
+    geom_col(position = &quot;stack&quot;, alpha = 0.6) + 
+    coord_flip() +
+  # colores que me gustan
+    scale_fill_manual(values = c(&quot;midnightblue&quot;, &quot;darkred&quot;)) +
+  # tema minimalista
+    theme_minimal() +
+  # leyenda para el fondo
+    theme(
+      legend.position = &quot;bottom&quot;,
+      plot.caption = element_text(hjust = 0)) +
+  # etiquetas en positivo
+    scale_y_continuous(labels = abs) +
+    labs(
+      y = &quot;Porcentaje de la población total&quot;,
+      x = &quot;Quinquenios de edad&quot;,
+      title = &quot;Pirámide de población de República Dominicana, año 2020&quot;, 
+      subtitle = &quot;Edad en grupos quinquenales&quot;)</code></pre>
+<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/piramide_2020-1.png" width="672" /></p>
+<p>Ahora una secuencia de gráficos para visualizar como ha cambiado la estructura de la población en cada década y que se espera para el año 2030. Aquí lo más evidente es la reducción de la base de la pirámide, con cada vez menos personas en edades inferiores a 15 años, pero también hay más ancianos.</p>
+<pre class="r"><code>poblacion_piramide %&gt;%
+  # filtrando años que terminen en cero
+  filter(str_detect(year, &quot;[0]$&quot;)) %&gt;%
+  ggplot(
+    aes(x = edad_quinquenal,
+        y = porcentaje_total, fill = sexo)
+    ) + 
+  geom_col(alpha = 0.6) + 
+  scale_fill_manual(values = c(&quot;midnightblue&quot;, &quot;darkred&quot;)) +
+  facet_wrap(~paste(&quot;Año&quot;, year), ncol = 1) +
+  coord_flip() +
+  theme_minimal() +
+  theme(legend.position = &quot;bottom&quot;,
+        strip.text = element_text(size = 12, face = &quot;bold&quot;)
+        ) +
+  scale_y_continuous(labels = abs) +
+  labs(
+    y = &quot;Porcentaje de la población total&quot;,
+    x = &quot;Quinquenios de edad&quot;,
+    title = &quot;Transición demográfica en República Domincana&quot;,
+    subtitle = &quot;Estimaciones y proyecciones de población&quot;)</code></pre>
+<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/priramide_00_10_20_30-1.png" width="672" /></p>
+</div>
+</div>
+<div id="pirámides-de-población-con-geom_area" class="section level2">
+<h2>Pirámides de población con <code>geom_area()</code></h2>
+<p>Para pirámides de población con las edades simples la recomendación una geometría más suave, que de la apariencia de ser continua. <code>geom_area()</code> cumple esta función. En este ejemplo se excluyen las edades superiores a 79 años, por no estar desagregadas en grupos quinquenales y distorsionar un poco la cúspide de la pirámide.</p>
+<pre class="r"><code> poblacion_piramide %&gt;%
+  filter(year == 2020, edad &lt; 80) %&gt;% 
+  ggplot(aes(
+    x = edad, y = porcentaje_total,
+    fill = sexo)
+    ) + 
+  geom_area(alpha = 0.6) +
+  coord_flip() +
+  theme_minimal() +
+  scale_y_continuous(labels = abs) +
+  scale_fill_manual(values = c(&quot;midnightblue&quot;, &quot;darkred&quot;)) +
+  theme(legend.position = &quot;bottom&quot;) +
+  labs(
+    title = &#39;Distribución de la población por edad, año 2020&#39;,
+    x = &quot;Edad&quot;,
+    y =&#39;Porcentaje de la población total&#39;)</code></pre>
+<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/poblacion_edad_simple_2020-1.png" width="672" /></p>
+<div id="ahora-una-animación" class="section level3">
+<h3>Ahora una animación</h3>
+<p>Como elemento final una animación de la transición demográfica, para esta animación se utilizan funciones de <code>{ggplot2}</code> y <code>{gganimate}</code>. No es la primera vez que se publican animaciones en este espacio, hacerlas no tiene mayores complicaciones. En el caso de las pirámides de población simplemente se agrega la variable que guiará la transición <code>transition_time(year)</code> y se compila el resultado.</p>
+<p>Estoy terminando una publicación específica para animaciones que mostrará las diferentes cosas que se pueden crear con el paquete <code>{gganimate}</code> de <a href="https://github.com/thomasp85">Thomas Lin Pedersen</a>, los detalles sobre este tema se quedarán para esa publicación.</p>
+<p>Una cosas más, para crear los archivos gif de las animaciones hay que tener instalados los paquetes<code>{transformr}</code> y <code>{gifski}</code>.</p>
+<pre class="r"><code>p &lt;- poblacion_piramide %&gt;%
+ filter(edad &lt; 80) %&gt;%
+  ggplot(aes(
+    x = edad,
+    y = porcentaje_total,
+    fill = sexo)
+    ) + 
+  geom_area(alpha = 0.6) +
+  coord_flip() +
+  theme_minimal() +
+  scale_y_continuous(labels = abs) +
+  scale_fill_manual(values = c(&quot;midnightblue&quot;, &quot;darkred&quot;)) +
+  theme(
+    legend.position = &quot;bottom&quot;,
+    plot.caption = element_text(hjust = 0)) +
+  transition_time(year) +
+  labs(
+    title = &#39;Distribución de la población por edad, año: {as.integer(frame_time)}&#39;,
+    x = &quot;Edad&quot;,
+    y =&#39;Porcentaje de la población total&#39;,
+    caption = &quot;Créditos: Por Johan Rosa, datos de la ONE&quot;)
+
+animate(p, nframes = 60)</code></pre>
+<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/animacion-1.gif" /><!-- --></p>
+</div>
+</div>
+<div id="comentarios-finales" class="section level2">
+<h2>Comentarios finales</h2>
+<p>Una parte muy interesante de este ejercicio fue la preparación de la data, resulta muy instructivo llevar los datos de como los publica la ONE a como se deberían publicar. Entren al repositorio y revisen el archivo <a href="https://github.com/Johan-rosa/poramides_de_poblacion/blob/master/scripts/data_wrangling.R">“scripts/data_wrangling.R”</a> para ver los pasos con detenimiento, está bien comentado.</p>
+<p>¡Suerte haciendo sus propias pirámides!</p>
+</div>

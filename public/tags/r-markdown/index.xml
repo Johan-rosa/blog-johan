@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R Markdown on Johan Rosa</title>
+    <link>/tags/r-markdown/</link>
+    <description>Recent content in R Markdown on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Un análisis de las defunciones en República Dominicana</title>
+      <link>/post/analisis-de-las-defunciones-en-republica-dominicana/</link>
+      <pubDate>Wed, 18 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/analisis-de-las-defunciones-en-republica-dominicana/</guid>
+      <description>Recientemente la Oficina Nacional de Estadística dio un gran paso en la labor difundir las estadísticas nacionales con eficiencia, al publicar una series de bases de datos que hasta hace poco no estaban abiertas al público, y por comprometerse a continuar publicando los datos en un formato que facilite la investigación en el país.
+Por el momento, en la sección de recursos automatizados de su página web, tenemos la opción bases de datos en la que se accede a las bases de datos de la Encuesta Nacional de Hogares de Propósitos Múltiples (ENHOGAR) y a las estadísticas vitales del país.</description>
+    </item>
+    
+    <item>
+      <title>Creating maps with sf and ggplot2</title>
+      <link>/post/creating-maps-with-sf-and-ggplot2/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/creating-maps-with-sf-and-ggplot2/</guid>
+      <description>Recently a coworker asked my help with a map he needed to complete the slides of a presentation. He wanted three maps of a specific province of the Dominican Republic, disaggregated by municipality.
+When he ask for it, I immediately took it as the perfect opportunity to complete my shift from rgdals and tmap packages to sf and ggplo2 for maps visualization. The package sf provide spatial objects with the structure of a data frame where the polygons are contains in a list-column, making the use of spatial data more intuitive for the user.</description>
+    </item>
+    
+    <item>
+      <title>Webscraping con R - descargando noticias sobre petróleo</title>
+      <link>/post/webscraping-con-r-descargando-noticias-sobre-petr%C3%B3leo/</link>
+      <pubDate>Wed, 06 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/webscraping-con-r-descargando-noticias-sobre-petr%C3%B3leo/</guid>
+      <description>En esta ocasión tengo la intención de darles un paseo breve por la primera parte de un proyecto que inicié con una compañera del trabajo. La idea es navegar por las noticias de ciertos portales como Reuters y descargar las noticias referentes a diferentes tópicos, como markets y business, al igual que descargar noticias de otros portales que contengan artículos sobre petróleo, conflictos geopolíticos, sobre la guerra comercial entre Estados Unidos y China, ect.</description>
+    </item>
+    
+    <item>
+      <title>Creando Mapas de República Dominicana en R</title>
+      <link>/post/creando-mapas-de-rep%C3%BAblica-dominicana-en-r/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/creando-mapas-de-rep%C3%BAblica-dominicana-en-r/</guid>
+      <description>Una manera muy interesante de visualizar los datos es mediante mapas, vestir la cartografía con información. Los mapas constituyen una herramienta muy poderosa para comunicar, ya que llaman la atención de los lectores y suelen ser interpretados casi intuitivamente.
+Los software tradicionales para hacer este tipo de cosas son Qgis, ArcGIS y otros, pero si estás aprendiendo R resultaría muy útil dominar algunos paquetes que no tienen nada que envidiarles a las herramientas mencionadas.</description>
+    </item>
+    
+    <item>
+      <title>My first kaggle publication</title>
+      <link>/post/my-first-kaggle-publication/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/my-first-kaggle-publication/</guid>
+      <description>Exploratory Data Analysis of Gas Prices in BrazilIntentionI have been a kaggle member since 2017 and the analysis that this community share every day have been a good source of learning material in my data science journey. This time I decide to stop been a reader and share with you my first notebook.
+The main intention of the notebook is to make an Exploratory Data Analysis of the Gas Prices in Brazil data set, hoping that new r users and kagglers in general could use this as a useful material to learn and apply in their own analysis.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,291 @@
+---
+title: Un análisis de las defunciones en República Dominicana
+author: Johan Rosa
+date: '2019-12-18'
+image: img/banner/defunciones.jpg
+slug: analisis-de-las-defunciones-en-republica-dominicana
+categories:
+  - tutorial
+tags:
+  - ggplot2
+  - R Markdown
+  - tidyverts
+  - gganimate
+---
+
+```{r, include=FALSE}
+load("data/defunciones_generales/ws_dg")
+source("data/defunciones_generales/themes.R")
+```
+
+
+Recientemente la [**Oficina Nacional de Estadística**](https://www.one.gob.do/) dio un gran paso en la labor difundir las estadísticas nacionales con eficiencia, al publicar una series de bases de datos que hasta hace poco no estaban abiertas al público, y por comprometerse a continuar publicando los datos en un formato que facilite la investigación en el país.
+
+Por el momento, en la sección de recursos automatizados de su página web, tenemos la opción [**bases de datos**](https://www.one.gob.do/recursos-automatizados/bases-de-datos) en la que se accede a las bases de datos de la Encuesta Nacional de Hogares de Propósitos Múltiples (ENHOGAR) y a las estadísticas vitales del país.
+
+Es claro que la tarea que tienen por delante es ardua y que tomará tiempo poder publicar las bases de datos del Censo de Población y Vivienda, del Registro Nacional de Establecimientos, los datos de comercio exterior, etc. Pero con lo que hay, ya podemos empezar a hacer cosas que le muestren a las instituciones que vale la pena compartir los datos.
+
+Por lo anterior, con esta publicación iniciamos una serie de análisis sobre las defunciones en República Dominicana, en las que nos adentraremos en el análisis de la mortalidad según causas específicas. En general veremos las principales características de las muertes por homicidios, suicidios y accidentes de transito en el país y con suerte encontraremos resultados que puedan servir para los hacedores de políticas públicas.
+
+Este tipo de análisis halla relevancia en diferentes sectores y de él se pueden desprender mejoras en el sistema de pensiones, al ajustar los parámetros de ahorro y retiro de manera que vayan en consonancia con la tendencias vitales contemporáneas; las compañías de seguro pueden mejorar su análisis actuarial y ajustar los servicios que ofrecen; se pueden identificar grupos de población vulnerables y diseñar políticas públicas focalizadas, etc.
+
+En esta primera entrega presentamos un análisis de las defunciones generales en República Dominicana, contemplando las tendencias recientes y la desagregación según las características del fallecido. 
+
+La manera en la que redactaremos la descripción de los datos va a ser muy resumida, para que a la vez se posible  describir aspectos relacionados al código utilizado y a las transformaciones de las variables. En general para cada visualización o bloque de análisis terminaremos con una serie de bullets con _insights_ y uno o dos párrafos en el que se describa la estrategia seguida para procesar la información.
+
+## Archivos y paquetes utilizados
+
+> Para la completa reproducción del contenido hay que descargar el [ambiente de trabajo](https://drive.google.com/open?id=1dIfNj5d8EhyAWaxTNq7_pBC5JlOC983D) con los objetos necesarios e importarlos con la función `load("defunciones_generales_ws")`.
+
+```{r message=FALSE, warning=FALSE}
+# manipulación y visualización de datos
+library(tidyverse) 
+# manipular fechas
+library(lubridate)
+# para grupar gráficos
+library(patchwork)
+# animar gráficos
+library(gganimate)
+# Paletas de color
+library(RColorBrewer)
+# para animar gráficos
+library(gganimate)
+```
+
+
+## Las defunciones generales
+
+```{r message=FALSE, warning=FALSE}
+defunciones %>%
+  filter(ano_def %in% 2001:2020) %>%
+  group_by(ano_def) %>%
+  count() %>%
+  ggplot(aes(x = factor(ano_def), y = n)) +
+  geom_col(fill = "midnightblue", alpha = 0.7) +
+  scale_y_continuous(labels = scales::comma) +
+  scale_x_discrete(breaks = seq(2001, 2018, by = 2)) +
+  labs(
+    x = '',
+    y = 'Cantidad de defunciones',
+    title = 'Defunciones totales en República Dominicana',
+    subtitle = '2001 - 2018'
+  )
+  
+```
+
+**Descripción**
+
+* En el país fallecieron, en promedio, 35,625 personas por año en el período 2001 - 2018
+* El año en el que menos personas murieron fue el 2002 con 26,525 fallecidos
+* En el 2016 se registró el mayor número de fallecidos (43,633 personas)
+* La tasa de crecimiento promedio anual de las defunciones fue 2%
+
+
+### Defunciones por sexo
+
+**Aspectos relevantes sobre el gráfico**
+
+Esta visualización tiene de interesante el hecho de se utiliza el paquetes `patchwork`, que permite combinar varios gráficos en uno usando el operador aritmético de suma `+`. Simplemente hay que crear dos objetos con gráficos y sumarlos. 
+
+```{r message=FALSE, warning=FALSE}
+# gráfico de defunciones totales  por sexo 
+p_def_sexo <- defunciones %>%
+  filter(ano_def %in% 2001:2019,
+         sexo != "No declarado") %>%
+  group_by(sexo) %>%
+  count() %>%
+  ggplot(
+    aes(x = sexo, y = n, fill = sexo)) +
+  geom_col(alpha = 0.7, show.legend = FALSE) +
+  scale_y_continuous(labels = scales::comma) +
+  geom_text(
+    aes(x = sexo, y = (n + 13000),
+        label = format(n, big.mark = ",")),
+    size = 5
+    ) +
+  theme(axis.text.y = element_blank()) +
+  labs(x = "", y = "") +
+  my_fill_pal
+
+# gráfico de la volución de defunciones por sexo
+p_def_sexo_long <- defunciones %>%
+  filter(ano_def >= 2001, ano_def != 9999,
+         sexo != "No declarado") %>%
+  group_by(ano_def, sexo) %>%
+  count() %>%
+  ggplot(aes(x = ano_def, y = n, color = sexo)) +
+  geom_line(size = 1, show.legend = FALSE) +
+  geom_point(size = 2, show.legend = FALSE) +
+  scale_x_continuous(breaks = seq(2003, 2019, 3)) +
+  my_color_pal +
+  theme(
+    legend.position = 'bottom'
+  ) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(
+    x = '',
+    y = '',
+    color = ''
+  )
+    
+p_def_sexo + p_def_sexo_long
+```
+
+**Descripción**
+
+* En el período 2001 - 2018 fallecieron 380,151 hombres y 260,866 mujeres
+* La cantidad de hombres fallecidos supera en 119,285 personas a la de mujeres
+* La diferencia entre la cantidad de hombre fallecidos representa el 45.7% del total de mujeres que murieron
+* La brecha entre la cantidad de de fallecimientos según sexo va en aumento
+* La pendiente de la curva de mujeres fallecidas es menos inclinada que la de hombres
+
+### Defunciones por provincias
+
+**Aspectos relevantes sobre el gráfico**
+
+El próximo es un gráficos de mosaicos, en el que cada fila representa una provincia y cada columna un año. 
+Este tipo de visualización es muy común y le lleva ventajas a los mapas, por poner un ejemplo, en el sentido de que permite hacer visualizaciones longitudinales o multivariantes en una sola figura.
+
+Para lograr esta visualización fue necesario descargar las proyecciones de población para los años que estamos analizando, hacer un join con la data de las defunciones y calcular la cantidad de defunciones por cada 1,000 habitantes por año.
+
+En este caso hay que crear una paleta de color para el _heat map_. Esta que uso aquí la tomé de una contribución compartida por [Adrianne Basey](https://github.com/adrienne-b/TidyTuesdays/blob/master/2019/12_10/TidyTuesday_2019-50.Rmd) para los retos semanales de visualizaciones de la comunidad de R en twitter.
+
+```{r message=FALSE, warning=FALSE}
+# Paleta de colores para el heat map
+my.colors <- colorRampPalette(
+    c("#f0ffff","#d0e9fb","#6ea6f0",
+      "#fbe204","#ffad00", "#fc2500",
+      "#7f0d00"),
+    bias = 2.4)
+
+# Gráfico de las defunción por cada 1000 habitantes,
+# por provincias
+defunciones %>%
+  filter(
+    ano_def %in% 2001:2018,
+    !prov_res %in% c("Extranjero",
+                     "Provincia no especificada")) %>%
+  count(ano_def ,prov_res, name = "defunciones") %>%
+  left_join(
+    poblacion_prov %>%
+      filter(sexo == "total") %>%
+      rename(provincia = region) %>%
+      select(-sexo) %>%
+      mutate(year = as.numeric(year)),
+    by = c("ano_def" = "year",
+           "prov_res" = "provincia")) %>%
+  mutate(
+    tasa_def = defunciones/(poblacion/1000),
+    prov_res = fct_reorder(prov_res, tasa_def, .desc = F)) %>% 
+  ggplot(
+    aes(y = prov_res, fill = tasa_def, x = ano_def)) +
+  geom_tile(width = .9, height = .9) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_fill_gradientn(colors = my.colors(18),
+                       na.value = "white") +
+  labs(
+    x = '',
+    y = 'Provincia',
+    fill = "Defunciones / 1000 hab"
+  ) +
+  theme(
+    legend.position = 'bottom',
+    axis.text.y = element_text(size = 8)
+  ) 
+```
+
+**Descripción**
+
+* El Distrito Nacional y Hermanas Mirabal son las provincias con mayor cantidad de defunciones por habitante
+* En provincias como Dajabón, Puerto Plata y Monteplata la cantidad de defunciones por habitante ha ido en aumento
+
+
+### Defunciones por edad
+
+**Aspectos generales sobre la visualización**
+
+Otra visualización similar a la última se puede lograr con la geometría `geom_raster()` de ggplot2. Está geometría hace casi lo mismo que `geom_tile()` y `geom_rect()`, pero es más útil cuando hay muchos rectángulos de la misma dimensión. La combinación de la edad de fallecimiento y los años contemplados en el período de análisis nos lleva a manejar cerca de 1,800 rectángulos, justificando en uso de `geom_raster()`.
+
+```{r message=FALSE, warning=FALSE}
+ defunciones %>%
+  filter(edad_fal < 98, ano_def %in% 2001:2019,
+         sexo != "No declarado") %>%
+  group_by(ano_def) %>%
+  count(edad_fal, sexo) %>% 
+  ggplot(aes(x = ano_def, y = edad_fal, fill = n)) +
+  geom_raster() +
+  facet_grid(~sexo) +
+  scale_fill_viridis_c(option = "A", direction = -1) +
+  labs(
+    x = "Año de defunción",
+    y = "Edad en años cumplidos",
+    fill = "Defunciones"
+  )
+```
+
+Ahora una animación de distribución acumulada de las defunciones en la que se puede verificar que las personas se están muriendo más viejas en al pricipio del período. Aquí me hubiese gustado calcular las tasas de mortalidad por edad pero no fue posible por la forma en la que se publican las proyecciones de población. Sería útil si la ONE también publica las proyecciones de población en un formato similar al que ha publicado las estadísticas de defunciones, nacimientos, matrimonios y divorcios.
+
+```{r message=FALSE, warning=FALSE}
+p <-  defunciones %>%
+  filter(edad_fal < 99, sexo != "No declarado", ano_def %in% 2001:2019) %>%
+  ggplot(aes(x = edad_fal, col = ano_def, group = ano_def)) +
+  stat_ecdf(size = 1) +
+  facet_wrap(~sexo) +
+  scale_color_gradientn(colours = rainbow(10)) +
+  transition_time(ano_def) +
+  ease_aes('linear') +
+  shadow_mark(colour = "grey70") +
+  labs(
+    title = 'Año: {as.integer(frame_time)}',
+    color = "Año",
+    x = "Edad",
+    y ='Distribución') 
+  
+animate(p)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+defunciones %>%
+  filter(ano_def > 2000, ano_def != 9999,
+         !is.na(edad_decenal),
+         sexo != "No declarado") %>%
+  group_by(ano_def, edad_decenal) %>%
+  count(sexo) %>%
+  ggplot(
+    aes(x = ano_def,
+        y = n,
+        fill = edad_decenal)) +
+  geom_bar(
+    stat = "identity",
+    position = "fill", color = "grey") +
+  scale_x_continuous(
+    breaks = seq(2001, 2018, by = 4)) +
+  theme(
+    legend.position = 'bottom',
+    plot.title = element_text(size = 12),
+    plot.subtitle = element_text(size = 10)) +
+  guides(fill = guide_legend(nrow =2)) +
+  facet_wrap(~sexo) +
+  labs(fill = "",
+       x = "",
+       y = "",
+       title = "Distribución de las defunciones por grupos decenales de edad",
+       subtitle = "2011 - 2018") +
+  scale_fill_brewer(palette = "Spectral")
+```
+
+**Descripción**
+
+* Gran parte de las defunciones de ambos sexos se concentran en niños menores de un año.
+* La edad promedio de defunción ha aumentado en las últimas décadas.
+* Los hombres se empiezan a morir más jóvenes que las mujeres (En el 2018, el 50% de los hombres murió con edad de 60 años o más, mientras que 50% de las mujeres falleció con edades superiores a los 70 años)
+
+## Comentarios finales
+
+Aun quedan muchas visualizaciones que se pueden realizar con el set de datos de la defunciones. De hecho, hubo algunas que no incluí por cuestión de espacio, como la distribución de la diferencia entre el año del fallecimiento y el año en el que se reporta la muerte. Este datos es importante si buscamos descartar que la reducción en las defunciones que se registran en los años 2017 y 2018 se deban a rezagos en el registro de las muertes.
+
+Por otro lado, esta vez  compartí la mayoría de los archivos procesados, pero no descarto la posibilidad de publicar en detalle el _Data wrangling_ necesario para ajustar los datos. La ONE no publica las variables categóricas con las etiquetas, aunque comparte un diccionario (No muy útil porque está en HTML) con el que se pueden crear factores para cada variable.
+
+La próxima publicación sobre este tema abordará las muertes por homicidios y el componente novedoso que le pienso incluir a esa publicación es que las visualizaciones serán interactivas con los paquetes `plotly` y `highcharter`.
+

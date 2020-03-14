@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>macroeconomia on Johan Rosa</title>
+    <link>/tags/macroeconomia/</link>
+    <description>Recent content in macroeconomia on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 09 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/macroeconomia/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Introducción al tidyverts: series temporales al estilo tidy</title>
+      <link>/post/introducci%C3%B3n-al-tidyverts-series-temporales-al-estilo-tidy/</link>
+      <pubDate>Mon, 09 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/introducci%C3%B3n-al-tidyverts-series-temporales-al-estilo-tidy/</guid>
+      <description>Recientemente terminé de leer el libro Forecasting: Principles and Practice de Rob J Hyndman y George Athanasopoulos y como es natural antes de elegir este material, y mientras lo leía, fui investigando sobre los autores, principalmente sobre Rob Hyndman. Este señor ha escrito una innumerable cantidad de papers útiles para aprender a modelar series temporales y ha desarrollado varios paquetes muy famosos para manejar series de tiempo en R.</description>
+    </item>
+    
+  </channel>
+</rss>

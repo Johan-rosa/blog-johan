@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sf on Johan Rosa</title>
+    <link>/tags/sf/</link>
+    <description>Recent content in sf on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 13 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/sf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Creating maps with sf and ggplot2</title>
+      <link>/post/creating-maps-with-sf-and-ggplot2/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/creating-maps-with-sf-and-ggplot2/</guid>
+      <description>Recently a coworker asked my help with a map he needed to complete the slides of a presentation. He wanted three maps of a specific province of the Dominican Republic, disaggregated by municipality.
+When he ask for it, I immediately took it as the perfect opportunity to complete my shift from rgdals and tmap packages to sf and ggplo2 for maps visualization. The package sf provide spatial objects with the structure of a data frame where the polygons are contains in a list-column, making the use of spatial data more intuitive for the user.</description>
+    </item>
+    
+  </channel>
+</rss>

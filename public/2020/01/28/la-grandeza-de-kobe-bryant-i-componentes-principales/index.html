@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Johan Rosa">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="//">
+    <meta property="twitter:image" content="//" />
+    
+
+    
+    <meta name="title" content="La grandeza de Kobe Bryant I: Componentes Principales" />
+    <meta property="og:title" content="La grandeza de Kobe Bryant I: Componentes Principales" />
+    <meta property="twitter:title" content="La grandeza de Kobe Bryant I: Componentes Principales" />
+    
+
+    
+    <meta name="description" content="Un Blog personal con contenido de Ciencia de los datos">
+    <meta property="og:description" content="Un Blog personal con contenido de Ciencia de los datos" />
+    <meta property="twitter:description" content="Un Blog personal con contenido de Ciencia de los datos" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>La grandeza de Kobe Bryant I: Componentes Principales-</title>
+
+    <link rel="canonical" href="/2020/01/28/la-grandeza-de-kobe-bryant-i-componentes-principales/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Johan Rosa</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/r">r</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/tutorial">tutorial</a>
+                        </li>
+                        
+                    
+                    
+		    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/ggplot2" title="ggplot2">
+                            ggplot2
+                        </a>
+                        
+                        <a class="tag" href="/tags/pca" title="PCA">
+                            PCA
+                        </a>
+                        
+                        <a class="tag" href="/tags/%C3%A1lgebra" title="álgebra">
+                            álgebra
+                        </a>
+                        
+                    </div>
+                    <h1>La grandeza de Kobe Bryant I: Componentes Principales</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Johan Rosa
+                         
+                        on 
+                        Tuesday, January 28, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                
+                
+                
+
+
+<div id="kobe-as.legendforever" class="section level2">
+<h2><code>kobe %&gt;% as.legend('forever')</code></h2>
+<p>Esta semana recibí una de las noticias más impactantes de los últimos años, la trágica muerte de Kobe Bryant. Los que me conocen saben lo seguidor que soy de Kobe, siempre me he declarado su fanático, casi al extremo del término. Gran parte de mi niñez, toda mi adolescencia y ahora mi vida de adulto me la pasé viendo sus juegos, revisando sus jugadas, tratando imitar lo que hacía, discutiendo con mi hermano a ver quién se quedaría con el honor de decir que era él, comentando sus entrevistas, defendiendo su posición como top 2 histórico, etc.</p>
+<p>La muerte de Kobe me afectó mucho y, siendo honesto, no me imaginaba tan susceptible al fallecimiento de alguien que no sea mi familiar. Pero como me dijo Cinthia al hablar al respecto: “Es el costo de las relaciones parasociales, Kobe no era una figura más para ti, era algo más significativo. Además, lo inesperado duele más”.</p>
+<p>Hoy quiero honrar su memoria de la forma que mejor lo puedo hacer en este espacio, haciendo un análisis que instruya y que lo involucre. En general tengo pensando varias publicaciones como esta, pero la primera será una explicación de Componente Principales y usar la técnica en una imagen suya.</p>
+</div>
+<div id="reducción-de-dimensionalidad-análisis-de-componentes-principales" class="section level2">
+<h2>Reducción de dimensionalidad: Análisis de Componentes Principales</h2>
+<p>El <a href="https://es.wikipedia.org/wiki/An%C3%A1lisis_de_componentes_principales">análisis de componente principales (PCA)</a> es una técnica de reducción de dimensionalidad muy útil, que permite resumir un conjunto de variables en pocas componentes y mantener la mayor proporción de la información (varianza) del set de datos original.</p>
+<p>En general podríamos pensar en el problema imaginando jugadores de Basket, a cada jugador podríamos describirlo usando una serie de características como su estatura, la posición, la cantidad de juegos por temporada que juega o minutos por juego, puntos por partido, asistencias, etc. El que ha visto las estadísticas de los jugadores sabe que un set de datos puede tener muchas variables y, en este caso, el objetivo del análisis de componentes principales sería crear nuevas características basada en transformaciones lineales de las originales que ayuden a “resumir bien” las características de todos los jugadores.</p>
+<p>Cuando hablamos de resumir bien en términos de esta metodología, nos referimos a que debemos terminar dándole mayor importancia a las características que contienen mayor información (mayor varianza) para distinguir los jugadores. Porque terminar con una nueva variable (Componente) construida con variables que no cambian mucho de jugador a jugador sería un tanto inútil, pues al final nuestra nueva característica nos dice que los jugadores son iguales a pesar de que sabemos que son muy distintos.</p>
+<p>Por otro lado, otra cuestión a la que nos referimos al decir que las nuevas componentes deben resumir bien el set de datos es a que las componentes resultantes deben permitir la reconstrucción de la data original (minimizar los errores). Otra vez, sería inútil terminar con un resumen de las características de los jugadores que no permita terminar con una aproximación aceptable de la data que teníamos al principio.</p>
+<p>Este último elemento es primordial para el ejercicio de este post, ya que la idea central aquí es ver cómo podemos reducir la dimensionalidad de la imagen y aun así terminar con una representación útil de la imagen original.</p>
+<p>Para no diluir mucho la explicación, presentaremos bullets con las características principales de la técnica:</p>
+<ul>
+<li><p>Las componentes principales son parte de la estructura subyacente de la data y señalan las direcciones en la que el conjunto de datos concentra mayor variabilidad (Piensen en un celular en posición vertical, ese teléfono podríamos observarlo desde arriba y no veríamos mucho de él, porque ese lado contiene poca información -varianza- o lo podemos ver por atrás y darnos cuenta de que tiene 3 cámaras y una manzanita dibujada y que se trata del Iphone 11 Pro).</p></li>
+<li><p>Es probable que terminemos con varias componentes principales, pero nunca más componentes que variables en el set de datos original.</p></li>
+<li><p>Cada componente principal adicional explica menos varianza que las anteriores.</p></li>
+<li><p>Las componentes principales son ortogonales entre sí,es decir, que no están correlacionadas entre ellas.</p></li>
+<li><p>Variables muy correlacionadas en el set de datos tienden a contribuir fuertemente a la misma componente principal.</p></li>
+</ul>
+<p>Para ampliar un poco el entendimiento de la metodología recomiendo dos fuentes en particular, primero <a href="https://stats.stackexchange.com/a/140579">un post</a> en <a href="https://stats.stackexchange.com/"><em>Cross Validated</em></a> que leí hace un tiempo y me ayudó a comprender la intuición detrás de esta técnica, y <a href="https://ourarchive.otago.ac.nz/bitstream/handle/10523/7534/OUCS-2002-12.pdf?sequence=1&amp;isAllowed=y">el manual de Lindsay I Smith</a> que, con más formalidad matemática, explica la técnica e introduce la importancia del análisis de componentes principales para la compresión de imágenes.</p>
+</div>
+<div id="paquetes" class="section level2">
+<h2>Paquetes</h2>
+<pre class="r"><code># Manipulación y visualización 
+library(tidyverse)
+# Manipular imágenes
+library(imager)
+# Manipular output de modelos
+library(broom)</code></pre>
+</div>
+<div id="importando-la-imagen-de-kobe-y-adecuándola-para-el-análisis" class="section level2">
+<h2>Importando la imagen de Kobe y adecuándola para el análisis</h2>
+<p>Es importante prestar atención a esta parte del análisis ya que en cierta forma este representa el prerrequisito para algunos temas que trataremos más adelante en este blog. El procesamiento de imágenes está en la palestra y antes de hacer <em>deep learning</em> y reconocimiento de imágenes primero hay que importar las imágenes y saber cómo el software las maneja.</p>
+<p>La imagen con la que trabajaremos la encontré en google imágenes, pueden acceder a todos los archivos en el <a href="https://github.com/Johan-rosa/pca_kobe_bryant_imagen">repositorio del post</a> en mi cuenta de github.</p>
+<p>Usaremos la función <code>load.image()</code> para importar la imagen en un objeto tipo <code>cimg</code>.</p>
+<pre class="r"><code>kobe_img &lt;- load.image(&quot;kobe_bw.jpg&quot;)</code></pre>
+<p>Para obtener la información básica de la imagen simplemente hacemos print al objeto</p>
+<pre class="r"><code>print(kobe_img)</code></pre>
+<pre><code>## Image. Width: 640 pix Height: 360 pix Depth: 1 Colour channels: 3</code></pre>
+<p>La imagen tiene 640 pixeles de ancho y 360 pixeles de alto, con tres canales. El hecho que tenga tres canales significa que la imagen no está completamente en escala de grises, y tienen valores en la escala de Rojos, Verdes y Azules(RGB). En ese caso usaremos la función <code>grayscale()</code> para llevarlo a la escala adecuada y poder cumplir con mayor facilidad el objetivo</p>
+<pre class="r"><code># Cambiando a escala de grises 
+kobe_img &lt;- grayscale(kobe_img)
+# Consultando otra vez las dimensiones
+print(kobe_img)</code></pre>
+<pre><code>## Image. Width: 640 pix Height: 360 pix Depth: 1 Colour channels: 1</code></pre>
+<p>En escala de grises, cada pixel adopta un valor de 0 a 1. Es posible hacer un histograma de la imagen para confirmar eso (tenía siglos que no hacía un gráfico con las funciones básicas de R).</p>
+<pre class="r"><code>hist(
+  kobe_img,
+  main = &quot;Histograma Imagen de Kobe&quot;,
+  ylab = &quot;Frecuencia&quot;,
+  xlab = &quot;Intensidad&quot;
+  )</code></pre>
+<p><img src="/post/2020-01-28-la-grandeza-de-kobe-bryant-i-componentes-principales_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Ya que comprendemos la forma en la que R interpreta cada pixel de las imágenes, hablemos un poco de cómo los representa (almacena). En general uno percibe o piensa en una imagen como una matriz <span class="math inline">\(N\)</span> por <span class="math inline">\(N\)</span> (en caso de una imagen cuadrada). En R, una imagen con esas dimensiones se almacena en un vector longitud <span class="math inline">\(N^2\)</span>, en el que cada fila de pixeles de la imagen va seguida de otra, de modo que los primero N valores del vector representa la primera fila, los segundos N valores representan la segunda fila y así sucesivamente</p>
+<p><span class="math display">\[X = (x_1, x_2,  x_3 . . x_{N^2})\]</span>
+Es mucho más intuitivo trabajar con <em>dataframes</em>, por lo que aprovecharemos para convertir el objeto <code>cimg</code> a <code>data.frame</code>. Por defecto el método de la función <code>as.data.frame()</code> convierte las imágenes a un data frame largo (por la manera en la que se R representa las imágenes), de modo que usaremos la función <code>tidyr::spread()</code> para ponerla en formato ancho (aun no sé hacer PCA con data en formato tidy y tampoco me he dedicado a usar la función <code>tidyr::pivot_wider()</code> que sustituyó a <code>spread()</code>).</p>
+<pre class="r"><code># Transformando el objto a data.frame
+kobe_df &lt;- kobe_img %&gt;%
+  as.data.frame() %&gt;%
+  spread(y, value) %&gt;%
+  select(-x)
+
+# consultar las primeras filas y columnas
+kobe_df[1:3, 1:3]</code></pre>
+<pre><code>##            1          2          3
+## 1 0.09803922 0.09411765 0.09411765
+## 2 0.10588235 0.10196078 0.09803922
+## 3 0.10588235 0.10588235 0.10588235</code></pre>
+<div id="corriendo-el-modelo" class="section level3">
+<h3>Corriendo el modelo</h3>
+<p>La función básica para hacer PCA en R es <code>prcomp()</code>, la cual recibe la data y otros argumentos, entre ellos una especificación de si los datos deben ser reescalados. Por convención lo ponemos TRUE, en este caso no es tan necesario, porque por defecto todas las columnas del data frame están en la misma escala, pero cuando aplicamos el ejercicio en set de datos con variables de diferentes unidades, siempre es buena idea ajustar la escala y el centro para evitar que la diferencia en magnitudes de algunas variables las haga parecer que están más asociadas que otras.</p>
+<pre class="r"><code>kobe_pca &lt;- prcomp(kobe_df, scale. = TRUE, center = TRUE)</code></pre>
+<p>Ya que tenemos el resumen de la imagen, veamos cuantas componentes principales fueron necesarias para resumirla. Lo mejor es hacer esto con un gráfico porque en general hay muchos componentes e imprimir los valores de cada uno sería un desastre.</p>
+<pre class="r"><code>kobe_pca %&gt;%
+  broom::tidy(matrix = &quot;pcs&quot;) %&gt;%
+  ggplot(aes(x = PC, y = cumsum(percent))) +
+  geom_line() +
+  theme_minimal() +
+  labs(x = &quot;Componentes&quot;,
+       y = &quot;Porcentaje de varianza explicada&quot;,
+       title = &quot;Scree plot&quot;)</code></pre>
+<p><img src="/post/2020-01-28-la-grandeza-de-kobe-bryant-i-componentes-principales_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Recuerden que empezamos con una imagen con 640 columnas (pixeles de ancho) y ahora terminamos con cerca de 350 componentes, de los cuales los 100 que explican la mayor cantidad de varianza acumulan cerca del 100% de la varianza total.</p>
+</div>
+<div id="vamo-patra-a-reconstruir-la-imagen-original-con-un-subset-de-componentes-principales" class="section level3">
+<h3>Vamo pa’tra, a reconstruir la imagen original con un subset de componentes principales</h3>
+<p>Cuando hablamos las condiciones que cumplía el PCA como “buen resumen” de un set de datos, se estableció que era importante que a partir de este se pueda aproximar aceptablemente la data original, en este caso la imagen original. Este apartado de la publicación busca explicar cómo recrear el set de datos original a partir de las componentes principales.</p>
+<p>En esta parte nos auxiliaremos del <a href="https://kieranhealy.org/blog/archives/2019/10/27/reconstructing-images-using-pca/">blogpost de Kieran Healy</a> que en su momento realizó este ejercicio para una imagen de Elvis y el presidente Nixon.</p>
+<p>Lo primero que debemos saber antes de recuperar los valores originales dado el objeto <code>prcomp</code> es, qué elementos contiene y cómo pueden ser utilizados para lograr lo que queremos.</p>
+<pre class="r"><code>names(kobe_pca)</code></pre>
+<pre><code>## [1] &quot;sdev&quot;     &quot;rotation&quot; &quot;center&quot;   &quot;scale&quot;    &quot;x&quot;</code></pre>
+<p>Todo objeto <code>prcomp</code> es una lista que tiene al menos estos 5 componentes:</p>
+<ul>
+<li><code>sdev</code> que contiene la desviación estándar de las componentes principales.</li>
+<li><code>rotation</code> que es una matriz con las correlaciones, o pesos de cada variable en cada componente. Aquí cada fila es una variable y cada columna un componente principal.</li>
+<li><code>center</code> y <code>scale</code> son valores con parámtreos de reescala de cada observación.</li>
+<li><code>x</code> es una matriz de la misma dimensión de la data original que contiene las observaciones rotadas y multiplicadas por la matriz <code>rotation</code>.</li>
+</ul>
+<p>Con estos objetos, para recuperar la data original simplemente hay que multiplicar <code>x</code> por la matriz <code>rotation</code> transpuesta y revertir el proceso de reescalado si se especificó al correr el algoritmo.</p>
+<p>Para recuperar la data original en toda su expresión tendríamos que utilizar las 300 y pico de columnas de las matrices <code>x</code> y <code>rotation</code>, pero como vimos que menos de 100 componentes principales explican prácticamente toda la varianza de los datos, nos limitaremos a ver cómo termina la imagen si la reconstruimos con distintas cantidades de componentes principales.</p>
+<p>La función que aparece a continuación la creó Kieran Healy, aquí la utilizaremos para hacer los cálculos descritos en párrafos anteriores usando los elementos de <code>kobe_pca</code>. Esta función recibe un objeto <code>prcomp</code> y el número de componentes que se desean utilizar para aproximar la data original.</p>
+<pre class="r"><code># Ojo, esta función la creó Kieran Healy
+# no fue idea mía
+reverse_pca &lt;- function(n_comp = 20, pca_object = kobe_pca){
+  ## The pca_object is an object created by base R&#39;s prcomp() function.
+  
+  ## Multiply the matrix of rotated data by the transpose of the matrix 
+  ## of eigenvalues (i.e. the component loadings) to get back to a 
+  ## matrix of original data values
+  recon &lt;- pca_object$x[, 1:n_comp] %*% t(pca_object$rotation[, 1:n_comp])
+  
+  ## Reverse any scaling and centering that was done by prcomp()
+  
+  if(all(pca_object$scale != FALSE)){
+    ## Rescale by the reciprocal of the scaling factor, i.e. back to
+    ## original range.
+    recon &lt;- scale(recon, center = FALSE, scale = 1/pca_object$scale)
+  }
+  if(all(pca_object$center != FALSE)){
+    ## Remove any mean centering by adding the subtracted mean back in
+    recon &lt;- scale(recon, scale = FALSE, center = -1 * pca_object$center)
+  }
+  
+  ## Make it a data frame that we can easily pivot to long format
+  ## (because that&#39;s the format that the excellent imager library wants
+  ## when drawing image plots with ggplot)
+  recon_df &lt;- data.frame(cbind(1:nrow(recon), recon))
+  colnames(recon_df) &lt;- c(&quot;x&quot;, 1:(ncol(recon_df)-1))
+
+  ## Return the data to long form 
+  recon_df_long &lt;- recon_df %&gt;%
+    tidyr::pivot_longer(cols = -x, 
+                        names_to = &quot;y&quot;, 
+                        values_to = &quot;value&quot;) %&gt;%
+    mutate(y = as.numeric(y)) %&gt;%
+    arrange(y) %&gt;%
+    as.data.frame()
+  
+  recon_df_long
+}</code></pre>
+<p>Teniendo esta función, ya resulta simple reconstruir la imagen original. En este caso haremos un proceso iterativo para probar como queda la imagen con distintas componentes principales y ver en que cantidad de componentes el resultado satisface el objetivo inicial de aproximar adecuadamente el set de datos original.</p>
+<pre class="r"><code>## Secuencia de componentes principales que deseamos
+n_pcs &lt;- c(2, 5, 10, 20, 50, 100)
+names(n_pcs) &lt;- paste(&quot;Primeras&quot;, n_pcs, &quot;Componentes&quot;, sep = &quot;_&quot;)
+
+## aplicar reverse_pca() a cada n_pcs
+recovered_imgs &lt;- map_dfr(
+  n_pcs,
+  reverse_pca,
+  .id = &quot;pcs&quot;
+  ) %&gt;%
+  mutate(pcs = stringr::str_replace_all(pcs, &quot;_&quot;, &quot; &quot;), 
+         pcs = factor(pcs, levels = unique(pcs), ordered = TRUE))</code></pre>
+<p>El objeto <code>recovered_img</code> es un dataframe bastante largo, contiene en formato tidy. En este la columna <code>pcs</code> dice a qué iteración pertenece el resultado, si a la imagen reconstruida con 2, 5 u otra cantidad de componentes principales. La variables <code>x</code> y <code>y</code> indican la posición del pixel y el campo <code>value</code> tiene la intensidad.</p>
+<pre class="r"><code>glimpse(recovered_imgs)</code></pre>
+<pre><code>## Observations: 1,382,400
+## Variables: 4
+## $ pcs   &lt;ord&gt; Primeras 2 Componentes, Primeras 2 Componentes, Primeras...
+## $ x     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1...
+## $ y     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+## $ value &lt;dbl&gt; 0.10262224, 0.10099415, 0.09911647, 0.09776928, 0.096469...</code></pre>
+<p>Ya es hora de ver el resultado final, pero antes una pequeña aclaración sobre aspectos relacionados a los ejes de las imágenes. Normalemte estamos acostumbrados tener coordenadas de pares ordenados del tipo <span class="math inline">\((x_1, y_1), (x_2, y_2)... (x_n, y_n)\)</span> pero las imágenes en R tiene el eje de la ordenada al revés <span class="math inline">\((x_1, y_n), (x_2, y_{n-1})... (x_n, y_1)\)</span> por eso a la hora de graficar las imágenes usamos la función <code>scale_y_reverse()</code> de <code>ggplot2</code>.</p>
+<pre class="r"><code>p &lt;- ggplot(
+  data = recovered_imgs,
+  mapping = aes(x = x, y = y, fill = value)
+  )
+
+p_out &lt;- p + geom_raster() + 
+  scale_y_reverse() + 
+  scale_fill_gradient(low = &quot;black&quot;, high = &quot;white&quot;) +
+  facet_wrap(~ pcs, ncol = 2) + 
+  guides(fill = FALSE) + 
+  labs(
+    title =  paste0(&quot;Recuperando la imagen de Kobe &quot;,
+                    &quot;con distinta cantidad de &quot;,
+                    &quot;componentes principales&quot;)
+    ) + 
+  theme(strip.text = element_text(face = &quot;bold&quot;, size = rel(1.2)),
+        plot.title = element_text(size = rel(1.5)))
+
+p_out + 
+  theme_minimal() +
+  labs(x = &quot;&quot;, y = &quot;&quot;)</code></pre>
+<p><img src="/post/2020-01-28-la-grandeza-de-kobe-bryant-i-componentes-principales_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Ese es el resultado. En general queda demostrado que un resumen con las primeras 100 componentes principales o hasta las primeras 50 componentes son suficiente para tener una versión decente de la imagen original. Espero que este ejercicio ayude de una forma u otra a entender el valor que agrega usar este tipo de técnicas viendo un ejemplo como este. Sin dudas ver este tema aplicado de esta manera agregará un poco de confianza en los resultados cuando hagamos un modelo usando data con dimensionalidad reducida.</p>
+<p>Ahora para terminar, la imagen original en todo su esplendor.</p>
+<pre class="r"><code>plot(kobe_img, main = &quot;Hasta siempre Kobe&quot;)</code></pre>
+<p><img src="/post/2020-01-28-la-grandeza-de-kobe-bryant-i-componentes-principales_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+</div>
+<div id="referencias" class="section level2">
+<h2>Referencias</h2>
+<p>Todas las publicaciones que coloco aquí aportaron de gran maneran al desarrollo de esta publicación. Principalmente la publicación de Kieran Healy.</p>
+<p>Para una explicación bien detallada y estructurada de esta técnica, les recomiendo el capítulo 6.3 del libro <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf">An Introduction to Statistical Learning</a>.</p>
+<ul>
+<li><a href="https://kieranhealy.org/blog/archives/2019/10/27/reconstructing-images-using-pca/" class="uri">https://kieranhealy.org/blog/archives/2019/10/27/reconstructing-images-using-pca/</a></li>
+<li><a href="https://www.datacamp.com/community/tutorials/pca-analysis-r" class="uri">https://www.datacamp.com/community/tutorials/pca-analysis-r</a></li>
+<li><a href="https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues" class="uri">https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues</a></li>
+<li><a href="https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html" class="uri">https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html</a></li>
+<li><a href="https://ourarchive.otago.ac.nz/bitstream/handle/10523/7534/OUCS-2002-12.pdf?sequence=1&amp;isAllowed=y" class="uri">https://ourarchive.otago.ac.nz/bitstream/handle/10523/7534/OUCS-2002-12.pdf?sequence=1&amp;isAllowed=y</a></li>
+<li><a href="https://cerebralmastication.com/2010/09/principal-component-analysis-pca-vs-ordinary-least-squares-ols-a-visual-explination/" class="uri">https://cerebralmastication.com/2010/09/principal-component-analysis-pca-vs-ordinary-least-squares-ols-a-visual-explination/</a></li>
+<li></li>
+</ul>
+</div>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/12/18/analisis-de-las-defunciones-en-republica-dominicana/" data-toggle="tooltip" data-placement="top" title="Un análisis de las defunciones en República Dominicana">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/02/04/m%C3%BAltiples-modelos-en-r-pronosticando-la-inflaci%C3%B3n-de-rd/" data-toggle="tooltip" data-placement="top" title="Múltiples modelos en R: pronosticando la inflación de RD">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "johan-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Johan Rosa 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151896571-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

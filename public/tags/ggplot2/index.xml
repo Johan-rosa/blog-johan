@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ggplot2 on Johan Rosa</title>
+    <link>/tags/ggplot2/</link>
+    <description>Recent content in ggplot2 on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pirámides de población con ggplot2</title>
+      <link>/post/pir%C3%A1mides-de-poblaci%C3%B3n-con-ggplot2/</link>
+      <pubDate>Wed, 19 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/pir%C3%A1mides-de-poblaci%C3%B3n-con-ggplot2/</guid>
+      <description>Las pirámides de población son de los gráficos más comunes en el análisis demográfico y es probable que los que realizan trabajos o investigaciones en las ciencias sociales terminen creando algunos de cuando en vez. Como no existe una geometría en ggplot2 para hacer este tipo de visualizaciones, hacerlas podría resultar un poco difícil.
+En esta publicación haremos pirámides de población usando ggplot2. Mostraremos la distribución porcentual de la población por grupos quinquenales de edad y luego por edad específica.</description>
+    </item>
+    
+    <item>
+      <title>Múltiples modelos en R: pronosticando la inflación de RD</title>
+      <link>/post/m%C3%BAltiples-modelos-en-r-pronosticando-la-inflaci%C3%B3n-de-rd/</link>
+      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/m%C3%BAltiples-modelos-en-r-pronosticando-la-inflaci%C3%B3n-de-rd/</guid>
+      <description>El Banco Central de la República Dominicana opera bajo un esquema de metas de inflación, en el que establece una meta explícita durante un horizonte de política determinado y se compromete a tomar decisiones que lleven a la consecución del objetivo. Esta estrategia genera certidumbre en los agentes económicos y ha resultado ser unos de los pilares de la estabilidad macroeconómica del país en los últimos años.
+La adopción de este esquema de política por parte de las autoridades monetarias hace de la inflación una variable interesante, alrededor de la cual existe todo un sistema de proyecciones.</description>
+    </item>
+    
+    <item>
+      <title>La grandeza de Kobe Bryant I: Componentes Principales</title>
+      <link>/post/la-grandeza-de-kobe-bryant-i-componentes-principales/</link>
+      <pubDate>Tue, 28 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/la-grandeza-de-kobe-bryant-i-componentes-principales/</guid>
+      <description>kobe %&amp;gt;% as.legend(&#39;forever&#39;)Esta semana recibí una de las noticias más impactantes de los últimos años, la trágica muerte de Kobe Bryant. Los que me conocen saben lo seguidor que soy de Kobe, siempre me he declarado su fanático, casi al extremo del término. Gran parte de mi niñez, toda mi adolescencia y ahora mi vida de adulto me la pasé viendo sus juegos, revisando sus jugadas, tratando imitar lo que hacía, discutiendo con mi hermano a ver quién se quedaría con el honor de decir que era él, comentando sus entrevistas, defendiendo su posición como top 2 histórico, etc.</description>
+    </item>
+    
+    <item>
+      <title>Un análisis de las defunciones en República Dominicana</title>
+      <link>/post/analisis-de-las-defunciones-en-republica-dominicana/</link>
+      <pubDate>Wed, 18 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/analisis-de-las-defunciones-en-republica-dominicana/</guid>
+      <description>Recientemente la Oficina Nacional de Estadística dio un gran paso en la labor difundir las estadísticas nacionales con eficiencia, al publicar una series de bases de datos que hasta hace poco no estaban abiertas al público, y por comprometerse a continuar publicando los datos en un formato que facilite la investigación en el país.
+Por el momento, en la sección de recursos automatizados de su página web, tenemos la opción bases de datos en la que se accede a las bases de datos de la Encuesta Nacional de Hogares de Propósitos Múltiples (ENHOGAR) y a las estadísticas vitales del país.</description>
+    </item>
+    
+    <item>
+      <title>Introducción al tidyverts: series temporales al estilo tidy</title>
+      <link>/post/introducci%C3%B3n-al-tidyverts-series-temporales-al-estilo-tidy/</link>
+      <pubDate>Mon, 09 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/introducci%C3%B3n-al-tidyverts-series-temporales-al-estilo-tidy/</guid>
+      <description>Recientemente terminé de leer el libro Forecasting: Principles and Practice de Rob J Hyndman y George Athanasopoulos y como es natural antes de elegir este material, y mientras lo leía, fui investigando sobre los autores, principalmente sobre Rob Hyndman. Este señor ha escrito una innumerable cantidad de papers útiles para aprender a modelar series temporales y ha desarrollado varios paquetes muy famosos para manejar series de tiempo en R.</description>
+    </item>
+    
+    <item>
+      <title>Creating maps with sf and ggplot2</title>
+      <link>/post/creating-maps-with-sf-and-ggplot2/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/creating-maps-with-sf-and-ggplot2/</guid>
+      <description>Recently a coworker asked my help with a map he needed to complete the slides of a presentation. He wanted three maps of a specific province of the Dominican Republic, disaggregated by municipality.
+When he ask for it, I immediately took it as the perfect opportunity to complete my shift from rgdals and tmap packages to sf and ggplo2 for maps visualization. The package sf provide spatial objects with the structure of a data frame where the polygons are contains in a list-column, making the use of spatial data more intuitive for the user.</description>
+    </item>
+    
+  </channel>
+</rss>

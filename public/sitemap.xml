@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gganimate/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/pir%C3%A1mides-de-poblaci%C3%B3n-con-ggplot2/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverse/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tutorial/</loc>
+    <lastmod>2020-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/forecast/</loc>
+    <lastmod>2020-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/m%C3%BAltiples-modelos-en-r-pronosticando-la-inflaci%C3%B3n-de-rd/</loc>
+    <lastmod>2020-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/la-grandeza-de-kobe-bryant-i-componentes-principales/</loc>
+    <lastmod>2020-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pca/</loc>
+    <lastmod>2020-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/%C3%A1lgebra/</loc>
+    <lastmod>2020-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r-markdown/</loc>
+    <lastmod>2019-12-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverts/</loc>
+    <lastmod>2019-12-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/analisis-de-las-defunciones-en-republica-dominicana/</loc>
+    <lastmod>2019-12-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/introducci%C3%B3n-al-tidyverts-series-temporales-al-estilo-tidy/</loc>
+    <lastmod>2019-12-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/macroeconomia/</loc>
+    <lastmod>2019-12-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/creating-maps-with-sf-and-ggplot2/</loc>
+    <lastmod>2019-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggrepel/</loc>
+    <lastmod>2019-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/scales/</loc>
+    <lastmod>2019-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/sf/</loc>
+    <lastmod>2019-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rvest/</loc>
+    <lastmod>2019-11-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/stringr/</loc>
+    <lastmod>2019-11-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/webscraping-con-r-descargando-noticias-sobre-petr%C3%B3leo/</loc>
+    <lastmod>2019-11-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/creando-mapas-de-rep%C3%BAblica-dominicana-en-r/</loc>
+    <lastmod>2019-10-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/my-first-kaggle-publication/</loc>
+    <lastmod>2019-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/top/cv/</loc>
+  </url>
+  
+  <url>
+    <loc>/top/about/</loc>
+  </url>
+  
+  <url>
+    <loc>/top/</loc>
+  </url>
+  
+</urlset>

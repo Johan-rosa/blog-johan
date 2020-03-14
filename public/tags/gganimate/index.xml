@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gganimate on Johan Rosa</title>
+    <link>/tags/gganimate/</link>
+    <description>Recent content in gganimate on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/gganimate/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pirámides de población con ggplot2</title>
+      <link>/post/pir%C3%A1mides-de-poblaci%C3%B3n-con-ggplot2/</link>
+      <pubDate>Wed, 19 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/pir%C3%A1mides-de-poblaci%C3%B3n-con-ggplot2/</guid>
+      <description>Las pirámides de población son de los gráficos más comunes en el análisis demográfico y es probable que los que realizan trabajos o investigaciones en las ciencias sociales terminen creando algunos de cuando en vez. Como no existe una geometría en ggplot2 para hacer este tipo de visualizaciones, hacerlas podría resultar un poco difícil.
+En esta publicación haremos pirámides de población usando ggplot2. Mostraremos la distribución porcentual de la población por grupos quinquenales de edad y luego por edad específica.</description>
+    </item>
+    
+    <item>
+      <title>Un análisis de las defunciones en República Dominicana</title>
+      <link>/post/analisis-de-las-defunciones-en-republica-dominicana/</link>
+      <pubDate>Wed, 18 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/analisis-de-las-defunciones-en-republica-dominicana/</guid>
+      <description>Recientemente la Oficina Nacional de Estadística dio un gran paso en la labor difundir las estadísticas nacionales con eficiencia, al publicar una series de bases de datos que hasta hace poco no estaban abiertas al público, y por comprometerse a continuar publicando los datos en un formato que facilite la investigación en el país.
+Por el momento, en la sección de recursos automatizados de su página web, tenemos la opción bases de datos en la que se accede a las bases de datos de la Encuesta Nacional de Hogares de Propósitos Múltiples (ENHOGAR) y a las estadísticas vitales del país.</description>
+    </item>
+    
+  </channel>
+</rss>
