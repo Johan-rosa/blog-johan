@@ -2,6 +2,7 @@
 date: "2019-10-023T09:36:51-07:00"
 title: "Hoja de vida"
 ---
+### [Descargar PDF](https://drive.google.com/open?id=1h-wC14Aq3IyLzI1Me99Fr3kIwNF00xYD)
 
 ## Principales competencias
 
