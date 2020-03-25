@@ -209,7 +209,8 @@ shots_data %>%
     strip.text = element_text(size = 12, face = "bold")
   ) +
   labs(x = "",
-       y = "") +
+       y = "",
+       title = "Tiros tomados y eficiencia en diferentes zonas de la cancha") +
    scale_fill_tableau()
 ```
 
@@ -265,7 +266,8 @@ shots_data %>%
     strip.text = element_text(size = 12, face = "bold")
   ) +
   labs(x = "",
-       y = "") +
+       y = "",
+       title = "Tiros tomados y eficiencia en diferentes zonas de la cancha") +
    scale_fill_tableau()
 ```
 
@@ -335,6 +337,7 @@ shots_data %>%
     strip.text = element_text(size = 12),
     legend.position = "bottom"
   ) + 
+  labs(title = "Densidad de la distribución de los tiros") +
   scale_fill_viridis_c(
     option = "magma"
     )
@@ -397,7 +400,8 @@ shots_data %>%
     panel.background = element_blank(),
     strip.text = element_text(size = 12),
     legend.position = "bottom"
-  ) +
+  ) + 
+  labs(title = "Heatmap de los tiros tomados en las temporadas 2009 y 2010") +
   coord_cartesian(expand = FALSE)
   
 ```
@@ -446,7 +450,7 @@ shots_data %>%
     panel.background = element_blank(),
     strip.text = element_text(size = 12),
     legend.position = "bottom"
-  ) +
+  ) + 
   coord_cartesian(expand = FALSE)
 ```
 
