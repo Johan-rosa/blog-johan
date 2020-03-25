@@ -6,7 +6,7 @@ title: "Hoja de vida"
 
 ## Principales competencias
 
-### Pensamiento anlítico
+### Pensamiento analítico
 Capacidad de analizar y resumir datos de manera que contribuyan en la toma de decisiones y a la solución de problemas. Experiencia en el manejo de grandes volúmenes de datos (Series temporales, datos de encuestas, banco de textos, ect.) aplicando técnicas y herramientas sofisticadas.
 
 ### Desarrollo de modelos 

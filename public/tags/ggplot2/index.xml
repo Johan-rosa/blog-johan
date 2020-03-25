@@ -6,10 +6,20 @@
     <description>Recent content in ggplot2 on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 24 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>La grandeza de Kobe Bryant II: explorando su selección de tiros</title>
+      <link>/post/la-grandeza-de-kobe-bryant-ii-explorando-su-seleccion-de-tiros/</link>
+      <pubDate>Tue, 24 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/la-grandeza-de-kobe-bryant-ii-explorando-su-seleccion-de-tiros/</guid>
+      <description>Tras el fallecimiento de Kobe Bryant me comprometí a postear una serie de entradas relacionadas a él. En esta oportunidad haremos un análisis exploratorio de Kobe Bryant desde la óptica de los tiros que tomó en sus 20 años de carrera profesional.
+La data que utilizaremos para este análisis tiene la ubicación de cada tiro tomado por Kobe, resultando muy interesante y tentadora para hacer valoraciones y críticas, pero la verdad es que tiene limitaciones para comprender lo legendario de cada tiro tomado por Kobe Bryant.</description>
+    </item>
     
     <item>
       <title>Pirámides de población con ggplot2</title>

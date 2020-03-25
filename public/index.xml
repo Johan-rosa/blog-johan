@@ -6,10 +6,20 @@
     <description>Recent content on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 24 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>La grandeza de Kobe Bryant II: explorando su selección de tiros</title>
+      <link>/post/la-grandeza-de-kobe-bryant-ii-explorando-su-seleccion-de-tiros/</link>
+      <pubDate>Tue, 24 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/la-grandeza-de-kobe-bryant-ii-explorando-su-seleccion-de-tiros/</guid>
+      <description>Tras el fallecimiento de Kobe Bryant me comprometí a postear una serie de entradas relacionadas a él. En esta oportunidad haremos un análisis exploratorio de Kobe Bryant desde la óptica de los tiros que tomó en sus 20 años de carrera profesional.
+La data que utilizaremos para este análisis tiene la ubicación de cada tiro tomado por Kobe, resultando muy interesante y tentadora para hacer valoraciones y críticas, pero la verdad es que tiene limitaciones para comprender lo legendario de cada tiro tomado por Kobe Bryant.</description>
+    </item>
     
     <item>
       <title>Pirámides de población con ggplot2</title>
@@ -104,7 +114,7 @@ The main intention of the notebook is to make an Exploratory Data Analysis of th
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/top/cv/</guid>
-      <description>Descargar PDF Principales competencias Pensamiento anlítico Capacidad de analizar y resumir datos de manera que contribuyan en la toma de decisiones y a la solución de problemas. Experiencia en el manejo de grandes volúmenes de datos (Series temporales, datos de encuestas, banco de textos, ect.) aplicando técnicas y herramientas sofisticadas.
+      <description>Descargar PDF Principales competencias Pensamiento analítico Capacidad de analizar y resumir datos de manera que contribuyan en la toma de decisiones y a la solución de problemas. Experiencia en el manejo de grandes volúmenes de datos (Series temporales, datos de encuestas, banco de textos, ect.) aplicando técnicas y herramientas sofisticadas.
 Desarrollo de modelos Experiencia en el desarrollo de modelos para analizar y predecir variables, aplicando algoritmos de aprendizaje automático, aprendizaje supervisado y no supervisado, econometría y otras técnicas.</description>
     </item>
     

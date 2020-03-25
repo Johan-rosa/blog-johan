@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>plotly on Johan Rosa</title>
+    <link>/categories/plotly/</link>
+    <description>Recent content in plotly on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/plotly/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>La grandeza de Kobe Bryant II: una mirada a su selección de tiros</title>
+      <link>/post/la-grandeza-de-kobe-bryant-ii-una-mirada-a-su-seleccion-de-tiros/</link>
+      <pubDate>Mon, 23 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/la-grandeza-de-kobe-bryant-ii-una-mirada-a-su-seleccion-de-tiros/</guid>
+      <description>Tras el fallecimiento de Kobe Bryant me comprometí a postear una serie de entradas relacionadas a él. En esta oportunidad haremos un análisis exploratorio de Kobe Bryant desde la optica de los tiros que tomó en sus 20 años de carrera profesional.
+La data que utilizaremos para este análisis tiene la ubicación de cada tiro tomado por Kobe, resultando muy interesante y tentadora para hacer valoraciones y críticas, pero la verdad es que tiene limitaciones para comprender lo legendario de cada tiro tomado por Kobe Bryant.</description>
+    </item>
+    
+  </channel>
+</rss>
