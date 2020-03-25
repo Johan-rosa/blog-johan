@@ -500,11 +500,11 @@ Como el Random Forest es una metología de machine learning poco explorada en la
 
 ## Referencias 
 
-https://toddwschneider.com/posts/ballr-interactive-nba-shot-charts-with-r-and-shiny/
-https://www.kaggle.com/apapiu/exploring-kobe-s-shots
-https://www.r-graph-gallery.com/2d-density-chart.html
-https://www.kaggle.com/dansbecker/nba-shot-logs
-https://github.com/toddwschneider/nba-shots-db
+- https://toddwschneider.com/posts/ballr-interactive-nba-shot-charts-with-r-and-shiny/
+- https://www.kaggle.com/apapiu/exploring-kobe-s-shots
+- https://www.r-graph-gallery.com/2d-density-chart.html
+- https://www.kaggle.com/dansbecker/nba-shot-logs
+- https://github.com/toddwschneider/nba-shots-db
 
 
 
