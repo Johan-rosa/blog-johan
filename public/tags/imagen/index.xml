@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>imagen on Johan Rosa</title>
+    <link>/tags/imagen/</link>
+    <description>Recent content in imagen on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/imagen/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tensorflow y keras con R</title>
+      <link>/post/tensorflow-y-keras-con-r/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/tensorflow-y-keras-con-r/</guid>
+      <description>Indudablemente, los problemas de Deep Learning están cerca de ocupar el primer puesto entre los tópicos populares del mundo de la ciencia de datos hoy día, y con razón, por el tipo de taréas que se están intentando realizar con estas tecnologías.
+Esta publicación pretende servir como guía de iniciación al deep learning con R. Al ser un post introductorio, se describiran los paquetes necesarios y la forma de instalarlos, se recomendará bibliografía para entender las redes neuronales y se realizará un ejercicio básico.</description>
+    </item>
+    
+  </channel>
+</rss>

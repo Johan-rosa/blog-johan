@@ -1,8 +1,8 @@
 ---
-title: Un acercamiento a tensorflow y keras usando R
+title: Tensorflow y keras con R
 author: Johan Rosa
 date: '2020-03-29'
-slug: un-acercamiento-a-tensorflow-y-keras-usando-r
+slug: tensorflow-y-keras-con-r
 categories:
   - R
   - tutorial
