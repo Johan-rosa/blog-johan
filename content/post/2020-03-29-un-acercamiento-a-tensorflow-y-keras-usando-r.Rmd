@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 
-Indudablemente, los problemas de _Deep Learning_ están cerca de ocupar el primer puesto entre los tópicos populares del mundo de la ciencia de datos  hoy día, y con razón, por el tipo de taréas que se están intentando realizar con estas tecnologías. 
+Indudablemente, los problemas de _Deep Learning_ están cerca de ocupar el primer puesto entre los tópicos populares del mundo de la ciencia de datos  hoy día, y con razón, por el tipo de tareas que se están intentando realizar con estas tecnologías. 
 
 Esta publicación pretende servir como guía de iniciación al deep learning con R. Al ser un post introductorio, se describiran los paquetes necesarios y la forma de instalarlos, se recomendará bibliografía para entender las redes neuronales y se realizará un ejercicio básico.
 
@@ -34,7 +34,7 @@ Esta vez el ejercicio es un poco más amplio, porque en lugar de manejar una sol
 
 Tensorflow es un framework de _machine learnig_ que facilita el acceso a una serie de algoritmos y modelos para tratar problemas modernos de clasificación y regresión como los de reconocimiento y clasificación de imágenes, procesamiento de lenguaje natural, forecast de series temporales y otros. 
 
-Así como otros frameworks de _machine learning_, tensorflow tiene una integración con python para proveer una interfaz de programación de aplicaciones (API por sus siglas en ingles), aunque las aplicaciones y operaciones se ejecutan finalmente en c++. 
+Así como otros frameworks de _machine learning_, tensorflow tiene una integración con python para proveer una interfaz de programación de aplicaciones (API por sus siglas en inglés), aunque las aplicaciones y operaciones se ejecutan finalmente en c++. 
 
 Por otra parte, Keras es un interfaz de deep learning para python, capaz de correr tanto sobre tensorflow como en el framework de microsoft, Microsoft Cognitive Toolkit.
 
@@ -42,7 +42,7 @@ Al decir que keras es un interfaz para estos frameworks de deep lerning, se apun
 
 De forma reducida, tensorflow es un framework de machine learning y keras en un API para tensorflow, desarrollada en python.
 
-El punto es siguiente, cuando vamos al mundo de R, tenemos el paquetes `{keras}`, que es a su vez una interfaz para el keras de python. Lo que quiere decir que tenemos los beneficios de de la programación en R mientras aprovechamos la capacidad de python. 
+El punto es el siguiente, cuando vamos al mundo de R, tenemos el paquetes `{keras}`, que es a su vez una interfaz para el keras de python. Lo que quiere decir, que tenemos los beneficios de la programación en R mientras aprovechamos la capacidad de python. 
 
 La integración entre R y Python se da mediante el paquete `{reticulate}`. Pueden leer más detalles en la [página web](https://rstudio.github.io/reticulate/) del paquete.
 
@@ -54,7 +54,7 @@ El portal oficial de tensorflow para R creado por Rstudio provee una [guía de i
 - Instalar tensorflow con la función `tensorflow::install_tensorflow()`. Para lograr esto es necesario tener una versión de [Anaconda](https://www.anaconda.com/distribution/).
 - Luego instalar el paquete `keras` con `install.packages("keras")`
 
-Si no tienes una versión de Anaconda instalada, al momento de tratar de instalar tensorflow, el software te dará la opción de instalar [Miniconda](https://docs.conda.io/en/latest/miniconda.html) (una versión sencilla del navegador con los componentes imprescindibles). Es decisión particular instalar miniconda o descargar manualmente Ananconda. 
+Si no tienes una versión de Anaconda instalada, al momento de tratar de instalar tensorflow, el software te dará la opción de instalar [Miniconda](https://docs.conda.io/en/latest/miniconda.html) (una versión sencilla del navegador con los componentes imprescindibles). Es decisión particular instalar Miniconda o descargar manualmente Ananconda. 
 
 ## La data 
 
@@ -127,12 +127,12 @@ imagenes %>%
 
 ## Neural Network, para luego
 
-En este punto del post manda una breve explicación de las redes neuronales, pero no siento que he interiorizado los conceptos lo suficiente como para compartir un resumen con el que me sienta cómo. En los próximos ejercicios dejaré mi versión, pero en esta simplemente comparto enlaces a artículos que a mi parecer hacen un buen trabajo capturando la intuición de la metodología.
+En este punto del post manda una breve explicación de las redes neuronales, pero no siento que he interiorizado los conceptos lo suficiente como para compartir un resumen con el que me sienta cómodo. En los próximos ejercicios dejaré mi versión, pero en esta simplemente comparto enlaces a artículos que a mi parecer hacen un buen trabajo capturando la intuición de la metodología.
 
 1. [El capitulo 2 del libro Deep learning with R](https://livebook.manning.com/book/deep-learning-with-r/chapter-2/)
 2. [A Visual and Interactive Guide to the Basics of Neural Networks](http://jalammar.github.io/visual-interactive-guide-basics-neural-networks/)
 3. [Entendiendo las redes neuronales PART 1](https://medium.com/@eddydecena/entendiendo-las-redes-neuronales-part-1-fca3adf78c5b)
-4.[Introducing Deep Learning and Neural Networks — Deep Learning for Rookies (1)](https://towardsdatascience.com/introducing-deep-learning-and-neural-networks-deep-learning-for-rookies-1-bd68f9cf5883)
+4. [Introducing Deep Learning and Neural Networks — Deep Learning for Rookies (1)](https://towardsdatascience.com/introducing-deep-learning-and-neural-networks-deep-learning-for-rookies-1-bd68f9cf5883)
 
 
 Hay muchos conceptos de por medio: capas, capas ocultas, nodos o neuronas, funciones de pérdida, optimizadores...
@@ -152,7 +152,7 @@ mnist$test$x <- mnist$test$x/255
 
 ### Construyendo el modelo
 
-La estructura de las redes neuronales se compone de capas, capas en las que se especifican elementos del imput, de las transformaciones que se le realizaran a los datos y otras capas cuyos parámetros se ajustan durante el entrenamiento. 
+La estructura de las redes neuronales se compone de capas, en las cuales se especifican elementos del imput, de las transformaciones que se le realizaran a los datos y otras capas cuyos parámetros se ajustan durante el entrenamiento. 
 
 En el caso del modelo que nos compete, la capa flatten recibe las dimensione que tiene cada imagen de entrenamiento, esto para cambiar la dimensión y pasarla de un array de dos dimensiones (28 * 28) a una dimensión de 784 elementos.
 
@@ -180,11 +180,11 @@ summary(model)
 
 El siguiente paso es compilar el modelo. En este punto se especifican los siguientes elementos.
 
-- Función de pérdida: establece cómo la red neuronal irá midiendo su rendimiento durante el entrenamiento. Una función de pérdida muy común que se utiliza en metodologías más tradicionales como las regresiones lineales, es la sumatoria cuadrada de residuos. La idea de los algoritmos que usan esa función de pérdida es minimizarla.
+- Función de pérdida: establece cómo la red neuronal irá midiendo su rendimiento durante el entrenamiento. La suma cuadrada de residuos es una función de pérdida muy común, se utiliza en metodologías más tradicionales como las regresiones lineales. La idea de los algoritmos que usan esa función de pérdida es minimizarla.
 
 - Optimizador: es el mecanismo mediante el cual la red se retroalimenta a sí misma durante el entrenamiento. De estos hay varios, pero el adam es de los más comunes.
 
-- Métrica: especifíca a qué se le va a presentar atención durante el entrenamiento del modelo. En este caso al _accuracy_, o bien la proporción de imágenes bien clasificadas. 
+- Métrica: especifíca a que se le va a presentar atención durante el entrenamiento del modelo. En este caso al _accuracy_, o bien la proporción de imágenes bien clasificadas. 
 
 ```{r compile_model}
 model %>% 
@@ -227,7 +227,7 @@ history <- model %>%
 ```
 
 
-En Un gráfico también se puede apreciar la evolución de los indicadores del modelo durante el entrenamiento. El resultado muestra el comportamiento esperado, la función de pérdida disminuyendo en cada iteración y el _accuracy_ o proporción de imagenes bien clasificadas en aumento. 
+En un gráfico también se puede apreciar la evolución de los indicadores del modelo durante el entrenamiento. El resultado muestra el comportamiento esperado, la función de pérdida disminuyendo en cada iteración y el _accuracy_ o proporción de imagenes bien clasificadas en aumento. 
 
 Como ven hay dos líneas, esto porque en cada iteración el set de entrenamiento se divide y una parte de los datos se usa para entrenar el modelo y otra para probarlo. Para eso se usó el parámetro `validation_split = 0.3` (30% de la data se usa para validación).
 
@@ -243,7 +243,7 @@ plot(history) +
 
 ### Probando el modelo con el test set
 
-Teniendo ya el modelo entrenado, se usa la función `predict()` y una serie de imágenes no utilizadas para entrenar el modelo para probar su desempeño fuera de muestra. Este paso es crucial, porque de obtener aquí un desempeño muy por debajo del obtenido con el training set, entonces estaríamos frente a un problema de overfitting. En otras palabras, el modelo solo funciona con los datos que conoce. 
+Teniendo ya el modelo entrenado, se usa la función `predict()` y una serie de imágenes no utilizadas para entrenar el modelo para probar su desempeño fuera de muestra. Este paso es crucial, porque de registrar aquí un desempeño muy por debajo del obtenido con el training set, entonces estaríamos frente a un problema de overfitting. En otras palabras, el modelo solo funciona con los datos que conoce. 
 
 
 Para hacer las predicciones hay varias opciones, con diferentes outputs cada una. En este caso se usa la función `predict_classes()`, que devuelve la clase que sugiere el modelo para cada observación del test set. Por otro lado, la función `predict_prob()` devuelve un array con el score de probabilidad de las potenciales clases para cada observación.

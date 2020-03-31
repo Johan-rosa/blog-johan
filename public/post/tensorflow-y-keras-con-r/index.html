@@ -220,18 +220,18 @@
                 
 
 
-<p>Indudablemente, los problemas de <em>Deep Learning</em> están cerca de ocupar el primer puesto entre los tópicos populares del mundo de la ciencia de datos hoy día, y con razón, por el tipo de taréas que se están intentando realizar con estas tecnologías.</p>
+<p>Indudablemente, los problemas de <em>Deep Learning</em> están cerca de ocupar el primer puesto entre los tópicos populares del mundo de la ciencia de datos hoy día, y con razón, por el tipo de tareas que se están intentando realizar con estas tecnologías.</p>
 <p>Esta publicación pretende servir como guía de iniciación al deep learning con R. Al ser un post introductorio, se describiran los paquetes necesarios y la forma de instalarlos, se recomendará bibliografía para entender las redes neuronales y se realizará un ejercicio básico.</p>
 <p>En la publicación <a href="https://www.johan-rosa.com/post/la-grandeza-de-kobe-bryant-i-componentes-principales/">La grandeza de Kobe Bryant I: Componentes principales</a> se sentaron las bases para comprender el manejo de imágenes en R. El ejercicio aborda la forma de importar una imagen y la manera en la que el software representa estos objetos, entre otras cosas.</p>
 <p>Esta vez el ejercicio es un poco más amplio, porque en lugar de manejar una sola imagen, se manipulará todo un array con miles de ellas, con la finalidad de construir un modelo de clasificación con las tecnologías actuales de <em>deep learnig</em>.</p>
 <div id="tensorflow-y-keras" class="section level2">
 <h2>Tensorflow y keras</h2>
 <p>Tensorflow es un framework de <em>machine learnig</em> que facilita el acceso a una serie de algoritmos y modelos para tratar problemas modernos de clasificación y regresión como los de reconocimiento y clasificación de imágenes, procesamiento de lenguaje natural, forecast de series temporales y otros.</p>
-<p>Así como otros frameworks de <em>machine learning</em>, tensorflow tiene una integración con python para proveer una interfaz de programación de aplicaciones (API por sus siglas en ingles), aunque las aplicaciones y operaciones se ejecutan finalmente en c++.</p>
+<p>Así como otros frameworks de <em>machine learning</em>, tensorflow tiene una integración con python para proveer una interfaz de programación de aplicaciones (API por sus siglas en inglés), aunque las aplicaciones y operaciones se ejecutan finalmente en c++.</p>
 <p>Por otra parte, Keras es un interfaz de deep learning para python, capaz de correr tanto sobre tensorflow como en el framework de microsoft, Microsoft Cognitive Toolkit.</p>
 <p>Al decir que keras es un interfaz para estos frameworks de deep lerning, se apunta a que es una manera de acceder a las herramientas de tensorflow de una forma sencilla y reduciendo el riesgo de cometer errores.</p>
 <p>De forma reducida, tensorflow es un framework de machine learning y keras en un API para tensorflow, desarrollada en python.</p>
-<p>El punto es siguiente, cuando vamos al mundo de R, tenemos el paquetes <code>{keras}</code>, que es a su vez una interfaz para el keras de python. Lo que quiere decir que tenemos los beneficios de de la programación en R mientras aprovechamos la capacidad de python.</p>
+<p>El punto es el siguiente, cuando vamos al mundo de R, tenemos el paquetes <code>{keras}</code>, que es a su vez una interfaz para el keras de python. Lo que quiere decir, que tenemos los beneficios de la programación en R mientras aprovechamos la capacidad de python.</p>
 <p>La integración entre R y Python se da mediante el paquete <code>{reticulate}</code>. Pueden leer más detalles en la <a href="https://rstudio.github.io/reticulate/">página web</a> del paquete.</p>
 <div id="instalando-tensorflow-y-keras" class="section level3">
 <h3>Instalando <code>{tensorflow}</code> y <code>{keras}</code></h3>
@@ -241,7 +241,7 @@
 <li>Instalar tensorflow con la función <code>tensorflow::install_tensorflow()</code>. Para lograr esto es necesario tener una versión de <a href="https://www.anaconda.com/distribution/">Anaconda</a>.</li>
 <li>Luego instalar el paquete <code>keras</code> con <code>install.packages("keras")</code></li>
 </ul>
-<p>Si no tienes una versión de Anaconda instalada, al momento de tratar de instalar tensorflow, el software te dará la opción de instalar <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> (una versión sencilla del navegador con los componentes imprescindibles). Es decisión particular instalar miniconda o descargar manualmente Ananconda.</p>
+<p>Si no tienes una versión de Anaconda instalada, al momento de tratar de instalar tensorflow, el software te dará la opción de instalar <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> (una versión sencilla del navegador con los componentes imprescindibles). Es decisión particular instalar Miniconda o descargar manualmente Ananconda.</p>
 </div>
 </div>
 <div id="la-data" class="section level2">
@@ -318,12 +318,12 @@ imagenes %&gt;%
 </div>
 <div id="neural-network-para-luego" class="section level2">
 <h2>Neural Network, para luego</h2>
-<p>En este punto del post manda una breve explicación de las redes neuronales, pero no siento que he interiorizado los conceptos lo suficiente como para compartir un resumen con el que me sienta cómo. En los próximos ejercicios dejaré mi versión, pero en esta simplemente comparto enlaces a artículos que a mi parecer hacen un buen trabajo capturando la intuición de la metodología.</p>
+<p>En este punto del post manda una breve explicación de las redes neuronales, pero no siento que he interiorizado los conceptos lo suficiente como para compartir un resumen con el que me sienta cómodo. En los próximos ejercicios dejaré mi versión, pero en esta simplemente comparto enlaces a artículos que a mi parecer hacen un buen trabajo capturando la intuición de la metodología.</p>
 <ol style="list-style-type: decimal">
 <li><a href="https://livebook.manning.com/book/deep-learning-with-r/chapter-2/">El capitulo 2 del libro Deep learning with R</a></li>
 <li><a href="http://jalammar.github.io/visual-interactive-guide-basics-neural-networks/">A Visual and Interactive Guide to the Basics of Neural Networks</a></li>
-<li><a href="https://medium.com/@eddydecena/entendiendo-las-redes-neuronales-part-1-fca3adf78c5b">Entendiendo las redes neuronales PART 1</a>
-4.<a href="https://towardsdatascience.com/introducing-deep-learning-and-neural-networks-deep-learning-for-rookies-1-bd68f9cf5883">Introducing Deep Learning and Neural Networks — Deep Learning for Rookies (1)</a></li>
+<li><a href="https://medium.com/@eddydecena/entendiendo-las-redes-neuronales-part-1-fca3adf78c5b">Entendiendo las redes neuronales PART 1</a></li>
+<li><a href="https://towardsdatascience.com/introducing-deep-learning-and-neural-networks-deep-learning-for-rookies-1-bd68f9cf5883">Introducing Deep Learning and Neural Networks — Deep Learning for Rookies (1)</a></li>
 </ol>
 <p>Hay muchos conceptos de por medio: capas, capas ocultas, nodos o neuronas, funciones de pérdida, optimizadores…</p>
 </div>
@@ -339,7 +339,7 @@ mnist$test$x &lt;- mnist$test$x/255</code></pre>
 </div>
 <div id="construyendo-el-modelo" class="section level3">
 <h3>Construyendo el modelo</h3>
-<p>La estructura de las redes neuronales se compone de capas, capas en las que se especifican elementos del imput, de las transformaciones que se le realizaran a los datos y otras capas cuyos parámetros se ajustan durante el entrenamiento.</p>
+<p>La estructura de las redes neuronales se compone de capas, en las cuales se especifican elementos del imput, de las transformaciones que se le realizaran a los datos y otras capas cuyos parámetros se ajustan durante el entrenamiento.</p>
 <p>En el caso del modelo que nos compete, la capa flatten recibe las dimensione que tiene cada imagen de entrenamiento, esto para cambiar la dimensión y pasarla de un array de dos dimensiones (28 * 28) a una dimensión de 784 elementos.</p>
 <p>Luego se especifican dos capas <em>dense</em>, en la primera se establece la cantidad de nodos o neuronas de la red y la función de activación. En este caso se usa una de las más comunes, la función de activación <a href="https://machinelearningmastery.com/rectified-linear-activation-function-for-deep-learning-neural-networks/">ReLU</a>.</p>
 <p>En la segunda capa dense, la capa del output, se especifican los nodos de salida, uno por cada categoría probable, y al tratarse de números del 0 al 9 se especifican 10, El segundo argumento de esta capa hace que el resultado del modelo sea un array con 10 valores de probabilidad que suma uno. En este caso el nodo de la categoría que tenga el mayor score termina siendo la predicción.</p>
@@ -352,29 +352,29 @@ mnist$test$x &lt;- mnist$test$x/255</code></pre>
 <p>Para inspeccionar el modelo se puede utilizar la función summary (Esta función tiene métodos para todos los objetos).</p>
 <pre class="r"><code>summary(model)</code></pre>
 <pre><code>## Model: &quot;sequential&quot;
-## ___________________________________________________________________________
-## Layer (type)                     Output Shape                  Param #     
-## ===========================================================================
-## flatten (Flatten)                (None, 784)                   0           
-## ___________________________________________________________________________
-## dense (Dense)                    (None, 128)                   100480      
-## ___________________________________________________________________________
-## dropout (Dropout)                (None, 128)                   0           
-## ___________________________________________________________________________
-## dense_1 (Dense)                  (None, 10)                    1290        
-## ===========================================================================
+## ________________________________________________________________________________
+## Layer (type)                        Output Shape                    Param #     
+## ================================================================================
+## flatten (Flatten)                   (None, 784)                     0           
+## ________________________________________________________________________________
+## dense (Dense)                       (None, 128)                     100480      
+## ________________________________________________________________________________
+## dropout (Dropout)                   (None, 128)                     0           
+## ________________________________________________________________________________
+## dense_1 (Dense)                     (None, 10)                      1290        
+## ================================================================================
 ## Total params: 101,770
 ## Trainable params: 101,770
 ## Non-trainable params: 0
-## ___________________________________________________________________________</code></pre>
+## ________________________________________________________________________________</code></pre>
 </div>
 <div id="compilando-el-modelo" class="section level3">
 <h3>Compilando el modelo</h3>
 <p>El siguiente paso es compilar el modelo. En este punto se especifican los siguientes elementos.</p>
 <ul>
-<li><p>Función de pérdida: establece cómo la red neuronal irá midiendo su rendimiento durante el entrenamiento. Una función de pérdida muy común que se utiliza en metodologías más tradicionales como las regresiones lineales, es la sumatoria cuadrada de residuos. La idea de los algoritmos que usan esa función de pérdida es minimizarla.</p></li>
+<li><p>Función de pérdida: establece cómo la red neuronal irá midiendo su rendimiento durante el entrenamiento. La suma cuadrada de residuos es una función de pérdida muy común, se utiliza en metodologías más tradicionales como las regresiones lineales. La idea de los algoritmos que usan esa función de pérdida es minimizarla.</p></li>
 <li><p>Optimizador: es el mecanismo mediante el cual la red se retroalimenta a sí misma durante el entrenamiento. De estos hay varios, pero el adam es de los más comunes.</p></li>
-<li><p>Métrica: especifíca a qué se le va a presentar atención durante el entrenamiento del modelo. En este caso al <em>accuracy</em>, o bien la proporción de imágenes bien clasificadas.</p></li>
+<li><p>Métrica: especifíca a que se le va a presentar atención durante el entrenamiento del modelo. En este caso al <em>accuracy</em>, o bien la proporción de imágenes bien clasificadas.</p></li>
 </ul>
 <pre class="r"><code>model %&gt;% 
   compile(
@@ -403,7 +403,7 @@ mnist$test$x &lt;- mnist$test$x/255</code></pre>
     validation_split = 0.3,
     verbose = 2
   )</code></pre>
-<p>En Un gráfico también se puede apreciar la evolución de los indicadores del modelo durante el entrenamiento. El resultado muestra el comportamiento esperado, la función de pérdida disminuyendo en cada iteración y el <em>accuracy</em> o proporción de imagenes bien clasificadas en aumento.</p>
+<p>En un gráfico también se puede apreciar la evolución de los indicadores del modelo durante el entrenamiento. El resultado muestra el comportamiento esperado, la función de pérdida disminuyendo en cada iteración y el <em>accuracy</em> o proporción de imagenes bien clasificadas en aumento.</p>
 <p>Como ven hay dos líneas, esto porque en cada iteración el set de entrenamiento se divide y una parte de los datos se usa para entrenar el modelo y otra para probarlo. Para eso se usó el parámetro <code>validation_split = 0.3</code> (30% de la data se usa para validación).</p>
 <pre class="r"><code>plot(history) +
     geom_line() +
@@ -416,7 +416,7 @@ mnist$test$x &lt;- mnist$test$x/255</code></pre>
 </div>
 <div id="probando-el-modelo-con-el-test-set" class="section level3">
 <h3>Probando el modelo con el test set</h3>
-<p>Teniendo ya el modelo entrenado, se usa la función <code>predict()</code> y una serie de imágenes no utilizadas para entrenar el modelo para probar su desempeño fuera de muestra. Este paso es crucial, porque de obtener aquí un desempeño muy por debajo del obtenido con el training set, entonces estaríamos frente a un problema de overfitting. En otras palabras, el modelo solo funciona con los datos que conoce.</p>
+<p>Teniendo ya el modelo entrenado, se usa la función <code>predict()</code> y una serie de imágenes no utilizadas para entrenar el modelo para probar su desempeño fuera de muestra. Este paso es crucial, porque de registrar aquí un desempeño muy por debajo del obtenido con el training set, entonces estaríamos frente a un problema de overfitting. En otras palabras, el modelo solo funciona con los datos que conoce.</p>
 <p>Para hacer las predicciones hay varias opciones, con diferentes outputs cada una. En este caso se usa la función <code>predict_classes()</code>, que devuelve la clase que sugiere el modelo para cada observación del test set. Por otro lado, la función <code>predict_prob()</code> devuelve un array con el score de probabilidad de las potenciales clases para cada observación.</p>
 <p>Obviamente, la clase con el escore de probabilidad mayor es la que se utiliza como output en <code>predict_classes()</code>.</p>
 <pre class="r"><code>predictions &lt;- predict_classes(model, mnist$test$x)
@@ -429,10 +429,10 @@ head(predictions, 10)</code></pre>
 <pre class="r"><code>model %&gt;% 
   evaluate(mnist$test$x, mnist$test$y, verbose = 0)</code></pre>
 <pre><code>## $loss
-## [1] 0.08220289
+## [1] 0.08477093
 ## 
 ## $accuracy
-## [1] 0.9756</code></pre>
+## [1] 0.9755</code></pre>
 </div>
 </div>
 <div id="comentarios-finales" class="section level1">
