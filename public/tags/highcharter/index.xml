@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>highcharter on Johan Rosa</title>
+    <link>/tags/highcharter/</link>
+    <description>Recent content in highcharter on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 12 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/highcharter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mapa: COVID-19 en República Domminicana</title>
+      <link>/post/covid-19-en-republica-domminicana/</link>
+      <pubDate>Tue, 12 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/covid-19-en-republica-domminicana/</guid>
+      <description>Este mapa fue creado con la librería highcharter, para utilizarlo en la presentación de un trabajo de investigación. El mapa tiene las etiquetas que por defecto traen los shapefiles de highchart, con ciertas imprecisiones en los nombres de algunas provincias.</description>
+    </item>
+    
+  </channel>
+</rss>

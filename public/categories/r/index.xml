@@ -6,10 +6,19 @@
     <description>Recent content in R on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mapa: COVID-19 en República Domminicana</title>
+      <link>/post/covid-19-en-republica-domminicana/</link>
+      <pubDate>Tue, 12 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/covid-19-en-republica-domminicana/</guid>
+      <description>Este mapa fue creado con la librería highcharter, para utilizarlo en la presentación de un trabajo de investigación. El mapa tiene las etiquetas que por defecto traen los shapefiles de highchart, con ciertas imprecisiones en los nombres de algunas provincias.</description>
+    </item>
     
     <item>
       <title>Tensorflow y keras con R</title>
