@@ -1,0 +1,81 @@
+---
+title: 'Nota metodólogica: Random Forest I'
+author: Johan Rosa
+date: '2020-07-12'
+slug: nota-metodologica-random-forest-i
+categories:
+  - R
+  - methodology
+tags:
+  - machine learning
+subtitle: ''
+description: ''
+image: 'img/banner/random_forest.jpg'
+---
+
+
+
+<p>A la hora de escribir las publicaciones del blog siempre he tenido la disyuntiva sobre el balance adecuado entre código y metodología que debo incluir en los post, y aunque la mayoría de las veces me inclino por la opción de abordar las distintas herramientas y hacer simples resúmenes metodológicos, he mantenido un extraño sentimiento de deuda con el lector.</p>
+<p>Por esta razón he decidido iniciar una sección del blog en la que abordaría de manera más formal los detalles de las metodologías que utilizo para algunos ejercicios. No prometo que habrá un orden específico para para esto, algunas veces la metodología llegará primero y la aplicación después y otras veces será lo opuesto. Pero siempre que sienta que pueda hacer un buen trabajo describiendo un tema, haré una nota metodológica.</p>
+<p>La primera publicación de este tipo aborda el Random Forest y se dividirán en dos, la primera describiendo en sentido general el algoritmo y otra con detalles sobre elementos</p>
+<div id="random-forest" class="section level2">
+<h2>Random Forest</h2>
+<p>El Random Forest es un algoritmo introducido por Breiman (2001) que se circunscribe en los métodos de ensamblaje. Esto significa que el modelo depende a su vez de submodelos, de modo que las predicciones e indicadores que arrojan dependen de la combinación de los modelos más pequeños. Estos submodelos que están detrás del Random Forest son los conocidos árboles de clasificación y regresión (ACR), y son la clave para entender a cabalidad esta metodología, de modo que primero introduciremos los ACR y luego la combinación de múltiples árboles que deviene en el Random Forest.</p>
+<div id="arboles-de-clasificación-y-regresión" class="section level3">
+<h3>Arboles de Clasificación y Regresión</h3>
+<p>Los árboles de clasificación y regresión son modelos que se basan en la partición o subdivisión de los datos para estimar la distribución condicional de la variable dependiente, el cual es un vector <span class="math inline">\(\boldsymbol Y = (y_1,...,y_n)^t\)</span>, en función de una serie de variables explicativas que forman la matriz <span class="math inline">\(\boldsymbol X = (X_1,...,X_p)\)</span>, donde <span class="math inline">\(X_j = (x_{1j},...,x_{nj})\)</span> para <span class="math inline">\(j\ \epsilon \ \{1,...,p\}\)</span>. El objetivos de estas subdivisiones es agrupar <span class="math inline">\(Y\)</span> en función de <span class="math inline">\(\boldsymbol X\)</span> de forma que cada subgrupo sea lo más homogéneo posible.</p>
+<p>En el caso de variables dependientes dicotómicas, la operatividad del modelo se encarga de considerar cada valor individual de las variables explicativas como un posible punto de corte binario del espacio, de forma que las áreas que se formen a partir de este punto sean los más homogénea posible en término de la variable dependiente, es decir, que se reduzca la cantidad total de elementos mal clasificados en cada lado.</p>
+<p>Para ilustrar lo anterior considere el caso hipotético que se muestra a continuación, en el que se presenta la distribución del salario ofrecido por puestos de trabajo, la edad de los aplicantes y si aceptó o no el empleo. El algoritmo se encarga de buscar un punto en el que al subdividir los datos se minimice la proporción de elementos mal clasificados. En el caso del primer corte, la tasa de error total es del 3/13, pero al agregar un segundo corte en según la variable edad se verifica una reducción de la tasa de error total a 1/13.</p>
+<div id="ejemplo-de-un-acr-con-datos-hipotéticos" class="section level4">
+<h4>Ejemplo de un ACR con datos hipotéticos</h4>
+<style>
+.grid img {display: inline-block; flex-grow: 1; flex-shrink: 1;}
+</style>
+<div class="grid" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+<p><img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p1.png" width="400" />
+<img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p2.png" width="400" />
+<img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p3.png" width="400" />
+<img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p4.png" width="400" /></p>
+<!--
+ <img class="item" src="data/nota_random_forest/p1.png" width = "400px">
+ <img class="item" src="data/nota_random_forest/p2.png" width = "400px">
+ <img class="item" src="data/nota_random_forest/p3.png" width = "400px">
+ <img class="item" src="data/nota_random_forest/p4.png" width = "400px">
+ -->
+</div>
+<p>Ya se estableció que para decidir si se justifica una segmentación adicional de la data se verifica si este nuevo corte reduciría el error de clasificación, lo que puede ser visto como una especie de función de pérdida . Más formalmente: siendo los datos en un nodo específico <span class="math inline">\((m)\)</span> del ACR <span class="math inline">\(\boldsymbol Y^{(m)} = (y_1^{(m)},...,y_{n^{(m)}}^{(m)})\)</span> y <span class="math inline">\(\boldsymbol X^{(m)} = (X^{(m)}_1,..., X^{(m)}_p)\)</span>, <span class="math inline">\(X^{(m)}_s\)</span> la variable explicativa que está siendo considerada para agregar un corte a los datos, <span class="math inline">\(C^{(m)}= \{x_i^{(m)} \}_{i ∈\{1,…,n^{(m)}\} }\)</span> los valores únicos y <span class="math inline">\(c ∈C^{(m)}\)</span> la observación considerada para hacer el corte. Como resultado de esto, el nodo inicial <span class="math inline">\(Y^{(m)}\)</span> queda subdividido en <span class="math inline">\(Y^{(ml)}\)</span> y <span class="math inline">\(Y^{(mr)}\)</span>, donde <span class="math inline">\(Y^{(ml)}\)</span> corresponde a todos los elementos de <span class="math inline">\(Y^{(m)}\)</span> para los cuales <span class="math inline">\(X_s^{(m)} ≤ c\)</span> y <span class="math inline">\(Y^{(mr)}\)</span> corresponde a todos los elementos de <span class="math inline">\(Y^{(m)}\)</span> para los que <span class="math inline">\(X_s^{(m)} &gt; c\)</span>. El incremento o disminución del error quedaría definido de la siguiente forma.</p>
+<p><span class="math display">\[\Delta(Y^{(m)}) = L(Y^{(m)}) - [\frac{n{(ml)}}{n^{m}}L(Y^{(ml)})\  + \ \frac{n{(mr)}}{n^{m}}L(Y^{(mr)}) ]\]</span>
+Esta vez, <span class="math inline">\(n^{(ml)}\)</span> y <span class="math inline">\(n^{(ml)}\)</span> son el número de casos que están a la derecha y a la izquierda del punto de corte, y <span class="math inline">\(L(.)\)</span> es la función de perdida, la cual se definió intuitivamente en el ejemplo de la figura 1 como la proporción de elementos mal clasificados en cada nodo que se forma con la subdivisión del espacio. En cierto modo la función de perdida es una medida de impureza.</p>
+<p>En el caso de una variable dependiente continua se necesita una función de perdida un tanto distinta para medir la impureza de la regresión, en estos casos se suele utilizar el error cuadrático medio.</p>
+<p><span class="math display">\[L(Y^{(m)}) = \sum_{i=1}^{i=n^{(m)}}{y_{i}^{(m)}- \hat{y}^{(m)}}\]</span>
+Donde <span class="math inline">\(\hat{y}^{(m)}\)</span> suele ser el promedio de las observaciones en <span class="math inline">\(Y^{(m)}\)</span>.</p>
+<p>Una vez elegida la función de pérdida, el algoritmo prosigue de la forma que fue descrita en el ejemplo de la figura 1. Ahora bien, siempre es necesario agregar un criterio de paro para el algoritmo, ya que si no se define uno se podría llegar a un árbol muy complejo en el que no haya impureza pero a costa de un sobreajuste a los datos de entrenamiento. Esto es así porque teóricamente los ACR pueden crecer hasta que no haya impureza en los nodos resultantes, pero este tipo de resultados suelen llevar a pobres resultados cuando se enfrentan a nueva data. De esta forma, el criterio de paro resulta ser el punto de equilibrio entre un modelo demasiado complejo que se sobreajuste a los datos y un modelo tan sencillo que no resalte elementos importantes. Comúnmente la cantidad de cortes, el número de observaciones y la homogeneidad en los nodos terminales suelen ser buenos criterios de paro, y la elección de uno o varios de estos dependerá del problema que se esté enfrentado y la experiencia del investigador.</p>
+<p>Una vez el árbol de clasificación o regresión ha crecido completamente, el valor predicho para cada observación sería una medida de resumen del nodo en el que se encuentre, para casos de variables respuesta continuas suele utilizarse el promedio, y en el caso de variables respuesta dicotómicas se utiliza la categoría predominante en el nodo o bien un vector de probabilidades para una categoría asignada.</p>
+</div>
+</div>
+<div id="múltiple-combinación-de-árboles-forest" class="section level3">
+<h3>Múltiple combinación de árboles (Forest)</h3>
+<p>Según Bierman (1996), la combinación múltiple de árboles (bootstrap aggregating o simplemente bagging) es una técnica que busca reducir la varianza de los valores ajustados de los árboles de regresión, de forma que se reduzca considerablemente el riesgo de sobreajuste que suele caracterizar a los ACR. Esto se logra al correr diferentes modelos y promediar los valores predichos de cada uno para obtener un predictor estandarizado.</p>
+<p>El ingenio que hay detrás de estos modelos recae en que cada submodelo se entrena con una remuestra, la cual tiene la misma dimensión que la original, pero es elegida con remplazo o con una rotación, de modo que cada muestra deja fuera una proporción de los datos. El Random Forest se construye al entrenar un ACR con cada una de las remuestras creadas en el bootstrap y los valores predichos de cada observación serán los valores ajustados que dicte cada submodelo que fue creado sin esa observación como parte de la remuestra. Así los valores predichos para cada observación son agregados para producir una estimación combinada que tenga una menor varianza que la que se realiza con un simple ACR (Ver gráfico 2).</p>
+<div id="acr-vs-random-forest" class="section level4">
+<h4>ACR vs Random Forest</h4>
+<!--![Fuente: Jones y Linder (2015)](data/nota_random_forest/acr_vs_rf.png) -->
+<div class="figure">
+<img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/acr_vs_rf.png" alt="" />
+<p class="caption">Fuente: Jones y Linder (2015)</p>
+</div>
+<p>Además de hacer un proceso de selección aleatoria de las observaciones que serían utilizadas para entrenar los diferentes submodelos, Breiman (2001) extendió esta lógica hacia los predictores, es decir, que cada árbol se entrena con una selección aleatoria de las variables independientes del conjunto de datos original. Esto puede causar escepticismo, pero lo que hay detrás de esta estrategia es evitar que todos los predictores estén siempre en todos los submodelos, de forma que si hay un predictor que es muy importante y en algunos de los modelos es excluido, se haría más fácil el análisis de predictores más débiles, los cuales se ven opacados en los modelos que no hacen este tipo de delimitación.</p>
+</div>
+</div>
+<div id="enlaces-relacionados" class="section level3">
+<h3>Enlaces relacionados</h3>
+<p>Como siempre, una lista de las fuentes consultadas y que podría servir para ampliar aún más el contenido.</p>
+<ul>
+<li><a href="https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf">Random Forest, Breiman 2001</a></li>
+<li><a href="https://link.springer.com/content/pdf/10.1007/BF00058655.pdf">Baggin predictors, Breiman 1996</a></li>
+<li><a href="https://pdfs.semanticscholar.org/e7b7/3565b07a7f1369a20b1055f222423f0feb34.pdf">Exploratory data analysis using random forest, Zachary Jones y Fridolin Linder 2015</a></li>
+<li><a href="http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf">An Introduction to Statistical Learning, capitulo 8</a></li>
+<li><a href="http://uc-r.github.io/random_forests">Random Forest, UC Business Analytics R Programming Guide</a></li>
+</ul>
+</div>
+</div>
