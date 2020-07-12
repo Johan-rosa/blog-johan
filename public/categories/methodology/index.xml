@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>methodology on Johan Rosa</title>
+    <link>/categories/methodology/</link>
+    <description>Recent content in methodology on Johan Rosa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/methodology/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nota metodólogica: Random Forest I</title>
+      <link>/post/nota-metodologica-random-forest-i/</link>
+      <pubDate>Sun, 12 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/nota-metodologica-random-forest-i/</guid>
+      <description>A la hora de escribir las publicaciones del blog siempre he tenido la disyuntiva sobre el balance adecuado entre código y metodología que debo incluir en los post, y aunque la mayoría de las veces me inclino por la opción de abordar las distintas herramientas y hacer simples resúmenes metodológicos, he mantenido un extraño sentimiento de deuda con el lector.
+Por esta razón he decidido iniciar una sección del blog en la que abordaría de manera más formal los detalles de las metodologías que utilizo para algunos ejercicios.</description>
+    </item>
+    
+  </channel>
+</rss>
