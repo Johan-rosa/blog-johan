@@ -1,0 +1,315 @@
+---
+title: Reacciones en documentos Rmarkdown con JavaScript
+author: Johan Rosa
+date: '2020-09-02'
+slug: reacciones-en-docuementos-rmarkdown-con-javascript
+categories:
+  - tutorial
+  - R
+  - javascript
+tags:
+  - R Markdown
+  - javascript
+  - css
+  - html
+subtitle: ''
+description: 'Un post para los que luego de iniciar a aprender Rmarkdown han incursionado en el mudo de html, css y js. Este post es una guia para aquellos que desean llevar sus documentos al siguiente nivel usando elementos básicos de la programación web.'
+image: 'img/banner/js.png'
+---
+
+
+<style>
+.buttons {
+  display: flex;
+  width: 280px;
+  justify-content: space-around; 
+  margin: 0 auto;
+}
+
+.btn {
+  border: solid 2px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  width: 100px;
+  text-align: center;
+  background-color: #F85B1A;
+  transition: 
+        transform 250ms ease-in-out,
+        opasity 250ms linear;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #072083;
+  transform: scale(1.1);
+  opacity: .9;
+  cursor: pointer;
+  color: white;
+}
+
+.character-img {
+  display: block;
+  margin: 0 auto;
+  height: 400px;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Mi primer contacto con documentos HTML fue mediante Rmarkdown en Rstudio. Recuerdo que hice una presentación HTML porque quería incluir unas visualizaciones que recien había aprendido a hacer con plotly. Todo muy innovador e intuitivo al principio, pero pronto me di cuenta que para configurar ciertos elementos de la presentación tenía que usar unos códigos que de ninguna manera estaban escritos en R y que simplemente funcionaban, pero no entendía.
+
+Para ser específico, este este fue el primer código css que necesitaba modificar aunque no sabía lo que hacía con exactitud. 
+
+![](/post/2020-09-02-elementos-reactivos-con-javascript-en-documentos-rmakdown_files/rmd_ultimate_guide_css_snipt.png)
+
+
+Debo admitir que por mucho tiempo me dediqué a hacer cambios en los documentos usando códigos copiados de stackoverflow, los modificaba como entendía y cruzaba los dedos en espera de que hicieran lo que yo deseaba. Esto funcionó muchas veces, pero hubo otras tantas en las que no.
+
+Luego empecé a trabajar con shiny, otra librería para crear aplicaciones html que siguió empujándome a aprender estas herramientas, al igual que la creación de este blog.
+
+Hoy día ya tengo un dominio decente de html, css y javaScript. Este último lo he ido aprendiendo durante la pandemia y creo que ha valido la pena porque ahora tengo la posibilidad de hacer cosas que antes no podía, y los documentos que hago han mejorado bastante tanto en estética como en funcionalidad.
+
+Como muestra de lo anterior comparto dos documentos: Una presentación que hice con los slides del trabajo de unos colegas y el informe de una de las encuestas del departamento en el que trabajo.
+
+- [COVID-19 en la República Dominicana](https://johan-rosa.github.io/covid_rd/#1)
+- [Encuesta de Expectativas Macroeconómicas - agosto 2020](https://encuestas-macro.github.io/eem-agosto2020/)
+
+En el segundo documento hay un ejemplo de lo que pretendo mostrar en este ejercicio. Navegando al final del informe verán unos botones que permiten cambiar uno de los gráficos.
+
+Antes de iniciar de lleno con el post, advierto que la publicación no pretende explicar html, css ni js en detalle, mas bien sirve como referencia para los que usan Rmarkdown y han aprendido algunas de estas tecnologías.
+
+## Incuyendo elementos HTML en documentos Rmarkdown
+
+En esencia, markdown es un lenguaje de marcado ligero que facilita la creación de documentos html (también otros), y rmarkdown es un tipo de documento que extiende las características de markdown pero que permite agregar/correr chunks con código de R y agregar el resultado al documento.
+
+Con el siguiente snip de código se ilustra las diferencias en las sintaxis de una lista en puro HTML y en Markdown, evidenciando la simplicidad del segundo y justificando su popularidad.
+
+```html
+<!--- En HTML --->
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+
+<!--- En Markdown --->
+- Item 1
+- Item 2
+- Item 3
+```
+
+Ahora bien, markdown no tiene una alternativa para todos los elementos html y hay circunstancias en los que se debe incluir contenido html directamente  en nuestros documentos. Cuando esto sea necesario, simplemente se coloca el html de lo que necesitamos y el resultado funcionará correctamente. Por ejemplo, el chunk anterior arrojaría dos listas iguales una debajo de la otra.
+
+Otro tipo de elemntos html que se pueden incluir en los documentos son los tags `<style>` para agregar propiedades css y modificar el formato del documento, y etiquetas `<script>` con código javascript para agregarle componentes reactivos.
+
+## El ejercicio 
+
+La idea es crear dos botones que cambien una imagen en el documento, específicamente una imagen de Goku a una de Vegeta o viceversa. Con esto entiendo que se logra el objetivo de mostrar las posibilidades que abre usar js en sus documentos, de ahí en adelante las aplicaciones que le encuentren a esto dependerán de su creatividad y necesidades.
+
+Imágenes:
+
+- [Goku](http://www.pngmart.com/files/2/Goku-PNG-File.png)
+- [Vegeta](http://www.pngmart.com/files/2/Vegeta-PNG-HD.png)
+
+
+### Creando los botones
+
+Para crear los botones usaremos el siguiente código, que puede ser colocado en la parte del documento donde se desee que aparezcan los elementos. 
+
+El procedimiento es crear un contenedor con clase buttons que albergue dos contenedores de clase btn. De igual manera, para darle estilos a los botones utilizo el código css que está en el tag `script`.
+
+No me detendré a explicar todo lo que hacen las propiedades que modifico en el css, pero colocaré un comentario en cada una que diga lo que hace.
+
+```html
+<div class="buttons">
+<div class="btn" id='goku'>Goku</div>
+<div class="btn" id='vegeta'>Vegueta</div>
+</div>
+
+<style>
+.buttons {
+  display: flex; /* para ponerlos ambos botones en una sola línea */
+  width: 280px; /* ancho del contenedor */
+  justify-content: space-around; /* distribuir el espacio sobrante en el contenedor */
+  margin: 0 auto; /* para centrar los botones horizontalmente */
+}
+
+.btn {
+  border: solid 2px; /* borde sólido */
+  padding: 10px; /* */
+  border-radius: 10px; /* esquinas redondeadas */
+  color: white; /* color texto */
+  width: 100px; /* ancho del botón */
+  text-align: center; /* alineación del texto */
+  background-color: #F85B1A; /* color del fondo */
+  transition: /* controlado los cambios al pasar el mouse */
+        transform 250ms ease-in-out,
+        opasity 250ms linear;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #072083; /* cambiar el color */
+  transform: scale(1.1); /* hace 10% más grande */
+  opacity: .9; /* aumentar la transparencia */
+  cursor: pointer; /* cambiar el puntero */
+}
+</style>
+```
+
+<div class="buttons">
+<div class="btn" id=''>Goku</div>
+<div class="btn" id=''>Vegueta</div>
+</div>
+
+### Incluir la imagen
+
+Debajo de los botones se incluye la imagen que van a controlar, por defecto la imagen de Goku. A esta imagen se le coloca un atributo id y una clase para acceder a ella desde el css y el js. El cambio en el css consiste en modificar sus propiedades para que esté centrada en el documento y ningún otro elemento esté en la misma línea que ella. 
+
+```html
+<img class='character-img' id='character-img'src='http://www.pngmart.com/files/2/Goku-PNG-File.png' height = 400px>
+
+<style>
+.character-img {
+  display: block;
+  margin: 0 auto;
+}
+</style>
+```
+
+<img class='character-img' id=''src='http://www.pngmart.com/files/2/Goku-PNG-File.png' style="height: 400px;">
+
+### Componente reactivo con javaScript
+
+Al final del documento hay que incluir un tag `<script>` que contenga el código js que manipule todos los elementos que hemos definido. Pero iré mostrando por parte los componente que debe incluir y explicando algunos detalles y luego mostraré la versión completa.
+
+#### Acceder y manipular el DOM
+
+El Document Object Model (DOM) es una representación de los elementos de nuestro documento que el navegador crea en el momento que está cargando la página. Esta representación permite acceder y manipular con javaScript los distintos elementos, permitiendo modificar programáticamente su contenido, estructura y formato.
+
+Para ilustrar lo que se puede hacer con esto, vease el chunk de código siguiente, en el que se coloca el ejemplo de un documento que contiene un `h1` inicialmente sin contenido, pero al que se le agrega texto con js. 
+
+Aquí, con el método `.getElementById()` se selecciona un elemento del documento y con él se le agrega un valor a la propiedad `.innerHTML`, colocando el texto deseado. De esta manera se pueden ir modificando los diferentes atributos de los elementos.
+
+```html
+<h1 id='title'>  </h1>
+<p>El título de este documento se coloca con javascript</p>
+
+<script>
+const title = document.getElementById('title');
+title.innerHTML = 'Tíltulo del documento';
+</script>
+```
+
+Algo como esto es lo que se hará para que los botones que hemos definido cambien el atributo `src` (source o fuente) de la imagen. A continuación los pasos para hacerlo.
+
+
+```js
+//Creando constantes con los elementos del DOM que hay que manipular
+const btnGoku = document.getElementById('goku');
+const btnVegeta = document.getElementById('vegeta');
+const characterImg = document.getElementById('character-img');
+```
+
+Adicional a los elementos que serán modificados, es buena idea crear constantes que contengan los colores que deberán tener los botones cunado se les de click. También crear dos constantes con los url de las imagenes.
+
+```javascript
+// colores azul y naranja que tendrán los botones cuando estén activados o no
+const blue = '#072083';
+const orange = '#F85B1A';
+
+// url de las imagenes de goku y vegueta
+const gokuUrl = 'http://www.pngmart.com/files/2/Goku-PNG-File.png';
+const vegetaUrl = 'http://www.pngmart.com/files/2/Vegeta-PNG-HD.png';
+```
+
+Teniendo esto, simplemente hay que lograr que al hacer click en el botón de Goku la el `src` de la imagen sea el path a la de Goku y el color cambie de naranja a azul. Otro comportamiento necesario es que el color del botón de Vegueta debe cambiar a color naranja.
+
+Todo esto se hace agregando una función al atributo `onclick` de los botones. 
+
+```js
+btnGoku.onclick = () => {
+  // cambia el src de la imagen
+  characterImg.src = gokuUrl;
+  // coloca el background azul al botón activo
+  btnGoku.style.backgroundColor = blue;
+  // coloca el relleno naranja al botón inactivo
+  btnVegeta.style.backgroundColor = orange;
+}
+
+btnVegeta.onclick = () => {
+  characterImg.src = vegetaUrl;
+  btnVegeta.style.backgroundColor = blue;
+  btnGoku.style.backgroundColor = orange;  
+}
+```
+
+A continuación el script completo que hay que colocar al final del documento para que todo funcione.
+
+```html
+<script>
+const btnGoku = document.getElementById('goku');
+const btnVegeta = document.getElementById('vegeta');
+const characterImg = document.getElementById('character-img');
+
+const blue = '#072083';
+const orange = '#F85B1A';
+
+const gokuUrl = 'http://www.pngmart.com/files/2/Goku-PNG-File.png';
+const vegetaUrl = 'http://www.pngmart.com/files/2/Vegeta-PNG-HD.png';
+
+btnGoku.onclick = () => {
+  characterImg.src = gokuUrl;
+  btnGoku.style.backgroundColor = blue;
+  btnVegeta.style.backgroundColor = orange;
+}
+
+btnVegeta.onclick = () => {
+  characterImg.src = vegetaUrl;
+  btnVegeta.style.backgroundColor = blue;
+  btnGoku.style.backgroundColor = orange;  
+}
+
+btnGoku.style.backgroundColor = blue;
+</script>
+```
+
+## Resultado final
+
+
+<div class="buttons">
+<div class="btn" id='goku'>Goku</div>
+<div class="btn" id='vegeta'>Vegueta</div>
+</div>
+
+<img class='character-img' id='character-img'src='http://www.pngmart.com/files/2/Goku-PNG-File.png' style="height: 500px;">
+
+<!--- Script --->
+
+<script>
+let btnGoku = document.getElementById('goku');
+let btnVegeta = document.getElementById('vegeta');
+let characterImg = document.getElementById('character-img');
+
+const blue = '#072083';
+const orange = '#F85B1A';
+
+const gokuUrl = 'http://www.pngmart.com/files/2/Goku-PNG-File.png';
+const vegetaUrl = 'http://www.pngmart.com/files/2/Vegeta-PNG-HD.png';
+
+btnGoku.onclick = () => {
+  characterImg.src = gokuUrl;
+  btnGoku.style.backgroundColor = blue;
+  btnVegeta.style.backgroundColor = orange;
+}
+
+btnVegeta.onclick = () => {
+  characterImg.src = vegetaUrl;
+  btnVegeta.style.backgroundColor = blue;
+  btnGoku.style.backgroundColor = orange;  
+}
+
+btnGoku.style.backgroundColor = blue;
+</script>

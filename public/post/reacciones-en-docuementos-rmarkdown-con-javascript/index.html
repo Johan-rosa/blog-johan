@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Johan Rosa">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="//img/home_wave.jpg">
+    <meta property="twitter:image" content="//img/home_wave.jpg" />
+    
+
+    
+    <meta name="title" content="Reacciones en documentos Rmarkdown con JavaScript" />
+    <meta property="og:title" content="Reacciones en documentos Rmarkdown con JavaScript" />
+    <meta property="twitter:title" content="Reacciones en documentos Rmarkdown con JavaScript" />
+    
+
+    
+    <meta name="description" content="Un post para los que luego de iniciar a aprender Rmarkdown han incursionado en el mudo de html, css y js. Este post es una guia para aquellos que desean llevar sus documentos al siguiente nivel usando elementos básicos de la programación web.">
+    <meta property="og:description" content="Un post para los que luego de iniciar a aprender Rmarkdown han incursionado en el mudo de html, css y js. Este post es una guia para aquellos que desean llevar sus documentos al siguiente nivel usando elementos básicos de la programación web." />
+    <meta property="twitter:description" content="Un post para los que luego de iniciar a aprender Rmarkdown han incursionado en el mudo de html, css y js. Este post es una guia para aquellos que desean llevar sus documentos al siguiente nivel usando elementos básicos de la programación web." />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Johan Rosa, Rstats, R, Ciencia de datos, data science, dataviz">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Reacciones en documentos Rmarkdown con JavaScript-Blog de Johan</title>
+
+    <link rel="canonical" href="/post/reacciones-en-docuementos-rmarkdown-con-javascript/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Johan Rosa</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/about/">Quién soy</a></li>
+                    
+                        <li><a href="/top/cv/">CV</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/banner/js.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/r-markdown" title="R Markdown">
+                            R Markdown
+                        </a>
+                        
+                        <a class="tag" href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        <a class="tag" href="/tags/css" title="css">
+                            css
+                        </a>
+                        
+                        <a class="tag" href="/tags/html" title="html">
+                            html
+                        </a>
+                        
+                    </div>
+                    <h1>Reacciones en documentos Rmarkdown con JavaScript</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Publicado por 
+                        
+                            Johan Rosa
+                         
+                        el  
+                        2020-09-02
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                
+
+
+<style>
+.buttons {
+  display: flex;
+  width: 280px;
+  justify-content: space-around; 
+  margin: 0 auto;
+}
+
+.btn {
+  border: solid 2px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  width: 100px;
+  text-align: center;
+  background-color: #F85B1A;
+  transition: 
+        transform 250ms ease-in-out,
+        opasity 250ms linear;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #072083;
+  transform: scale(1.1);
+  opacity: .9;
+  cursor: pointer;
+  color: white;
+}
+
+.character-img {
+  display: block;
+  margin: 0 auto;
+  height: 400px;
+}
+</style>
+<p>Mi primer contacto con documentos HTML fue mediante Rmarkdown en Rstudio. Recuerdo que hice una presentación HTML porque quería incluir unas visualizaciones que recien había aprendido a hacer con plotly. Todo muy innovador e intuitivo al principio, pero pronto me di cuenta que para configurar ciertos elementos de la presentación tenía que usar unos códigos que de ninguna manera estaban escritos en R y que simplemente funcionaban, pero no entendía.</p>
+<p>Para ser específico, este este fue el primer código css que necesitaba modificar aunque no sabía lo que hacía con exactitud.</p>
+<p><img src="/post/2020-09-02-elementos-reactivos-con-javascript-en-documentos-rmakdown_files/rmd_ultimate_guide_css_snipt.png" /></p>
+<p>Debo admitir que por mucho tiempo me dediqué a hacer cambios en los documentos usando códigos copiados de stackoverflow, los modificaba como entendía y cruzaba los dedos en espera de que hicieran lo que yo deseaba. Esto funcionó muchas veces, pero hubo otras tantas en las que no.</p>
+<p>Luego empecé a trabajar con shiny, otra librería para crear aplicaciones html que siguió empujándome a aprender estas herramientas, al igual que la creación de este blog.</p>
+<p>Hoy día ya tengo un dominio decente de html, css y javaScript. Este último lo he ido aprendiendo durante la pandemia y creo que ha valido la pena porque ahora tengo la posibilidad de hacer cosas que antes no podía, y los documentos que hago han mejorado bastante tanto en estética como en funcionalidad.</p>
+<p>Como muestra de lo anterior comparto dos documentos: Una presentación que hice con los slides del trabajo de unos colegas y el informe de una de las encuestas del departamento en el que trabajo.</p>
+<ul>
+<li><a href="https://johan-rosa.github.io/covid_rd/#1">COVID-19 en la República Dominicana</a></li>
+<li><a href="https://encuestas-macro.github.io/eem-agosto2020/">Encuesta de Expectativas Macroeconómicas - agosto 2020</a></li>
+</ul>
+<p>En el segundo documento hay un ejemplo de lo que pretendo mostrar en este ejercicio. Navegando al final del informe verán unos botones que permiten cambiar uno de los gráficos.</p>
+<p>Antes de iniciar de lleno con el post, advierto que la publicación no pretende explicar html, css ni js en detalle, mas bien sirve como referencia para los que usan Rmarkdown y han aprendido algunas de estas tecnologías.</p>
+<div id="incuyendo-elementos-html-en-documentos-rmarkdown" class="section level2">
+<h2>Incuyendo elementos HTML en documentos Rmarkdown</h2>
+<p>En esencia, markdown es un lenguaje de marcado ligero que facilita la creación de documentos html (también otros), y rmarkdown es un tipo de documento que extiende las características de markdown pero que permite agregar/correr chunks con código de R y agregar el resultado al documento.</p>
+<p>Con el siguiente snip de código se ilustra las diferencias en las sintaxis de una lista en puro HTML y en Markdown, evidenciando la simplicidad del segundo y justificando su popularidad.</p>
+<pre class="html"><code>&lt;!--- En HTML ---&gt;
+&lt;ul&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+  &lt;li&gt;Item 2&lt;/li&gt;
+  &lt;li&gt;Item 3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--- En Markdown ---&gt;
+- Item 1
+- Item 2
+- Item 3</code></pre>
+<p>Ahora bien, markdown no tiene una alternativa para todos los elementos html y hay circunstancias en los que se debe incluir contenido html directamente en nuestros documentos. Cuando esto sea necesario, simplemente se coloca el html de lo que necesitamos y el resultado funcionará correctamente. Por ejemplo, el chunk anterior arrojaría dos listas iguales una debajo de la otra.</p>
+<p>Otro tipo de elemntos html que se pueden incluir en los documentos son los tags <code>&lt;style&gt;</code> para agregar propiedades css y modificar el formato del documento, y etiquetas <code>&lt;script&gt;</code> con código javascript para agregarle componentes reactivos.</p>
+</div>
+<div id="el-ejercicio" class="section level2">
+<h2>El ejercicio</h2>
+<p>La idea es crear dos botones que cambien una imagen en el documento, específicamente una imagen de Goku a una de Vegeta o viceversa. Con esto entiendo que se logra el objetivo de mostrar las posibilidades que abre usar js en sus documentos, de ahí en adelante las aplicaciones que le encuentren a esto dependerán de su creatividad y necesidades.</p>
+<p>Imágenes:</p>
+<ul>
+<li><a href="http://www.pngmart.com/files/2/Goku-PNG-File.png">Goku</a></li>
+<li><a href="http://www.pngmart.com/files/2/Vegeta-PNG-HD.png">Vegeta</a></li>
+</ul>
+<div id="creando-los-botones" class="section level3">
+<h3>Creando los botones</h3>
+<p>Para crear los botones usaremos el siguiente código, que puede ser colocado en la parte del documento donde se desee que aparezcan los elementos.</p>
+<p>El procedimiento es crear un contenedor con clase buttons que albergue dos contenedores de clase btn. De igual manera, para darle estilos a los botones utilizo el código css que está en el tag <code>script</code>.</p>
+<p>No me detendré a explicar todo lo que hacen las propiedades que modifico en el css, pero colocaré un comentario en cada una que diga lo que hace.</p>
+<pre class="html"><code>&lt;div class=&quot;buttons&quot;&gt;
+&lt;div class=&quot;btn&quot; id=&#39;goku&#39;&gt;Goku&lt;/div&gt;
+&lt;div class=&quot;btn&quot; id=&#39;vegeta&#39;&gt;Vegueta&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.buttons {
+  display: flex; /* para ponerlos ambos botones en una sola línea */
+  width: 280px; /* ancho del contenedor */
+  justify-content: space-around; /* distribuir el espacio sobrante en el contenedor */
+  margin: 0 auto; /* para centrar los botones horizontalmente */
+}
+
+.btn {
+  border: solid 2px; /* borde sólido */
+  padding: 10px; /* */
+  border-radius: 10px; /* esquinas redondeadas */
+  color: white; /* color texto */
+  width: 100px; /* ancho del botón */
+  text-align: center; /* alineación del texto */
+  background-color: #F85B1A; /* color del fondo */
+  transition: /* controlado los cambios al pasar el mouse */
+        transform 250ms ease-in-out,
+        opasity 250ms linear;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #072083; /* cambiar el color */
+  transform: scale(1.1); /* hace 10% más grande */
+  opacity: .9; /* aumentar la transparencia */
+  cursor: pointer; /* cambiar el puntero */
+}
+&lt;/style&gt;</code></pre>
+<div class="buttons">
+<div class="btn">
+Goku
+</div>
+<div class="btn">
+Vegueta
+</div>
+</div>
+</div>
+<div id="incluir-la-imagen" class="section level3">
+<h3>Incluir la imagen</h3>
+<p>Debajo de los botones se incluye la imagen que van a controlar, por defecto la imagen de Goku. A esta imagen se le coloca un atributo id y una clase para acceder a ella desde el css y el js. El cambio en el css consiste en modificar sus propiedades para que esté centrada en el documento y ningún otro elemento esté en la misma línea que ella.</p>
+<pre class="html"><code>&lt;img class=&#39;character-img&#39; id=&#39;character-img&#39;src=&#39;http://www.pngmart.com/files/2/Goku-PNG-File.png&#39; height = 400px&gt;
+
+&lt;style&gt;
+.character-img {
+  display: block;
+  margin: 0 auto;
+}
+&lt;/style&gt;</code></pre>
+<p><img class='character-img' id=''src='http://www.pngmart.com/files/2/Goku-PNG-File.png' style="height: 400px;"></p>
+</div>
+<div id="componente-reactivo-con-javascript" class="section level3">
+<h3>Componente reactivo con javaScript</h3>
+<p>Al final del documento hay que incluir un tag <code>&lt;script&gt;</code> que contenga el código js que manipule todos los elementos que hemos definido. Pero iré mostrando por parte los componente que debe incluir y explicando algunos detalles y luego mostraré la versión completa.</p>
+<div id="acceder-y-manipular-el-dom" class="section level4">
+<h4>Acceder y manipular el DOM</h4>
+<p>El Document Object Model (DOM) es una representación de los elementos de nuestro documento que el navegador crea en el momento que está cargando la página. Esta representación permite acceder y manipular con javaScript los distintos elementos, permitiendo modificar programáticamente su contenido, estructura y formato.</p>
+<p>Para ilustrar lo que se puede hacer con esto, vease el chunk de código siguiente, en el que se coloca el ejemplo de un documento que contiene un <code>h1</code> inicialmente sin contenido, pero al que se le agrega texto con js.</p>
+<p>Aquí, con el método <code>.getElementById()</code> se selecciona un elemento del documento y con él se le agrega un valor a la propiedad <code>.innerHTML</code>, colocando el texto deseado. De esta manera se pueden ir modificando los diferentes atributos de los elementos.</p>
+<pre class="html"><code>&lt;h1 id=&#39;title&#39;&gt;  &lt;/h1&gt;
+&lt;p&gt;El título de este documento se coloca con javascript&lt;/p&gt;
+
+&lt;script&gt;
+const title = document.getElementById(&#39;title&#39;);
+title.innerHTML = &#39;Tíltulo del documento&#39;;
+&lt;/script&gt;</code></pre>
+<p>Algo como esto es lo que se hará para que los botones que hemos definido cambien el atributo <code>src</code> (source o fuente) de la imagen. A continuación los pasos para hacerlo.</p>
+<pre class="js"><code>//Creando constantes con los elementos del DOM que hay que manipular
+const btnGoku = document.getElementById(&#39;goku&#39;);
+const btnVegeta = document.getElementById(&#39;vegeta&#39;);
+const characterImg = document.getElementById(&#39;character-img&#39;);</code></pre>
+<p>Adicional a los elementos que serán modificados, es buena idea crear constantes que contengan los colores que deberán tener los botones cunado se les de click. También crear dos constantes con los url de las imagenes.</p>
+<pre class="javascript"><code>// colores azul y naranja que tendrán los botones cuando estén activados o no
+const blue = &#39;#072083&#39;;
+const orange = &#39;#F85B1A&#39;;
+
+// url de las imagenes de goku y vegueta
+const gokuUrl = &#39;http://www.pngmart.com/files/2/Goku-PNG-File.png&#39;;
+const vegetaUrl = &#39;http://www.pngmart.com/files/2/Vegeta-PNG-HD.png&#39;;</code></pre>
+<p>Teniendo esto, simplemente hay que lograr que al hacer click en el botón de Goku la el <code>src</code> de la imagen sea el path a la de Goku y el color cambie de naranja a azul. Otro comportamiento necesario es que el color del botón de Vegueta debe cambiar a color naranja.</p>
+<p>Todo esto se hace agregando una función al atributo <code>onclick</code> de los botones.</p>
+<pre class="js"><code>btnGoku.onclick = () =&gt; {
+  // cambia el src de la imagen
+  characterImg.src = gokuUrl;
+  // coloca el background azul al botón activo
+  btnGoku.style.backgroundColor = blue;
+  // coloca el relleno naranja al botón inactivo
+  btnVegeta.style.backgroundColor = orange;
+}
+
+btnVegeta.onclick = () =&gt; {
+  characterImg.src = vegetaUrl;
+  btnVegeta.style.backgroundColor = blue;
+  btnGoku.style.backgroundColor = orange;  
+}</code></pre>
+<p>A continuación el script completo que hay que colocar al final del documento para que todo funcione.</p>
+<pre class="html"><code>&lt;script&gt;
+const btnGoku = document.getElementById(&#39;goku&#39;);
+const btnVegeta = document.getElementById(&#39;vegeta&#39;);
+const characterImg = document.getElementById(&#39;character-img&#39;);
+
+const blue = &#39;#072083&#39;;
+const orange = &#39;#F85B1A&#39;;
+
+const gokuUrl = &#39;http://www.pngmart.com/files/2/Goku-PNG-File.png&#39;;
+const vegetaUrl = &#39;http://www.pngmart.com/files/2/Vegeta-PNG-HD.png&#39;;
+
+btnGoku.onclick = () =&gt; {
+  characterImg.src = gokuUrl;
+  btnGoku.style.backgroundColor = blue;
+  btnVegeta.style.backgroundColor = orange;
+}
+
+btnVegeta.onclick = () =&gt; {
+  characterImg.src = vegetaUrl;
+  btnVegeta.style.backgroundColor = blue;
+  btnGoku.style.backgroundColor = orange;  
+}
+
+btnGoku.style.backgroundColor = blue;
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="resultado-final" class="section level2">
+<h2>Resultado final</h2>
+<div class="buttons">
+<div id="goku" class="btn">
+Goku
+</div>
+<div id="vegeta" class="btn">
+Vegueta
+</div>
+</div>
+<p><img class='character-img' id='character-img'src='http://www.pngmart.com/files/2/Goku-PNG-File.png' style="height: 500px;"></p>
+<!--- Script --->
+<script>
+let btnGoku = document.getElementById('goku');
+let btnVegeta = document.getElementById('vegeta');
+let characterImg = document.getElementById('character-img');
+
+const blue = '#072083';
+const orange = '#F85B1A';
+
+const gokuUrl = 'http://www.pngmart.com/files/2/Goku-PNG-File.png';
+const vegetaUrl = 'http://www.pngmart.com/files/2/Vegeta-PNG-HD.png';
+
+btnGoku.onclick = () => {
+  characterImg.src = gokuUrl;
+  btnGoku.style.backgroundColor = blue;
+  btnVegeta.style.backgroundColor = orange;
+}
+
+btnVegeta.onclick = () => {
+  characterImg.src = vegetaUrl;
+  btnVegeta.style.backgroundColor = blue;
+  btnGoku.style.backgroundColor = orange;  
+}
+
+btnGoku.style.backgroundColor = blue;
+</script>
+</div>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/nota-metodologica-random-forest-i/" data-toggle="tooltip" data-placement="top" title="Nota metodólogica: Random Forest I">&larr;
+                            Post anterior</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                <div id="disqus_thread"></div>
+<script>
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://johan-blog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>Colegas</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="http://betaeconomia.blogspot.com/">Nerys Ramírez</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:johan.rosaperez@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/johan-rosa">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/johan-rosa-72bb0484/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://stackoverflow.com/users/10266675/johan-rosa">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+            
+                    
+                    
+                    
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Johan Rosa 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151896571-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
