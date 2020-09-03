@@ -161,7 +161,7 @@ No me detendré a explicar todo lo que hacen las propiedades que modifico en el 
 
 <div class="buttons">
 <div class="btn" id=''>Goku</div>
-<div class="btn" id=''>Vegueta</div>
+<div class="btn" id=''>Vegeta</div>
 </div>
 
 ### Incluir la imagen
@@ -179,7 +179,7 @@ Debajo de los botones se incluye la imagen que van a controlar, por defecto la i
 </style>
 ```
 
-<img class='character-img' id=''src='http://www.pngmart.com/files/2/Goku-PNG-File.png' style="height: 400px;">
+<img class='character-img' id=''src='http://www.pngmart.com/files/2/Vegeta-PNG-HD.png' style="height: 400px;">
 
 ### Componente reactivo con javaScript
 
@@ -281,10 +281,10 @@ btnGoku.style.backgroundColor = blue;
 
 <div class="buttons">
 <div class="btn" id='goku'>Goku</div>
-<div class="btn" id='vegeta'>Vegueta</div>
+<div class="btn" id='vegeta'>Vegeta</div>
 </div>
 
-<img class='character-img' id='character-img'src='http://www.pngmart.com/files/2/Goku-PNG-File.png' style="height: 500px;">
+<img class='character-img' id='character-img'src='http://www.pngmart.com/files/2/Goku-PNG-File.png' style="height: 450px;">
 
 <!--- Script --->
 
@@ -311,5 +311,6 @@ btnVegeta.onclick = () => {
   btnGoku.style.backgroundColor = orange;  
 }
 
-btnGoku.style.backgroundColor = blue;
+characterImg.src = vegetaUrl;
+btnVegeta.style.backgroundColor = blue;
 </script>
