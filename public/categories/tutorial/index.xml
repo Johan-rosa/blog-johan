@@ -6,10 +6,22 @@
     <description>Recent content in tutorial on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Apr 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/tutorial/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Programando en el Tidyverse</title>
+      <link>/post/programando-en-el-tidyverse/</link>
+      <pubDate>Mon, 05 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/programando-en-el-tidyverse/</guid>
+      <description>Cuando me topé por primera vez con las funciones del tidyverse, específicamente con el paquete dplyr, lo que más me atrajo fue la posibilidad de usar en las funciones las variables in-data como si fueran objetos del ambiente global (data masking).
+Es como utilizar en un data frame el poco recomendado attach(), pero sin el downside que deriva este en distintos escenarios.
+Un ejemplo:
+mtcars[mtcars$cyl == 8 &amp;amp; mtcars$am == 1,] ## mpg cyl disp hp drat wt qsec vs am gear carb## Ford Pantera L 15.</description>
+    </item>
     
     <item>
       <title>Reacciones en documentos Rmarkdown con JavaScript</title>
