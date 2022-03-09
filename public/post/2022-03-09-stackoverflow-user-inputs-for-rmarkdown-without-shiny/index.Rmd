@@ -1,0 +1,254 @@
+---
+title: 'Stackoverflow: User inputs for Rmarkdown without shiny'
+author: Johan Rosa
+date: '2022-03-09'
+slug: []
+categories:
+  - javascript
+  - R
+  - tutorial
+tags:
+  - css
+  - javascript
+  - R Markdown
+  - jQuery
+  - plolty.js
+subtitle: ''
+description: ''
+image: 'img/banner/js.png'
+---
+
+This was the title of a [stackOverflow questinon](https://stackoverflow.com/questions/71353287/user-inputs-for-r-ggplot-or-plotly-without-shiny/71363657#71363657) that I answered. The user needed interactivity without shiny as dependency.
+
+This is something that can be done but you need to know a little of JavaScript or use a very specific package like [{crosstalk}](https://rstudio.github.io/crosstalk/using.html). I do not think there is another way to get it done.
+
+With that in mind I gave him an option, maybe not exactly what he was looking for, but a useful one.
+
+<!-- This is a container for your inputs -->
+
+:::{.input-container}
+
+:::{.xs}
+### X coordinate
+<input type='number' value=5 id='x1' class='x'>
+<input type='number' value=2.5 id='x2' class='x'>
+<input type='number' value=7.5 id='x3' class='x'>
+:::
+
+:::{.ys}
+### Y coordinate
+<input type='number' value=10 id='y1'>
+<input type='number' value=5 id='y2'>
+<input type='number' value=2.5 id='y3'>
+:::
+
+:::
+
+<!-- 
+I did it using a submit button, I have to read more to make it totally reactive
+-->
+<input type='button' id='plot' value='Update points' class='btn btn-primary'>
+
+
+<!-- The next div is a placeholder for the plot -->
+<div id="tester" style="width:600px;height:400px;"></div>
+
+
+
+
+<!-- You have to include the plolty.js script -->
+<script src="https://cdn.plot.ly/plotly-2.9.0.min.js"></script>
+
+
+<!-- This is the magic, the Js code -->
+```{js, echo=FALSE}
+
+// Get the html element that should contain the plot
+plot = document.getElementById('tester');
+
+// Create an object with the default data
+let var1 = {
+  x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  y: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  mode: 'markers',
+  type: 'scatter',
+  name: 'deafault'
+}
+
+
+let layout = {
+  xaxis: {
+    range: [ 0, 10.5 ]
+  },
+  yaxis: {
+    range: [0, 10.5]
+  },
+  title:'Testing'
+};
+
+let data = [var1]
+
+// Default plot
+Plotly.newPlot(plot, data, layout);
+
+
+// Using jQuery add an event listener on click to de button
+// that way when the user click on it the plot will be updated
+$('#plot').click(function(){
+  let userInputs = {
+    x: [$('#x1').val(), $('#x2').val(), $('#x3').val()],
+    y: [$('#y1').val(), $('#y2').val(), $('#y3').val()],
+    mode: 'markers',
+    type: 'scatter',
+    name: 'user'
+  }
+  
+  data = [var1, userInputs] 
+  
+  Plotly.newPlot(plot, data, layout);
+})
+```
+
+As you can see, it works, and the way I make it work is what I am going to share. Here is the step by step process. 
+
+## Creating the user interface
+
+The first step is to create the user interface within the document. For this I used raw html and pandoc syntax. The idea was to let the user input a series of data coordinates to update a plotly visualization.
+
+```{html}
+<!-- This is a container for your inputs -->
+
+:::{.input-container}
+
+:::{.xs}
+### X coordinate
+## A collection of numeric inputs
+<input type='number' value=5 id='x1' class='x'>
+<input type='number' value=2.5 id='x2' class='x'>
+<input type='number' value=7.5 id='x3' class='x'>
+:::
+
+:::{.ys}
+### Y coordinate
+<input type='number' value=10 id='y1'>
+<input type='number' value=5 id='y2'>
+<input type='number' value=2.5 id='y3'>
+:::
+
+::
+  
+<!-- I used a submit button, I do not know how to make it totally reactive -->
+<input type='button' id='plot' value='Update points' class='btn btn-primary'>
+  
+```
+
+### Style
+
+The styling part was simple, I just wanted to create a side by side layout for the inputs with a submit button at the bottom.
+
+```{css, echo = TRUE}
+input {
+  display: block;
+}
+
+.xs, .ys {
+  display: inline-block;
+}
+```
+
+
+### Inlcuding a placeholder for the plot
+
+This can be an empty div just with an id or another identification attribute.
+
+```{html}
+<!-- The next div is a placeholder for the plot -->
+<div id="tester" style="width:600px; height:400px;"></div>
+```
+
+## Adding dependecies
+
+At this point it is important to include the dependencies that the javascript code needs. Plolty.js in this particular case.
+
+```{html}
+<!-- You have to include the plolty.js script -->
+<script src="https://cdn.plot.ly/plotly-2.9.0.min.js"></script>
+```
+
+## Create the JavaScript logic
+
+This is definitely the fun part of the question, how can we use the inputs in the user interface to update the plot.
+
+The details of every objet is going to be within the code as commets, here are the overall description of the process.
+
+1- Get the htlm element that should contain the plot
+
+2- Create an object with the default data to plot 
+
+3- Create an object with the layout configuration
+
+4- Create an array with the default data
+
+5- Create the default plot using the `Plolty.newPlot()` method, which takes the data and layout as parameters
+
+6- Use jQuery to add an event listener to the button. The callback function will do as follows
+
+  - Create a new data object with the inputs values
+  - Append this new object to de data array
+  - Generate the plot again
+  
+
+```{js, echo=TRUE, eval=FALSE}
+
+// 1- Get the html element that should contain the plot
+plot = document.getElementById('tester');
+
+// 2- Create an object with the default data
+let var1 = {
+  x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  y: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  mode: 'markers',
+  type: 'scatter',
+  name: 'deafault'
+}
+
+// 3- Layout configuration
+let layout = {
+  xaxis: {
+    range: [ 0, 10.5 ]
+  },
+  yaxis: {
+    range: [0, 10.5]
+  },
+  title:'Testing'
+};
+
+// 4- data array
+let data = [var1]
+
+// 5- Default plot
+Plotly.newPlot(plot, data, layout);
+
+// Using jQuery add an event listener on click to de button
+// that way when the user click on it the plot will be updated
+$('#plot').click(function(){
+  let userInputs = {
+    x: [$('#x1').val(), $('#x2').val(), $('#x3').val()],
+    y: [$('#y1').val(), $('#y2').val(), $('#y3').val()],
+    mode: 'markers',
+    type: 'scatter',
+    name: 'user'
+  }
+  
+  data = [var1, userInputs] 
+  
+  Plotly.newPlot(plot, data, layout);
+})
+```
+
+## References
+
+- [Plolty.js docs](https://plotly.com/javascript/line-and-scatter/)
+- [jQuery in action, book](https://www.manning.com/books/jquery-in-action-third-edition)
+
+

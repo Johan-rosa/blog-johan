@@ -6,7 +6,18 @@
     <description>Recent content in css on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stackoverflow: User inputs for Rmarkdown without shiny</title>
+      <link>/post/2022-03-09-stackoverflow-user-inputs-for-rmarkdown-without-shiny/</link>
+      <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022-03-09-stackoverflow-user-inputs-for-rmarkdown-without-shiny/</guid>
+      <description>This was the title of a stackOverflow questinon that I answered. The user needed interactivity without shiny as dependency.
+This is something that can be done but you need to know a little of JavaScript or use a very specific package like {crosstalk}. I do not think there is another way to get it done.
+With that in mind I gave him an option, maybe not exactly what he was looking for, but a useful one.</description>
+    </item>
+    
     <item>
       <title>Reacciones en documentos Rmarkdown con JavaScript</title>
       <link>/post/reacciones-en-docuementos-rmarkdown-con-javascript/</link>
