@@ -11,6 +11,7 @@ tags:
   - ggplot2
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>El Banco Central de la República Dominicana opera bajo un esquema de metas de inflación, en el que establece una meta explícita durante un horizonte de política determinado y se compromete a tomar decisiones que lleven a la consecución del objetivo. Esta estrategia genera certidumbre en los agentes económicos y ha resultado ser unos de los pilares de la estabilidad macroeconómica del país en los últimos años.</p>
@@ -41,18 +42,18 @@ library(lubridate)</code></pre>
 ipc_articulos &lt;- readRDS(&quot;data/ipc_articulos_long.RDS&quot;)
 # Glimpse de la data
 glimpse(ipc_articulos, 70)</code></pre>
-<pre><code>## Observations: 56,264
-## Variables: 9
+<pre><code>## Rows: 56,264
+## Columns: 9
 ## Groups: nombre [493]
-## $ nombre               &lt;chr&gt; &quot;Indice General&quot;, &quot;Alimentos y Bebid...
-## $ ponderador           &lt;dbl&gt; 100.00000, 25.10051, 22.50438, 5.113...
-## $ division             &lt;chr&gt; &quot;Indice general&quot;, &quot;Grupo&quot;, &quot;Subgrupo...
-## $ codigo               &lt;chr&gt; &quot;0&quot;, &quot;1&quot;, &quot;1.01&quot;, &quot;01.01.01&quot;, &quot;01.01...
-## $ mes                  &lt;date&gt; 2011-01-01, 2011-01-01, 2011-01-01,...
-## $ indice               &lt;dbl&gt; 101.24, 101.71, 101.64, 101.94, 106....
-## $ fecha_ym             &lt;yearmon&gt; Jan 2011, Jan 2011, Jan 2011, Ja...
-## $ variacion_mes        &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
-## $ variacion_interanual &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ...</code></pre>
+## $ nombre               &lt;chr&gt; &quot;Indice General&quot;, &quot;Alimentos y Bebidas ~
+## $ ponderador           &lt;dbl&gt; 100.00000, 25.10051, 22.50438, 5.11303,~
+## $ division             &lt;chr&gt; &quot;Indice general&quot;, &quot;Grupo&quot;, &quot;Subgrupo&quot;, ~
+## $ codigo               &lt;chr&gt; &quot;0&quot;, &quot;1&quot;, &quot;1.01&quot;, &quot;01.01.01&quot;, &quot;01.01.01~
+## $ mes                  &lt;date&gt; 2011-01-01, 2011-01-01, 2011-01-01, 20~
+## $ indice               &lt;dbl&gt; 101.24, 101.71, 101.64, 101.94, 106.88,~
+## $ fecha_ym             &lt;yearmon&gt; Jan 2011, Jan 2011, Jan 2011, Jan 2~
+## $ variacion_mes        &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+## $ variacion_interanual &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~</code></pre>
 <p>La primera transformación a realizar será filtrar las observaciones correspondientes al IPC general y las series de los diferentes grupos de bienes y servicios. Aunque lo ideal sería probar la agregación de pronósticos desde el nivel más bajo (artículos), hacerlo a nivel de grupos puede que tenga mejores ventajas pedagógicas, porque al ser 12 grupos se pueden visualizar fácilmente los resultados. Aprovechando esta manipulación, resulta conveniente crear un factor con el nombre de los grupos, de esta manera se logra que el ipc general quede de primero en todas las visualizaciones.</p>
 <p>Para crear el factor del nombre se pueden utilizar las funciones <code>forcats::fct_inorder()</code> que crea factores y organiza los niveles en orden de aparición, conveniente aquí porque el ipc general aparece de primero. Por otro lado, también está <code>forcats::fct_reorder()</code> que recibe un factor y una variable de organización como argumento. De usar esta segunda opción la variable <code>ponderador</code> serviría para organizar los factores y lograr el objetivo.</p>
 <pre class="r"><code>ipc_grupos &lt;- ipc_articulos %&gt;%
@@ -122,15 +123,15 @@ glimpse(ipc_articulos, 70)</code></pre>
 
 head(by_grupos)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-## # Groups:   nombre, ponderador [13]
-##   nombre                                ponderador           data
-##   &lt;fct&gt;                                      &lt;dbl&gt; &lt;list&lt;df[,7]&gt;&gt;
-## 1 Indice General                            100.        [103 x 7]
-## 2 &quot;Alimentos y Bebidas No\nAlcohólicas&quot;      25.1       [103 x 7]
-## 3 &quot;Bebidas Alcohólicas y\nTabaco&quot;             2.32      [103 x 7]
-## 4 &quot;Prendas de Vestir y\nCalzado&quot;              4.56      [103 x 7]
-## 5 Vivienda                                   11.6       [103 x 7]
-## 6 &quot;Muebles y Artículos para\nel Hogar&quot;        6.46      [103 x 7]</code></pre>
+## # Groups:   nombre, ponderador [6]
+##   nombre                                ponderador data              
+##   &lt;fct&gt;                                      &lt;dbl&gt; &lt;list&gt;            
+## 1 &quot;Indice General&quot;                          100.   &lt;tibble [103 x 7]&gt;
+## 2 &quot;Alimentos y Bebidas No\nAlcohólicas&quot;      25.1  &lt;tibble [103 x 7]&gt;
+## 3 &quot;Bebidas Alcohólicas y\nTabaco&quot;             2.32 &lt;tibble [103 x 7]&gt;
+## 4 &quot;Prendas de Vestir y\nCalzado&quot;              4.56 &lt;tibble [103 x 7]&gt;
+## 5 &quot;Vivienda&quot;                                 11.6  &lt;tibble [103 x 7]&gt;
+## 6 &quot;Muebles y Artículos para\nel Hogar&quot;        6.46 &lt;tibble [103 x 7]&gt;</code></pre>
 <p>En el objeto <code>by_grupo</code>, la fila 1 de la columna <code>data</code> tiene la serie del índice general.</p>
 <pre class="r"><code># desagregando la data de la primera fila
 # para mostrar el contenido
@@ -139,17 +140,16 @@ by_grupos %&gt;%
     unnest(data) %&gt;%
     head()</code></pre>
 <pre><code>## # A tibble: 6 x 9
-## # Groups:   nombre, ponderador [13]
-##   nombre ponderador division codigo mes        indice fecha_ym
-##   &lt;fct&gt;       &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;date&gt;      &lt;dbl&gt; &lt;yearmo&gt;
-## 1 Indic~       100. Indice ~ 0      2011-02-01   102. Feb 2011
-## 2 Indic~       100. Indice ~ 0      2011-03-01   104. Mar 2011
-## 3 Indic~       100. Indice ~ 0      2011-04-01   105. Apr 2011
-## 4 Indic~       100. Indice ~ 0      2011-05-01   105. May 2011
-## 5 Indic~       100. Indice ~ 0      2011-06-01   106. Jun 2011
-## 6 Indic~       100. Indice ~ 0      2011-07-01   107. Jul 2011
-## # ... with 2 more variables: variacion_mes &lt;dbl&gt;,
-## #   variacion_interanual &lt;dbl&gt;</code></pre>
+## # Groups:   nombre, ponderador [1]
+##   nombre     ponderador division codigo mes        indice fecha_ym variacion_mes
+##   &lt;fct&gt;           &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;date&gt;      &lt;dbl&gt; &lt;yearmo&gt;         &lt;dbl&gt;
+## 1 Indice Ge~       100. Indice ~ 0      2011-02-01   102. Feb 2011       0.0121 
+## 2 Indice Ge~       100. Indice ~ 0      2011-03-01   104. Mar 2011       0.0116 
+## 3 Indice Ge~       100. Indice ~ 0      2011-04-01   105. Apr 2011       0.00868
+## 4 Indice Ge~       100. Indice ~ 0      2011-05-01   105. May 2011       0.00220
+## 5 Indice Ge~       100. Indice ~ 0      2011-06-01   106. Jun 2011       0.0102 
+## 6 Indice Ge~       100. Indice ~ 0      2011-07-01   107. Jul 2011       0.00850
+## # ... with 1 more variable: variacion_interanual &lt;dbl&gt;</code></pre>
 </div>
 <div id="paso-2" class="section level3">
 <h3>Paso 2</h3>
@@ -374,6 +374,44 @@ Ahora las variaciones mensuales proyectadas para cada grupo de la canasta. Este 
     y = &quot;Variación mensual&quot;,
     title = &quot;Proyección de la variación mensual por grupo&quot;
   )</code></pre>
+<pre><code>## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf
+
+## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+## -Inf</code></pre>
 <p><img src="/post/2020-02-04-multiples-modelos-en-r-pronosticando-la-inflacion-de-republica-dominicana_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Por último el forecast con las dos estrategias de pronóstico principales. En este caso, salta a la vista que la metodología de agregación de pronósticos es un poco más volátil, quizás porque recoge mejor las fluctuaciones estacionales de la serie.</p>
 <pre class="r"><code># Uniendo los resultados de los diferentes modelos
@@ -442,6 +480,8 @@ bind_rows(
     title = &quot;Forecast de la inflación mensual&quot;,
     subtitle = &quot;Resultados según metodología y enfoque de pronóstico&quot;
   )</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;, &#39;f&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <p><img src="/post/2020-02-04-multiples-modelos-en-r-pronosticando-la-inflacion-de-republica-dominicana_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="comentarios-finales" class="section level2">

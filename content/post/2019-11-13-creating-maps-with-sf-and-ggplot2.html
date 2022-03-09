@@ -15,6 +15,7 @@ tags:
   - scales
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>Recently a coworker asked my help with a map he needed to complete the slides of a presentation. He wanted three maps of a specific province of the Dominican Republic, disaggregated by municipality.</p>
@@ -57,14 +58,15 @@ datos_m_pp &lt;-  structure(
   )</code></pre>
 <p>We already have the <code>sf</code> object <code>map_municipio</code> in our environment, containing all the polygons of the country’s municipalities in a variable call <code>geometry</code> and a few other variables with identification codes for each area, like the province, region code and the name of the municipality.</p>
 <pre class="r"><code>glimpse(map_municipio)</code></pre>
-<pre><code>## Observations: 155
-## Variables: 6
-## $ PROV      &lt;fct&gt; 01, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 03, 03, 03, 0...
-## $ MUN       &lt;fct&gt; 01, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 01, 02, 03, 0...
-## $ REG       &lt;fct&gt; 10, 05, 05, 05, 05, 05, 05, 05, 05, 05, 05, 06, 06, 06, 0...
-## $ TOPONIMIA &lt;fct&gt; SANTO DOMINGO DE GUZMÁN, AZUA, LAS CHARCAS, LAS YAYAS DE ...
-## $ ENLACE    &lt;fct&gt; 100101, 050201, 050202, 050203, 050204, 050205, 050206, 0...
-## $ geometry  &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((397122.7 20..., MULTIPOLYGON...</code></pre>
+<pre><code>## Rows: 155</code></pre>
+<pre><code>## old-style crs object detected; please recreate object with a recent sf::st_crs()</code></pre>
+<pre><code>## Columns: 6
+## $ PROV      &lt;fct&gt; 01, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 03, 03, 03, 03, ~
+## $ MUN       &lt;fct&gt; 01, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 01, 02, 03, 04, ~
+## $ REG       &lt;fct&gt; 10, 05, 05, 05, 05, 05, 05, 05, 05, 05, 05, 06, 06, 06, 06, ~
+## $ TOPONIMIA &lt;fct&gt; SANTO DOMINGO DE GUZMÁN, AZUA, LAS CHARCAS, LAS YAYAS DE VIA~
+## $ ENLACE    &lt;fct&gt; 100101, 050201, 050202, 050203, 050204, 050205, 050206, 0502~
+## $ geometry  &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((397122.7 20..., MULTIPOLYGON ((~</code></pre>
 <p>The glimpse of this object let you see that it is a data frame. We can perform any manipulation over <code>map_municipio</code>, like filtering, joins, add new columns etc.</p>
 <p>The data manipulation here consist of three steps:</p>
 <ul>
@@ -81,14 +83,15 @@ datos_m_pp &lt;-  structure(
     datos_m_pp
   ) </code></pre>
 <pre class="r"><code>glimpse(map_municipio)</code></pre>
-<pre><code>## Observations: 155
-## Variables: 6
-## $ PROV      &lt;fct&gt; 01, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 03, 03, 03, 0...
-## $ MUN       &lt;fct&gt; 01, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 01, 02, 03, 0...
-## $ REG       &lt;fct&gt; 10, 05, 05, 05, 05, 05, 05, 05, 05, 05, 05, 06, 06, 06, 0...
-## $ TOPONIMIA &lt;fct&gt; SANTO DOMINGO DE GUZMÁN, AZUA, LAS CHARCAS, LAS YAYAS DE ...
-## $ ENLACE    &lt;fct&gt; 100101, 050201, 050202, 050203, 050204, 050205, 050206, 0...
-## $ geometry  &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((397122.7 20..., MULTIPOLYGON...</code></pre>
+<pre><code>## Rows: 155</code></pre>
+<pre><code>## old-style crs object detected; please recreate object with a recent sf::st_crs()</code></pre>
+<pre><code>## Columns: 6
+## $ PROV      &lt;fct&gt; 01, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 03, 03, 03, 03, ~
+## $ MUN       &lt;fct&gt; 01, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 01, 02, 03, 04, ~
+## $ REG       &lt;fct&gt; 10, 05, 05, 05, 05, 05, 05, 05, 05, 05, 05, 06, 06, 06, 06, ~
+## $ TOPONIMIA &lt;fct&gt; SANTO DOMINGO DE GUZMÁN, AZUA, LAS CHARCAS, LAS YAYAS DE VIA~
+## $ ENLACE    &lt;fct&gt; 100101, 050201, 050202, 050203, 050204, 050205, 050206, 0502~
+## $ geometry  &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((397122.7 20..., MULTIPOLYGON ((~</code></pre>
 </div>
 <div id="visualizations" class="section level2">
 <h2>Visualizations</h2>
@@ -145,6 +148,10 @@ datos_m_pp &lt;-  structure(
     x = &quot;&quot;,
     y = &quot;&quot;
   )</code></pre>
+<pre><code>## old-style crs object detected; please recreate object with a recent sf::st_crs()
+## old-style crs object detected; please recreate object with a recent sf::st_crs()
+## old-style crs object detected; please recreate object with a recent sf::st_crs()
+## old-style crs object detected; please recreate object with a recent sf::st_crs()</code></pre>
 <p><img src="/post/2019-11-13-creating-maps-with-sf-and-ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Finally, les’t fill the polygons with colors in a continuous scale base in a numeric variable (population). This time the label will display the population as well. To do this we just paste together the municipality and population.</p>
 <pre class="r"><code>map_puerto_plata %&gt;%

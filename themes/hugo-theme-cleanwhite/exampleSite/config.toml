@@ -50,6 +50,10 @@ home = ["HTML", "RSS", "Algolia"]
   disqus_proxy = ""
   disqus_site = ""
 
+  # Twikoo comments
+  # Follow https://twikoo.js.org/ to set up your own env_id
+  twikoo_env_id = ""
+
   #Enable wechat pay & alipay to allow readers send reward money if they like the articles 
   reward = true 
   # reward_guide = "如果这篇文章对你有用,请随意打赏" 
@@ -61,10 +65,6 @@ home = ["HTML", "RSS", "Algolia"]
   # Include any custom CSS and/or JS files, url or relative to /static folder
   #custom_css = ["css/lightbox.css", "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css", "css/main.css"]
   #custom_js = ["js/lightbox.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js", "js/main.js"]
-
-  # Highlight.js theme
-  # demo: https://highlightjs.org/static/demo/
-  highlightjs = "docco"
 
   [params.social]
   rss            = true 
@@ -107,6 +107,9 @@ home = ["HTML", "RSS", "Algolia"]
   title =  "BOOKS"
   href =  "/top/books/"
   [[params.addtional_menus]]
+  title =  "ARCHIVE"
+  href =  "/top/archive/"
+  [[params.addtional_menus]]
   title =  "ABOUT"
   href =  "/top/about/"
 
@@ -119,3 +122,10 @@ notAlternative = true
 [params.algolia]
 vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
 params = ["categories", "tags"] 
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 2
+    startLevel = 1
+  [markup.highlight]
+    style = "dracula"

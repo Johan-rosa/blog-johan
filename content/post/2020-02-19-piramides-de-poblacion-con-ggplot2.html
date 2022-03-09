@@ -13,6 +13,7 @@ tags:
   - tidyverse
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>Las pirámides de población son de los gráficos más comunes en el análisis demográfico y es probable que los que realizan trabajos o investigaciones en las ciencias sociales terminen creando algunos de cuando en vez. Como no existe una geometría en <code>ggplot2</code> para hacer este tipo de visualizaciones, hacerlas podría resultar un poco difícil.</p>
@@ -80,7 +81,7 @@ head(poblacion)</code></pre>
       x = &quot;Quinquenios de edad&quot;,
       title = &quot;Pirámide de población de República Dominicana, año 2020&quot;, 
       subtitle = &quot;Edad en grupos quinquenales&quot;)</code></pre>
-<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/piramide_2020-1.png" width="672" /></p>
+<p><img src="/post/2020-02-19-piramides-de-poblacion-con-ggplot2_files/figure-html/piramide_2020-1.png" width="672" /></p>
 <p>Ahora una secuencia de gráficos para visualizar como ha cambiado la estructura de la población en cada década y que se espera para el año 2030. Aquí lo más evidente es la reducción de la base de la pirámide, con cada vez menos personas en edades inferiores a 15 años, pero también hay más ancianos.</p>
 <pre class="r"><code>poblacion_piramide %&gt;%
   # filtrando años que terminen en cero
@@ -103,7 +104,7 @@ head(poblacion)</code></pre>
     x = &quot;Quinquenios de edad&quot;,
     title = &quot;Transición demográfica en República Domincana&quot;,
     subtitle = &quot;Estimaciones y proyecciones de población&quot;)</code></pre>
-<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/priramide_00_10_20_30-1.png" width="672" /></p>
+<p><img src="/post/2020-02-19-piramides-de-poblacion-con-ggplot2_files/figure-html/priramide_00_10_20_30-1.png" width="672" /></p>
 </div>
 </div>
 <div id="pirámides-de-población-con-geom_area" class="section level2">
@@ -125,7 +126,7 @@ head(poblacion)</code></pre>
     title = &#39;Distribución de la población por edad, año 2020&#39;,
     x = &quot;Edad&quot;,
     y =&#39;Porcentaje de la población total&#39;)</code></pre>
-<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/poblacion_edad_simple_2020-1.png" width="672" /></p>
+<p><img src="/post/2020-02-19-piramides-de-poblacion-con-ggplot2_files/figure-html/poblacion_edad_simple_2020-1.png" width="672" /></p>
 <div id="ahora-una-animación" class="section level3">
 <h3>Ahora una animación</h3>
 <p>Como elemento final una animación de la transición demográfica, para esta animación se utilizan funciones de <code>{ggplot2}</code> y <code>{gganimate}</code>. No es la primera vez que se publican animaciones en este espacio, hacerlas no tiene mayores complicaciones. En el caso de las pirámides de población simplemente se agrega la variable que guiará la transición <code>transition_time(year)</code> y se compila el resultado.</p>
@@ -154,7 +155,6 @@ head(poblacion)</code></pre>
     caption = &quot;Créditos: Por Johan Rosa, datos de la ONE&quot;)
 
 animate(p, nframes = 60)</code></pre>
-<p><img src="/post/2020-02-19-pirámides-de-población-con-ggplot2_files/figure-html/animacion-1.gif" /><!-- --></p>
 </div>
 </div>
 <div id="comentarios-finales" class="section level2">

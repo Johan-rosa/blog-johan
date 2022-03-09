@@ -38,22 +38,19 @@
 
     <link rel="canonical" href="/post/programando-en-el-tidyverse/">
 
-    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
-	
+    
+    
     
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
 
     
-    <link rel="stylesheet" href="/css/syntax.css">
-    
-    
     <link rel="stylesheet" href="/css/zanshang.css">
+
     
-    
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -61,18 +58,25 @@
     
     
     <script src="/js/jquery.min.js"></script>
-    
+
     
     <script src="/js/bootstrap.min.js"></script>
-    
+
     
     <script src="/js/hux-blog.min.js"></script>
 
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" href="/css/docco.css" rel="stylesheet" id="theme-stylesheet">
+    <script src="/js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
     
@@ -82,7 +86,9 @@
 
 
 
+
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
     <div class="container-fluid">
         
         <div class="navbar-header page-scroll">
@@ -106,9 +112,11 @@
                     
                     
 		    
+                        <li><a href="/top/cv/">CV</a></li>
+                    
                         <li><a href="/top/about/">Quién soy</a></li>
                     
-                        <li><a href="/top/cv/">CV</a></li>
+                        <li><a href="/top/archive/">Archivo</a></li>
                     
 
                     
@@ -156,7 +164,9 @@
         background-image: url('/img/banner/hadley-wickham.jpg')
     }
 </style>
-<header class="intro-header">
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -179,15 +189,17 @@
                     <h1>Programando en el Tidyverse</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Publicado por 
                         
-                            Johan Rosa
-                         
-                        el  
-                        2021-04-05
-                        
-                        
-                        
+                            Publicado por 
+                            
+                                Johan Rosa
+                             
+                            , 
+                            2006-01-02
+                            
+                            
+                            
+                            
                     </span>
                 </div>
             </div>
@@ -204,7 +216,7 @@
 
             
             <div class="
-                col-lg-11 col-lg-offset-1
+                col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
@@ -212,170 +224,173 @@
                 <p>Cuando me topé por primera vez con las funciones del <code>tidyverse</code>, específicamente con el paquete <code>dplyr</code>, lo que más me atrajo fue la posibilidad de usar en las funciones las variables in-data como si fueran objetos del ambiente global (<em>data masking</em>).</p>
 <p>Es como utilizar en un data frame el poco recomendado <code>attach()</code>, pero sin el downside que deriva este en distintos escenarios.</p>
 <p>Un ejemplo:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mtcars[mtcars<span style="color:#f92672">$</span>cyl <span style="color:#f92672">==</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">&amp;</span> mtcars<span style="color:#f92672">$</span>am <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>,]
-</code></pre></div><pre><code>##                 mpg cyl disp  hp drat   wt qsec vs am gear carb
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>mtcars[mtcars<span style="color:#ff79c6">$</span>cyl <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">8</span> <span style="color:#ff79c6">&amp;</span> mtcars<span style="color:#ff79c6">$</span>am <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span>,]
+</span></span></code></pre></div><pre tabindex="0"><code>##                 mpg cyl disp  hp drat   wt qsec vs am gear carb
 ## Ford Pantera L 15.8   8  351 264 4.22 3.17 14.5  0  1    5    4
 ## Maserati Bora  15.0   8  301 335 3.54 3.57 14.6  0  1    5    8
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">filter</span>(mtcars, cyl <span style="color:#f92672">==</span> <span style="color:#ae81ff">8</span>, am <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
-</code></pre></div><pre><code>##                 mpg cyl disp  hp drat   wt qsec vs am gear carb
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#50fa7b">filter</span>(mtcars, cyl <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">8</span>, am <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span>)
+</span></span></code></pre></div><pre tabindex="0"><code>##                 mpg cyl disp  hp drat   wt qsec vs am gear carb
 ## Ford Pantera L 15.8   8  351 264 4.22 3.17 14.5  0  1    5    4
 ## Maserati Bora  15.0   8  301 335 3.54 3.57 14.6  0  1    5    8
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Opción que muchos nuevos usuarios intentan, por parecer intuitivo</span>
-<span style="color:#75715e"># pero que sin excepciones conduce a un error</span>
-
-<span style="color:#75715e"># mtcars[cyl == 8, am == 1]</span>
-</code></pre></div><p>En el primer ejemplo hubo que escribir el nombre del set de datos 3 veces, mientras que con la función <code>dplyr::filter()</code> solo una vez.</p>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#6272a4"># Opción que muchos nuevos usuarios intentan, por parecer intuitivo</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># pero que sin excepciones conduce a un error</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># mtcars[cyl == 8, am == 1]</span>
+</span></span></code></pre></div><p>En el primer ejemplo hubo que escribir el nombre del set de datos 3 veces, mientras que con la función <code>dplyr::filter()</code> solo una vez.</p>
 <p>Esto se logra gracias al <em>data masking</em> que usan las funciones del tidyverse, el cual es muy conveniente, sobre todo en niveles iniciales, porque evita algunas confusiones y permite hacer ciertas tareas con menos código.</p>
 <p>Ahora bien, en la medida que uno va avanzando se encuentra con el amargo sabor de que lo que nos facilitaba la vida del tidyverse se convierte en una dificultad a la hora de programar con él.</p>
 <p>Recuerdo hace unos años cuando intenté hacer mis primeras funciones que involucraban el tidyverse. En ese entonces los verbos paralelos del paquete no habían sido abandonados, aún se recomendaba el uso de <code>mutate_()</code>, <code>mutate_at()</code>, <code>group_by_()</code>, <code>group_by_at()</code>, <code>summarise_at()</code> y unas tantas otras (En las versiones más recientes se han integrado otras funciones que evitan la necesidad recurrir a todas estas funciones gemelas del tidyverse, no es necesario que se preocupen por aprender a usarlas).</p>
 <p>Teniendo en cuesta esto, esta vez pretendo hacer una breve explicación de como crear funciones que aprovechen el <em>data masking</em> del tidyvers y que aplanen el camino para aquellos que pretenden crear paquetes con <code>{dplyr}</code>, <code>{ggplot2}</code> y otros como dependencias. También para aquellos que van a utilizar shiny y necesitarán crear funciones que reciban el nombre de las variables en forma de <code>strings</code> como argumento (los imputs de shiny normalmente devuelven valores de este tipo).</p>
 <p>En fin, para que no intenten hacer esto:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">error1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(variable <span style="color:#f92672">=</span> cyl) {
-  mtcars <span style="color:#f92672">%&gt;%</span> 
-    <span style="color:#a6e22e">group_by</span>(variable) <span style="color:#f92672">%&gt;%</span> 
-    <span style="color:#a6e22e">summarise</span>(mean_mpg <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(mpg))
-}
-
-error2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(variable <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;cyl&#39;</span>) {
-  mtcars <span style="color:#f92672">%&gt;%</span> 
-    <span style="color:#a6e22e">group_by</span>(variable) <span style="color:#f92672">%&gt;%</span> 
-    <span style="color:#a6e22e">summarise</span>(mean_mpg <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(mpg))
-}
-</code></pre></div><h2 id="variables-de-ambiente-variables-en-data-y-_data-masking_">Variables de ambiente, variables en data y <em>data masking</em></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>error1 <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">function</span>(variable <span style="color:#ff79c6">=</span> cyl) {
+</span></span><span style="display:flex;"><span>  mtcars <span style="color:#ff79c6">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">group_by</span>(variable) <span style="color:#ff79c6">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">summarise</span>(mean_mpg <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">mean</span>(mpg))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>error2 <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">function</span>(variable <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;cyl&#39;</span>) {
+</span></span><span style="display:flex;"><span>  mtcars <span style="color:#ff79c6">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">group_by</span>(variable) <span style="color:#ff79c6">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">summarise</span>(mean_mpg <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">mean</span>(mpg))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="variables-de-ambiente-variables-en-data-y-_data-masking_">Variables de ambiente, variables en data y <em>data masking</em></h2>
 <p>La idea principal del <em>data masking</em> es estrechar la brecha entre las dos vertientes de variables que pueden existir en R. Por un lado las variables de ambiente y por otro las variables en data.</p>
 <p>Las variables de ambiente son esos objetos que residen en el ambiente global de nuestra sesión de trabajo y que normalmente son creados usando el operador de asignación <code>&lt;-</code>.</p>
 <p>Las variables en data son aquellas variables que residen dentro de un objeto del ambiente global, como un data frame (U otros tipos de lista) y a ellas se accede usando operadores como <code>$</code> y la notación de corchetes <code>[</code> o <code>[[</code>.</p>
 <p>Para poner un ejemplo, el siguiente fragmento de código crea una variable de ambiente que contiene a su vez dos variables en data.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">personas <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(
-  nombre <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Johan&#34;</span>, <span style="color:#e6db74">&#34;Fulano&#34;</span>),
-  ead <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">32</span>)
-)
-
-personas<span style="color:#f92672">$</span>nombre
-</code></pre></div><pre><code>## [1] &quot;Johan&quot;  &quot;Fulano&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>personas <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">data.frame</span>(
+</span></span><span style="display:flex;"><span>  nombre <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">c</span>(<span style="color:#f1fa8c">&#34;Johan&#34;</span>, <span style="color:#f1fa8c">&#34;Fulano&#34;</span>),
+</span></span><span style="display:flex;"><span>  ead <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">c</span>(<span style="color:#bd93f9">28</span>, <span style="color:#bd93f9">32</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>personas<span style="color:#ff79c6">$</span>nombre
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;Johan&#34;  &#34;Fulano&#34;
 </code></pre><p>El objeto <code>personas</code> es una variable de ambiente, reside en el ambiente global, mientras que <code>nombre</code> y <code>edad</code> son variables en data, contenidas en personas. Cuando se usan las funciones con <em>data masking</em> se disuelve un poco la diferencia entre estos objetos, pero en general es importante tenerlo en cuenta antes de ir un paso más lejos en la programación en R.</p>
 <h2 id="usando-el-_embracing_--variable--y-el-pronombre-data-variable-">Usando el <em>embracing</em> <code>{{ variable }}</code> y el pronombre <code>.data[[ &quot;variable&quot; ]]</code></h2>
 <p>El <em>embracing</em> es la primera alternativa que nos provee el tidyverse para programar usando funciones que utilizan <em>data masking</em>. Con esto se abre la posibilidad de generar referencias indirectas en las funciones.</p>
 <p>La primera demostración consiste en crear una función que recibiendo un data frame y el nombre de las variables a mapear en cada eje, cree un scatter plot.</p>
 <p>En este caso hay que prestar atención a la forma que se usan los argumentos en el cuerpo de la función, siempre se encierran entre un par de llaves <code>{{ argumento }}</code> y así se pasa el nombre de las variables en data como si fueran variables de ambiente en nuestras funciones.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">scatter_plot <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, x, y, color <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
-  
-  ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">ggplot</span>(data <span style="color:#f92672">=</span> data, ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> {{ x }}, y <span style="color:#f92672">=</span> {{ y }}, color <span style="color:#f92672">=</span> {{ color }})) <span style="color:#f92672">+</span>
-    ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
-    ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">theme_minimal</span>() <span style="color:#f92672">+</span>
-    ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">theme</span>(legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bottom&#34;</span>)
-}
-
-
-<span style="color:#75715e"># Ya tenemos una función que usa data masking</span>
-<span style="color:#a6e22e">scatter_plot</span>(mtcars, x <span style="color:#f92672">=</span> wt, y <span style="color:#f92672">=</span> mpg, color <span style="color:#f92672">=</span> am)
-</code></pre></div><p><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">scatter_plot</span>(data <span style="color:#f92672">=</span> iris, x <span style="color:#f92672">=</span> Sepal.Width, y <span style="color:#f92672">=</span> Sepal.Length, color <span style="color:#f92672">=</span> Species)
-</code></pre></div><p><!-- raw HTML omitted --></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>scatter_plot <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">function</span>(data, x, y, color <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">NULL</span>) {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">ggplot</span>(data <span style="color:#ff79c6">=</span> data, ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">aes</span>(x <span style="color:#ff79c6">=</span> {{ x }}, y <span style="color:#ff79c6">=</span> {{ y }}, color <span style="color:#ff79c6">=</span> {{ color }})) <span style="color:#ff79c6">+</span>
+</span></span><span style="display:flex;"><span>    ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">geom_point</span>() <span style="color:#ff79c6">+</span>
+</span></span><span style="display:flex;"><span>    ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">theme_minimal</span>() <span style="color:#ff79c6">+</span>
+</span></span><span style="display:flex;"><span>    ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">theme</span>(legend.position <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;bottom&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Ya tenemos una función que usa data masking</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">scatter_plot</span>(mtcars, x <span style="color:#ff79c6">=</span> wt, y <span style="color:#ff79c6">=</span> mpg, color <span style="color:#ff79c6">=</span> am)
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#50fa7b">scatter_plot</span>(data <span style="color:#ff79c6">=</span> iris, x <span style="color:#ff79c6">=</span> Sepal.Width, y <span style="color:#ff79c6">=</span> Sepal.Length, color <span style="color:#ff79c6">=</span> Species)
+</span></span></code></pre></div><!-- raw HTML omitted -->
 <p>Otro recurso a nuestra disposición cuando se desea pasar strings con los nombres de las variables es el pronombre <code>.data[[]]</code>.</p>
 <p>Para usar esta alternativa creemos una función que devuelva el promedio de la variables que se le indique.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">calc_media <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, variable) {
-  
-    dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">summarise</span>(data, promedio <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(.data[[variable]]))
-}
-
-<span style="color:#a6e22e">calc_media</span>(mtcars, variable <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mpg&#34;</span>)
-</code></pre></div><pre><code>##   promedio
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>calc_media <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">function</span>(data, variable) {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    dplyr<span style="color:#ff79c6">::</span><span style="color:#50fa7b">summarise</span>(data, promedio <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">mean</span>(.data[[variable]]))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">calc_media</span>(mtcars, variable <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;mpg&#34;</span>)
+</span></span></code></pre></div><pre tabindex="0"><code>##   promedio
 ## 1 20.09062
 </code></pre><p>Esto no solo funciona en el scope de las funciones, en el ambiente global se podría utilizar también. Consideren el siguiente ejemplo de un loop:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">for </span>(variable in <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;wt&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>)) {
-  dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">summarise</span>(mtcars, media <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(.data[[variable]])) <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">print</span>()
-}
-</code></pre></div><h2 id="programando-con-tidy-selection">Programando con <code>tidy selection</code></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#50fa7b">for </span>(variable in <span style="color:#50fa7b">c</span>(<span style="color:#f1fa8c">&#34;mpg&#34;</span>, <span style="color:#f1fa8c">&#34;wt&#34;</span>, <span style="color:#f1fa8c">&#34;hp&#34;</span>)) {
+</span></span><span style="display:flex;"><span>  dplyr<span style="color:#ff79c6">::</span><span style="color:#50fa7b">summarise</span>(mtcars, media <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">mean</span>(.data[[variable]])) <span style="color:#ff79c6">%&gt;%</span> <span style="color:#50fa7b">print</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="programando-con-tidy-selection">Programando con <code>tidy selection</code></h2>
 <p>Algo muy distinto al <em>data masking</em> pero igual de útil es el <em>tidy selection</em>, que es una herramienta complementaria del tidyverse que facilita trabajar con más de una variable de manera simultánea.</p>
 <p>Es probable que en este punto ya hayan utilizado las funciones <code>starts_with()</code>, <code>ends_with()</code>, <code>where()</code>, <code>everything()</code> dentro de la función <code>select()</code> o en la recién introducida <code>across()</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Selecciona las variables que inician con &#39;sepal&#39;</span>
-<span style="color:#a6e22e">select</span>(iris, <span style="color:#a6e22e">starts_with</span>(<span style="color:#e6db74">&#34;sepal&#34;</span>)) <span style="color:#f92672">%&gt;%</span> 
-  <span style="color:#a6e22e">head</span>(<span style="color:#ae81ff">3</span>)
-
-<span style="color:#75715e"># revuelve el promedio de las variables que inician con &#34;petal&#34;</span>
-dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">summarise</span>(iris, <span style="color:#a6e22e">across</span>(<span style="color:#a6e22e">starts_with</span>(<span style="color:#e6db74">&#39;petal&#39;</span>), mean))
-</code></pre></div><p>El punto es que estas funciones de asistencia del tidyselect se pueden aprovechar en nuestras funciones, abriendo un mundo de posibilidades para el usuario.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#6272a4"># Selecciona las variables que inician con &#39;sepal&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">select</span>(iris, <span style="color:#50fa7b">starts_with</span>(<span style="color:#f1fa8c">&#34;sepal&#34;</span>)) <span style="color:#ff79c6">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#50fa7b">head</span>(<span style="color:#bd93f9">3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># revuelve el promedio de las variables que inician con &#34;petal&#34;</span>
+</span></span><span style="display:flex;"><span>dplyr<span style="color:#ff79c6">::</span><span style="color:#50fa7b">summarise</span>(iris, <span style="color:#50fa7b">across</span>(<span style="color:#50fa7b">starts_with</span>(<span style="color:#f1fa8c">&#39;petal&#39;</span>), mean))
+</span></span></code></pre></div><p>El punto es que estas funciones de asistencia del tidyselect se pueden aprovechar en nuestras funciones, abriendo un mundo de posibilidades para el usuario.</p>
 <p>A continuación un ejemplo simple pero poderoso, una función que recibe sentencias de <em>tidy selection</em> como argumento y funciones para resumir dichas columnas. Para esto se hace uso de la función <code>all_of()</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_summary <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, cols <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>, fun <span style="color:#f92672">=</span> mean) {
-  dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">summarise</span>(
-    data, 
-    dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">across</span>(
-      .cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">all_of</span>(cols),
-      .fns <span style="color:#f92672">=</span> fun
-    )
-  )
-}
-</code></pre></div><p>A continuación ponemos a prueba la función, demostando su flexibilidad y conveniencia.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">my_summary</span>(iris, cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">starts_with</span>(<span style="color:#e6db74">&#34;petal&#34;</span>), fun <span style="color:#f92672">=</span> sd)
-</code></pre></div><pre><code>##   Petal.Length Petal.Width
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>my_summary <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">function</span>(data, cols <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">NULL</span>, fun <span style="color:#ff79c6">=</span> mean) {
+</span></span><span style="display:flex;"><span>  dplyr<span style="color:#ff79c6">::</span><span style="color:#50fa7b">summarise</span>(
+</span></span><span style="display:flex;"><span>    data, 
+</span></span><span style="display:flex;"><span>    dplyr<span style="color:#ff79c6">::</span><span style="color:#50fa7b">across</span>(
+</span></span><span style="display:flex;"><span>      .cols <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">all_of</span>(cols),
+</span></span><span style="display:flex;"><span>      .fns <span style="color:#ff79c6">=</span> fun
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A continuación ponemos a prueba la función, demostando su flexibilidad y conveniencia.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#50fa7b">my_summary</span>(iris, cols <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">starts_with</span>(<span style="color:#f1fa8c">&#34;petal&#34;</span>), fun <span style="color:#ff79c6">=</span> sd)
+</span></span></code></pre></div><pre tabindex="0"><code>##   Petal.Length Petal.Width
 ## 1     1.765298   0.7622377
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">my_summary</span>(mtcars, cols <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;wt&#34;</span>), fun <span style="color:#f92672">=</span> median)
-</code></pre></div><pre><code>##    mpg    wt
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#50fa7b">my_summary</span>(mtcars, cols <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">c</span>(<span style="color:#f1fa8c">&#34;mpg&#34;</span>, <span style="color:#f1fa8c">&#34;wt&#34;</span>), fun <span style="color:#ff79c6">=</span> median)
+</span></span></code></pre></div><pre tabindex="0"><code>##    mpg    wt
 ## 1 19.2 3.325
 </code></pre><h2 id="usando-lo-aprendido-para-crear-una-aplicación-en-shiny">Usando lo aprendido para crear una aplicación en shiny</h2>
 <p>Normalmente los inputs en las aplicaciones creadas con shiny general objetos que contienen números y caracteres para ser utilizados en el servidor y controlar los objetos reactivos de nuestra aplicación.</p>
 <p>En este ejemple crearemos un shinyApp que permita construir un gráfico de dispersión con las variables del set de datos <code>mtcars</code>. La idea es que el usuario controle las variable que serán mapeadas a los ejes y al color de los puntos.</p>
 <p>El primer paso es ajustar un poco la función para crear gráficos de dispersión que creamos anteriormente, para que en lugar de funiconar con <em>data masking</em>, reciba strings con los nombres de las variables.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">shiny_scatter_plot <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data, x, y, color <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>) {
-  
-  ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">ggplot</span>(
-    data <span style="color:#f92672">=</span> data, 
-    ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> .data[[x]], y <span style="color:#f92672">=</span> .data[[y]], color <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.factor</span>(.data[[color]]))) <span style="color:#f92672">+</span>
-    ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
-    ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">theme_minimal</span>() <span style="color:#f92672">+</span>
-    ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">theme</span>(legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bottom&#34;</span>) <span style="color:#f92672">+</span>
-    <span style="color:#a6e22e">labs</span>(color <span style="color:#f92672">=</span> color)
-}
-</code></pre></div><p>Con esto se puede entonces crear la aplicación. No entraremos en detalles de cada componente en esta ocasión, pero queda el compromiso implicito de hacer un post sobre este tema. Esta vez la intención es mostrar una aplicación rápida de lo explicado.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(shiny)
-<span style="color:#a6e22e">library</span>(dplyr)
-<span style="color:#a6e22e">library</span>(ggplot2)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>shiny_scatter_plot <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">function</span>(data, x, y, color <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">NULL</span>) {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">ggplot</span>(
+</span></span><span style="display:flex;"><span>    data <span style="color:#ff79c6">=</span> data, 
+</span></span><span style="display:flex;"><span>    ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">aes</span>(x <span style="color:#ff79c6">=</span> .data[[x]], y <span style="color:#ff79c6">=</span> .data[[y]], color <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">as.factor</span>(.data[[color]]))) <span style="color:#ff79c6">+</span>
+</span></span><span style="display:flex;"><span>    ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">geom_point</span>() <span style="color:#ff79c6">+</span>
+</span></span><span style="display:flex;"><span>    ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">theme_minimal</span>() <span style="color:#ff79c6">+</span>
+</span></span><span style="display:flex;"><span>    ggplot2<span style="color:#ff79c6">::</span><span style="color:#50fa7b">theme</span>(legend.position <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;bottom&#34;</span>) <span style="color:#ff79c6">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">labs</span>(color <span style="color:#ff79c6">=</span> color)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Con esto se puede entonces crear la aplicación. No entraremos en detalles de cada componente en esta ocasión, pero queda el compromiso implicito de hacer un post sobre este tema. Esta vez la intención es mostrar una aplicación rápida de lo explicado.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#50fa7b">library</span>(shiny)
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">library</span>(dplyr)
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ui <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">fluidPage</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4"># Un título</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#50fa7b">h1</span>(<span style="color:#f1fa8c">&#34;Explorando la base mtcars&#34;</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4"># Layout del app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#50fa7b">sidebarLayout</span>(
+</span></span><span style="display:flex;"><span>    sidebarPanel <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">sidebarPanel</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#6272a4"># Inputs para seleccionar variables de cada eje</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">selectInput</span>(inputId <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;x&#34;</span>, label <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Variable del eje X&#34;</span>,
+</span></span><span style="display:flex;"><span>                  choices <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">c</span>(<span style="color:#f1fa8c">&#34;mpg&#34;</span>, <span style="color:#f1fa8c">&#34;disp&#34;</span>, <span style="color:#f1fa8c">&#34;hp&#34;</span>, <span style="color:#f1fa8c">&#34;draft&#34;</span>, <span style="color:#f1fa8c">&#34;qsec&#34;</span>, <span style="color:#f1fa8c">&#34;wt&#34;</span>), 
+</span></span><span style="display:flex;"><span>                  selected <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;wt&#34;</span>,
+</span></span><span style="display:flex;"><span>                  multiple <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">FALSE</span>),
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">selectInput</span>(inputId <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;y&#34;</span>, label <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Variable del eje Y&#34;</span>,
+</span></span><span style="display:flex;"><span>                  choices <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">c</span>(<span style="color:#f1fa8c">&#34;mpg&#34;</span>, <span style="color:#f1fa8c">&#34;disp&#34;</span>, <span style="color:#f1fa8c">&#34;hp&#34;</span>, <span style="color:#f1fa8c">&#34;draft&#34;</span>, <span style="color:#f1fa8c">&#34;qsec&#34;</span>, <span style="color:#f1fa8c">&#34;wt&#34;</span>), 
+</span></span><span style="display:flex;"><span>                  selected <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;mpg&#34;</span>,
+</span></span><span style="display:flex;"><span>                  multiple <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">FALSE</span>),
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">selectInput</span>(inputId <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;color&#34;</span>, label <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Variable color&#34;</span>,
+</span></span><span style="display:flex;"><span>                  choices <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">c</span>(<span style="color:#f1fa8c">&#34;cyl&#34;</span>, <span style="color:#f1fa8c">&#34;am&#34;</span>, <span style="color:#f1fa8c">&#34;vs&#34;</span>, <span style="color:#f1fa8c">&#34;gear&#34;</span>, <span style="color:#f1fa8c">&#34;carb&#34;</span>),
+</span></span><span style="display:flex;"><span>                  selected <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;cyl&#34;</span>, multiple <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">FALSE</span>)
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>    mainPanel <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">mainPanel</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#6272a4"># Output a mostra</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">h2</span>(<span style="color:#50fa7b">textOutput</span>(<span style="color:#f1fa8c">&#34;title&#34;</span>)),
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">plotOutput</span>(<span style="color:#f1fa8c">&#34;plot&#34;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>server <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">function</span>(input, output, session) {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4"># El título del gráfico</span>
+</span></span><span style="display:flex;"><span>  output<span style="color:#ff79c6">$</span>title <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">renderText</span>(<span style="color:#50fa7b">paste</span>(<span style="color:#f1fa8c">&#34;mtcars:&#34;</span>, input<span style="color:#ff79c6">$</span>x, <span style="color:#f1fa8c">&#34;Vs&#34;</span>, input<span style="color:#ff79c6">$</span>y))
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4"># Usando los inputs para generar el gráfico</span>
+</span></span><span style="display:flex;"><span>  output<span style="color:#ff79c6">$</span>plot <span style="color:#ff79c6">&lt;-</span> <span style="color:#50fa7b">renderPlot</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># Usando nuestra función</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">shiny_scatter_plot</span>(mtcars, x <span style="color:#ff79c6">=</span> input<span style="color:#ff79c6">$</span>x, y <span style="color:#ff79c6">=</span> input<span style="color:#ff79c6">$</span>y, color <span style="color:#ff79c6">=</span> input<span style="color:#ff79c6">$</span>color)
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">shinyApp</span>(ui, server)
+</span></span></code></pre></div><p>
+  <img src="/post/2021-04-05-programando-en-el-tidyverser_files/programming_tidyverse_shinyapp.gif" alt="">
 
-ui <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fluidPage</span>(
-  <span style="color:#75715e"># Un título</span>
-  <span style="color:#a6e22e">h1</span>(<span style="color:#e6db74">&#34;Explorando la base mtcars&#34;</span>),
-  <span style="color:#75715e"># Layout del app</span>
-  <span style="color:#a6e22e">sidebarLayout</span>(
-    sidebarPanel <span style="color:#f92672">=</span> <span style="color:#a6e22e">sidebarPanel</span>(
-      <span style="color:#75715e"># Inputs para seleccionar variables de cada eje</span>
-      <span style="color:#a6e22e">selectInput</span>(inputId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Variable del eje X&#34;</span>,
-                  choices <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;disp&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>, <span style="color:#e6db74">&#34;draft&#34;</span>, <span style="color:#e6db74">&#34;qsec&#34;</span>, <span style="color:#e6db74">&#34;wt&#34;</span>), 
-                  selected <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;wt&#34;</span>,
-                  multiple <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>),
-      
-      <span style="color:#a6e22e">selectInput</span>(inputId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Variable del eje Y&#34;</span>,
-                  choices <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;disp&#34;</span>, <span style="color:#e6db74">&#34;hp&#34;</span>, <span style="color:#e6db74">&#34;draft&#34;</span>, <span style="color:#e6db74">&#34;qsec&#34;</span>, <span style="color:#e6db74">&#34;wt&#34;</span>), 
-                  selected <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mpg&#34;</span>,
-                  multiple <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>),
-      
-      <span style="color:#a6e22e">selectInput</span>(inputId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Variable color&#34;</span>,
-                  choices <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#e6db74">&#34;am&#34;</span>, <span style="color:#e6db74">&#34;vs&#34;</span>, <span style="color:#e6db74">&#34;gear&#34;</span>, <span style="color:#e6db74">&#34;carb&#34;</span>),
-                  selected <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, multiple <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
-      
-    ),
-    mainPanel <span style="color:#f92672">=</span> <span style="color:#a6e22e">mainPanel</span>(
-      <span style="color:#75715e"># Output a mostra</span>
-      <span style="color:#a6e22e">h2</span>(<span style="color:#a6e22e">textOutput</span>(<span style="color:#e6db74">&#34;title&#34;</span>)),
-      <span style="color:#a6e22e">plotOutput</span>(<span style="color:#e6db74">&#34;plot&#34;</span>)
-    )
-  )
-)
-
-server <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(input, output, session) {
-  
-  <span style="color:#75715e"># El título del gráfico</span>
-  output<span style="color:#f92672">$</span>title <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">renderText</span>(<span style="color:#a6e22e">paste</span>(<span style="color:#e6db74">&#34;mtcars:&#34;</span>, input<span style="color:#f92672">$</span>x, <span style="color:#e6db74">&#34;Vs&#34;</span>, input<span style="color:#f92672">$</span>y))
-  <span style="color:#75715e"># Usando los inputs para generar el gráfico</span>
-  output<span style="color:#f92672">$</span>plot <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">renderPlot</span>({
-    <span style="color:#75715e"># Usando nuestra función</span>
-    <span style="color:#a6e22e">shiny_scatter_plot</span>(mtcars, x <span style="color:#f92672">=</span> input<span style="color:#f92672">$</span>x, y <span style="color:#f92672">=</span> input<span style="color:#f92672">$</span>y, color <span style="color:#f92672">=</span> input<span style="color:#f92672">$</span>color)
-    })
-  
-}
-
-<span style="color:#a6e22e">shinyApp</span>(ui, server)
-</code></pre></div><p><img src="/post/2021-04-05-programando-en-el-tidyverser_files/programming_tidyverse_shinyapp.gif" alt=""></p>
+</p>
 <h2 id="consideraciones-finales">Consideraciones finales</h2>
 <p>No es lo mismo ser un usuario de R que un programador en R. Es importante comprender muy bien la estructura del leguaje y los objetos para ser programador, hay que dominar las clases, métodos, expreciones y muchos conceptos abstractos pero al final de cuentas vale la pena.</p>
 <p>Yo empecé este trayecto con el libro de <a href="https://adv-r.hadley.nz/index.html">R avanzado</a> de Hadley Wickhan, que da un paseo bastante detallado desde los aspectos más básicos como los atributos de los distintos tipos de objetos, hasta el <em>metaprogramming</em>.</p>
@@ -395,34 +410,50 @@ server <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">func
                     
                     <li class="previous">
                         <a href="/post/reacciones-en-docuementos-rmarkdown-con-javascript/" data-toggle="tooltip" data-placement="top" title="Reacciones en documentos Rmarkdown con JavaScript">&larr;
-                            Post anterior</a>
+                            Previous Post</a>
                     </li>
                     
                     
                 </ul>
+                
 
-                <div id="disqus_thread"></div>
-<script>
-(function() {
-var d = document, s = d.createElement('script');
-s.src = 'https://johan-blog.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
+<div id="disqus-comment"></div>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "johan-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
 
             </div>
+
+            
+
             
             <div class="
-                col-lg-11 col-lg-offset-1
+                col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
                 
                 
-                
 
+                
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
     
     <script type="text/x-mathjax-config">
@@ -448,7 +479,7 @@ s.setAttribute('data-timestamp', +new Date());
                 
                 <section>
                     <hr>
-                    <h5>Colegas</h5>
+                    <h5>FRIENDS</h5>
                     <ul class="list-inline">
                         
                         <li><a target="_blank" href="http://betaeconomia.blogspot.com/">Nerys Ramírez</a></li>
@@ -474,13 +505,13 @@ s.setAttribute('data-timestamp', +new Date());
                     <li>
                         <a href="mailto:johan.rosaperez@gmail.com">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
 		    
-                    
+
                     
                     
                     
@@ -493,8 +524,8 @@ s.setAttribute('data-timestamp', +new Date());
                     <li>
                         <a target="_blank" href="https://github.com/johan-rosa">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -505,8 +536,8 @@ s.setAttribute('data-timestamp', +new Date());
                     <li>
                         <a target="_blank" href="https://www.linkedin.com/in/johan-rosa-72bb0484/">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -516,8 +547,8 @@ s.setAttribute('data-timestamp', +new Date());
                     <li>
                         <a target="_blank" href="https://stackoverflow.com/users/10266675/johan-rosa">
                             <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -526,9 +557,11 @@ s.setAttribute('data-timestamp', +new Date());
                     
                     
             
+            
+            
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Johan Rosa 2021
+                    Copyright &copy; Johan Rosa 2022
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe
@@ -546,7 +579,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <script>
-    function async(u, c) {
+    function loadAsync(u, c) {
       var d = document, t = 'script',
           o = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -564,7 +597,7 @@ s.setAttribute('data-timestamp', +new Date());
 <script>
     
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        loadAsync("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -576,7 +609,7 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+    loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
@@ -598,6 +631,67 @@ if (!doNotTrack) {
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 </body>

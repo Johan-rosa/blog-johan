@@ -17,6 +17,7 @@ description: ''
 image: img/banner/deep_learning.jpg
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>Indudablemente, los problemas de <em>Deep Learning</em> están cerca de ocupar el primer puesto entre los tópicos populares del mundo de la ciencia de datos hoy día, y con razón, por el tipo de tareas que se están intentando realizar con estas tecnologías.</p>
@@ -152,15 +153,16 @@ mnist$test$x &lt;- mnist$test$x/255</code></pre>
 <pre class="r"><code>summary(model)</code></pre>
 <pre><code>## Model: &quot;sequential&quot;
 ## ________________________________________________________________________________
-## Layer (type)                        Output Shape                    Param #     
+##  Layer (type)                       Output Shape                    Param #     
 ## ================================================================================
-## flatten (Flatten)                   (None, 784)                     0           
-## ________________________________________________________________________________
-## dense (Dense)                       (None, 128)                     100480      
-## ________________________________________________________________________________
-## dropout (Dropout)                   (None, 128)                     0           
-## ________________________________________________________________________________
-## dense_1 (Dense)                     (None, 10)                      1290        
+##  flatten (Flatten)                  (None, 784)                     0           
+##                                                                                 
+##  dense_1 (Dense)                    (None, 128)                     100480      
+##                                                                                 
+##  dropout (Dropout)                  (None, 128)                     0           
+##                                                                                 
+##  dense (Dense)                      (None, 10)                      1290        
+##                                                                                 
 ## ================================================================================
 ## Total params: 101,770
 ## Trainable params: 101,770
@@ -218,20 +220,38 @@ mnist$test$x &lt;- mnist$test$x/255</code></pre>
 <p>Teniendo ya el modelo entrenado, se usa la función <code>predict()</code> y una serie de imágenes no utilizadas para entrenar el modelo para probar su desempeño fuera de muestra. Este paso es crucial, porque de registrar aquí un desempeño muy por debajo del obtenido con el training set, entonces estaríamos frente a un problema de overfitting. En otras palabras, el modelo solo funciona con los datos que conoce.</p>
 <p>Para hacer las predicciones hay varias opciones, con diferentes outputs cada una. En este caso se usa la función <code>predict_classes()</code>, que devuelve la clase que sugiere el modelo para cada observación del test set. Por otro lado, la función <code>predict_prob()</code> devuelve un array con el score de probabilidad de las potenciales clases para cada observación.</p>
 <p>Obviamente, la clase con el escore de probabilidad mayor es la que se utiliza como output en <code>predict_classes()</code>.</p>
-<pre class="r"><code>predictions &lt;- predict_classes(model, mnist$test$x)
+<pre class="r"><code>predictions &lt;- model %&gt;% predict(mnist$test$x)
 head(predictions, 10)</code></pre>
-<pre><code>##  [1] 7 2 1 0 4 1 4 9 5 9</code></pre>
+<pre><code>##               [,1]         [,2]         [,3]         [,4]         [,5]
+##  [1,] 7.094636e-08 6.201533e-08 1.054558e-05 4.571944e-04 2.161721e-11
+##  [2,] 3.677354e-08 5.961317e-06 9.999627e-01 1.412775e-05 4.655819e-14
+##  [3,] 1.727000e-06 9.980060e-01 2.364296e-04 2.762344e-05 1.542673e-04
+##  [4,] 9.999428e-01 4.145325e-09 5.058305e-06 7.175230e-07 1.169020e-07
+##  [5,] 8.193841e-07 3.286226e-09 1.378264e-05 8.060075e-08 9.930353e-01
+##  [6,] 2.352434e-08 9.995110e-01 1.947651e-06 6.341837e-07 6.313050e-06
+##  [7,] 2.788663e-09 2.615654e-08 2.741148e-06 3.636903e-06 9.956767e-01
+##  [8,] 5.093751e-07 3.175913e-06 3.660624e-04 2.505129e-03 5.362818e-03
+##  [9,] 1.555835e-06 3.758887e-06 2.924458e-03 1.832690e-06 6.260694e-06
+## [10,] 2.028173e-10 3.945598e-12 1.406860e-08 6.559767e-06 7.383234e-04
+##               [,6]         [,7]         [,8]         [,9]        [,10]
+##  [1,] 1.449906e-07 1.912452e-11 9.995291e-01 5.360926e-07 2.266261e-06
+##  [2,] 1.680496e-05 2.022807e-07 7.807416e-14 1.438396e-07 4.461754e-14
+##  [3,] 3.465242e-06 1.526870e-05 1.436348e-03 1.145453e-04 4.319025e-06
+##  [4,] 1.318318e-05 3.101458e-05 6.240952e-06 4.242222e-08 8.392549e-07
+##  [5,] 5.679764e-07 4.206001e-06 3.464545e-04 3.036828e-06 6.595771e-03
+##  [6,] 1.485579e-08 5.532178e-08 4.755452e-04 4.051059e-06 4.621940e-07
+##  [7,] 5.611032e-04 5.398598e-07 2.963992e-04 9.332893e-04 2.525528e-03
+##  [8,] 2.613762e-05 3.282717e-08 6.427758e-04 3.787016e-05 9.910554e-01
+##  [9,] 6.494704e-01 3.473006e-01 7.421287e-09 2.669928e-04 2.405662e-05
+## [10,] 9.213137e-09 2.603555e-10 1.323996e-03 1.802063e-06 9.979293e-01</code></pre>
 </div>
 <div id="comprobando-el-desempeño-del-modelo" class="section level3">
 <h3>Comprobando el desempeño del modelo</h3>
 <p>Finalmente se comprueba el desempeño general del modelo. En este caso un porcentaje de acierto que ronda el 98%, con el set de prueba. La verdad es que la mayoría de ejemplos consultados obtienen un mejor desempeño, con un 80 no se pasa la prueba, y por tanto tocará afinar un poco mejor la construcción del modelo.</p>
 <pre class="r"><code>model %&gt;% 
   evaluate(mnist$test$x, mnist$test$y, verbose = 0)</code></pre>
-<pre><code>## $loss
-## [1] 0.08477093
-## 
-## $accuracy
-## [1] 0.9755</code></pre>
+<pre><code>##       loss   accuracy 
+## 0.08933673 0.97259998</code></pre>
 </div>
 </div>
 <div id="comentarios-finales" class="section level1">

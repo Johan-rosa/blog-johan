@@ -6,11 +6,7 @@
     <description>Recent content in forecast on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/forecast/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/forecast/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Múltiples modelos en R: pronosticando la inflación de RD</title>
       <link>/post/m%C3%BAltiples-modelos-en-r-pronosticando-la-inflaci%C3%B3n-de-rd/</link>

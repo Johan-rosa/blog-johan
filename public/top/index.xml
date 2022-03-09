@@ -5,11 +5,7 @@
     <link>/top/</link>
     <description>Recent content in Tops on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="/top/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="/top/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hoja de vida</title>
       <link>/top/cv/</link>
@@ -18,6 +14,15 @@
       <guid>/top/cv/</guid>
       <description>Descargar PDF Principales competencias Pensamiento analítico Capacidad de analizar y resumir datos de manera que contribuyan en la toma de decisiones y a la solución de problemas. Experiencia en el manejo de grandes volúmenes de datos (Series temporales, datos de encuestas, banco de textos, ect.) aplicando técnicas y herramientas sofisticadas.
 Desarrollo de modelos Experiencia en el desarrollo de modelos para analizar y predecir variables, aplicando algoritmos de aprendizaje automático, aprendizaje supervisado y no supervisado, econometría y otras técnicas.</description>
+    </item>
+    
+    <item>
+      <title>Posts Archive</title>
+      <link>/top/archive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/top/archive/</guid>
+      <description></description>
     </item>
     
     <item>

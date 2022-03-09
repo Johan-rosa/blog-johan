@@ -1,0 +1,30 @@
+---
+title: "Mapa: COVID-19 en República Domminicana"
+author: Johan Rosa
+date: '2020-05-12'
+slug: covid-19-en-republica-domminicana
+categories:
+  - R
+tags:
+  - highcharter
+  - covid-19
+subtitle: ''
+description: 'Mapa del número de casos de COVID-19 por provincia, usando la librería highcharter para crear una visualización interactiva'
+image: ''
+---
+
+Este mapa fue creado con la librería `highcharter`, para utilizarlo en la presentación de un trabajo de investigación. El mapa tiene las etiquetas que  por defecto traen los shapefiles de highchart, con ciertas imprecisiones en los nombres de algunas provincias.
+
+Aun con estos detalles, el mapa sigue siendo muy útil, muestra la cantidad de contagiados en la intensidad del color de los polígonos y, al hacer hover, la evolución del promedio diario de positivos de los último 5 días. Esta estrategia de visualización ayuda a superar la dificultad de los mapas para presentar data longitudinal.
+
+### Total de infectados por provincias y evolución diaria desde el primer contagio.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(highcharter)
+mapa <- readRDS("data/map_covid/mapa_provincia.RDS")
+```
+
+
+```{r echo=FALSE}
+mapa
+```
+

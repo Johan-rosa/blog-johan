@@ -6,11 +6,7 @@
     <description>Recent content in ggrepel on Johan Rosa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Nov 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/ggrepel/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 13 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/ggrepel/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Creating maps with sf and ggplot2</title>
       <link>/post/creating-maps-with-sf-and-ggplot2/</link>

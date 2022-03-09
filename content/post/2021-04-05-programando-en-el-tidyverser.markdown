@@ -292,6 +292,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+
 ![](/post/2021-04-05-programando-en-el-tidyverser_files/programming_tidyverse_shinyapp.gif)
 
 

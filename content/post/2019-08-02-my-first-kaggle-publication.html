@@ -9,6 +9,7 @@ tags:
   - R Markdown
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="exploratory-data-analysis-of-gas-prices-in-brazil" class="section level1">
@@ -59,30 +60,30 @@ gas &lt;- gas %&gt;%
 mutate(month_label = month(initial_date, label = TRUE))</code></pre>
 <p>Done that, taking a glimpse of the data shows that all variables were import with a correct format. For example, dates were automatically parse as date.</p>
 <pre class="r"><code>glimpse(gas)</code></pre>
-<pre><code>## Observations: 106,823
-## Variables: 22
-## $ x                       &lt;dbl&gt; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...
-## $ initial_date            &lt;date&gt; 2004-05-09, 2004-05-09, 2004-05-09, 2...
-## $ end_date                &lt;date&gt; 2004-05-15, 2004-05-15, 2004-05-15, 2...
-## $ region                  &lt;chr&gt; &quot;CENTRO OESTE&quot;, &quot;CENTRO OESTE&quot;, &quot;CENTR...
-## $ state                   &lt;chr&gt; &quot;DISTRITO FEDERAL&quot;, &quot;GOIAS&quot;, &quot;MATO GRO...
-## $ product                 &lt;chr&gt; &quot;ETANOL HIDRATADO&quot;, &quot;ETANOL HIDRATADO&quot;...
-## $ stations_consulted      &lt;dbl&gt; 127, 387, 192, 162, 103, 408, 278, 105...
-## $ unit                    &lt;chr&gt; &quot;R$/l&quot;, &quot;R$/l&quot;, &quot;R$/l&quot;, &quot;R$/l&quot;, &quot;R$/l&quot;...
-## $ mean_market_price       &lt;dbl&gt; 1.288, 1.162, 1.389, 1.262, 1.181, 1.3...
-## $ sd_market_price         &lt;dbl&gt; 0.016, 0.114, 0.097, 0.070, 0.078, 0.1...
-## $ min_market_price        &lt;dbl&gt; 1.190, 0.890, 1.180, 1.090, 1.050, 0.9...
-## $ max_market_price        &lt;dbl&gt; 1.350, 1.449, 1.760, 1.509, 1.400, 2.0...
-## $ mean_price_margin       &lt;dbl&gt; 0.463, 0.399, 0.419, 0.432, 0.240, 0.4...
-## $ cv_market_price         &lt;dbl&gt; 0.012, 0.098, 0.070, 0.055, 0.066, 0.0...
-## $ mean_distribution_price &lt;dbl&gt; 0.825, 0.763, 0.970, 0.830, 0.941, 0.9...
-## $ sd_distribution_price   &lt;dbl&gt; 0.110, 0.088, 0.095, 0.119, 0.077, 0.1...
-## $ min_distribution_price  &lt;dbl&gt; 0.42010, 0.50130, 0.56140, 0.59910, 0....
-## $ max_distribution_price  &lt;dbl&gt; 0.96660, 1.05000, 1.16100, 1.22242, 1....
-## $ cv_distribution_price   &lt;dbl&gt; 0.133, 0.115, 0.098, 0.143, 0.082, 0.1...
-## $ month                   &lt;chr&gt; &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;0...
-## $ year                    &lt;dbl&gt; 2004, 2004, 2004, 2004, 2004, 2004, 20...
-## $ month_label             &lt;ord&gt; May, May, May, May, May, May, May, May...</code></pre>
+<pre><code>## Rows: 106,823
+## Columns: 22
+## $ x                       &lt;dbl&gt; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, ~
+## $ initial_date            &lt;date&gt; 2004-05-09, 2004-05-09, 2004-05-09, 2004-05-0~
+## $ end_date                &lt;date&gt; 2004-05-15, 2004-05-15, 2004-05-15, 2004-05-1~
+## $ region                  &lt;chr&gt; &quot;CENTRO OESTE&quot;, &quot;CENTRO OESTE&quot;, &quot;CENTRO OESTE&quot;~
+## $ state                   &lt;chr&gt; &quot;DISTRITO FEDERAL&quot;, &quot;GOIAS&quot;, &quot;MATO GROSSO&quot;, &quot;M~
+## $ product                 &lt;chr&gt; &quot;ETANOL HIDRATADO&quot;, &quot;ETANOL HIDRATADO&quot;, &quot;ETANO~
+## $ stations_consulted      &lt;dbl&gt; 127, 387, 192, 162, 103, 408, 278, 105, 125, 4~
+## $ unit                    &lt;chr&gt; &quot;R$/l&quot;, &quot;R$/l&quot;, &quot;R$/l&quot;, &quot;R$/l&quot;, &quot;R$/l&quot;, &quot;R$/l&quot;~
+## $ mean_market_price       &lt;dbl&gt; 1.288, 1.162, 1.389, 1.262, 1.181, 1.383, 1.45~
+## $ sd_market_price         &lt;dbl&gt; 0.016, 0.114, 0.097, 0.070, 0.078, 0.132, 0.21~
+## $ min_market_price        &lt;dbl&gt; 1.190, 0.890, 1.180, 1.090, 1.050, 0.999, 1.03~
+## $ max_market_price        &lt;dbl&gt; 1.350, 1.449, 1.760, 1.509, 1.400, 2.050, 1.95~
+## $ mean_price_margin       &lt;chr&gt; &quot;0.463&quot;, &quot;0.399&quot;, &quot;0.419&quot;, &quot;0.432&quot;, &quot;0.24&quot;, &quot;0~
+## $ cv_market_price         &lt;dbl&gt; 0.012, 0.098, 0.070, 0.055, 0.066, 0.095, 0.15~
+## $ mean_distribution_price &lt;chr&gt; &quot;0.825&quot;, &quot;0.763&quot;, &quot;0.97&quot;, &quot;0.83&quot;, &quot;0.941&quot;, &quot;0.~
+## $ sd_distribution_price   &lt;chr&gt; &quot;0.11&quot;, &quot;0.088&quot;, &quot;0.095&quot;, &quot;0.119&quot;, &quot;0.077&quot;, &quot;0~
+## $ min_distribution_price  &lt;chr&gt; &quot;0.4201&quot;, &quot;0.5013&quot;, &quot;0.5614&quot;, &quot;0.5991&quot;, &quot;0.744~
+## $ max_distribution_price  &lt;chr&gt; &quot;0.9666&quot;, &quot;1.05&quot;, &quot;1.161&quot;, &quot;1.22242&quot;, &quot;1.0317&quot;~
+## $ cv_distribution_price   &lt;chr&gt; &quot;0.133&quot;, &quot;0.115&quot;, &quot;0.098&quot;, &quot;0.143&quot;, &quot;0.082&quot;, &quot;~
+## $ month                   &lt;chr&gt; &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;~
+## $ year                    &lt;dbl&gt; 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004~
+## $ month_label             &lt;ord&gt; May, May, May, May, May, May, May, May, May, M~</code></pre>
 <p>Another useful translation would be to change the content of <code>region</code> and <code>product</code> variables. Changing the variable <code>state</code> is not an option here because these are given names.</p>
 <pre class="r"><code>gas &lt;- gas %&gt;%
 mutate(product = recode(product, &quot;ETANOL HIDRATADO&quot; = &quot;Hydrated Ethanol&quot;,
@@ -144,6 +145,8 @@ theme(legend.position = &quot;bottom&quot;) +
 scale_colour_hue(l = 40, c = 30) +
 ggthemes::theme_fivethirtyeight() +
 labs(y = &quot;US$&quot;)</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;, &#39;initial_date&#39;, &#39;region&#39;.
+## You can override using the `.groups` argument.</code></pre>
 <p><img src="/post/2019-08-02-my-first-kaggle-publication_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 </div>
@@ -190,6 +193,8 @@ theme(legend.position = &quot;bottom&quot;,
      axis.text.x = element_text(angle = 90, size = 9), 
      panel.grid = element_blank(),
      legend.text = element_text(size = 7))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;, &#39;month_label&#39;. You can override
+## using the `.groups` argument.</code></pre>
 <p><img src="/post/2019-08-02-my-first-kaggle-publication_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 </div>
@@ -212,6 +217,65 @@ theme(legend.position = &quot;bottom&quot;,
     theme(legend.position = &quot;none&quot;) +
     theme_fivethirtyeight() +
     theme( axis.text.x = element_text(angle = 90))</code></pre>
+<pre><code>## Warning: Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:
+## 
+## Computation failed in `stat_binhex()`:</code></pre>
 <p><img src="/post/2019-08-02-my-first-kaggle-publication_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Now I will apply an approach from book “R for Data Science”, in order to run many models at once for each strata. The strategy to accomplish this is to nest the data with <code>tidyr</code>, ending with a data frame of data frames called <code>by_region_product</code>, then mutating each DF to end with a model.</p>
 <p>Having the models we can extract information about the coefficients (standar error, p.values) and about the individual observations (residuals).</p>

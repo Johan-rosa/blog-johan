@@ -13,6 +13,7 @@ description: ''
 image: 'img/banner/random_forest.jpg'
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>A la hora de escribir las publicaciones del blog siempre he tenido la disyuntiva sobre el balance adecuado entre código y metodología que debo incluir en los post, y aunque la mayoría de las veces me inclino por la opción de abordar las distintas herramientas y hacer simples resúmenes metodológicos, he mantenido un extraño sentimiento de deuda con el lector.</p>
@@ -29,19 +30,22 @@ image: 'img/banner/random_forest.jpg'
 <div id="ejemplo-de-un-acr-con-datos-hipotéticos" class="section level4">
 <h4>Ejemplo de un ACR con datos hipotéticos</h4>
 <style>
-.grid img {display: inline-block; flex-grow: 1; flex-shrink: 1;}
+
+.grid p {display: flex; flex-wrap: wrap; justify-content: space-around;}
+.grid p img {display: inline-block; flex-grow: 1; flex-shrink: 1; max-width: 320px;}
+
 </style>
 <div class="grid" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 <p><img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p1.png" width="400" />
 <img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p2.png" width="400" />
 <img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p3.png" width="400" />
-<img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p4.png" width="400" /></p>
+<img src="/post/2020-07-12-nota-metodologica-random-forest-i_files/p4.png" width="400" />
 <!--
  <img class="item" src="data/nota_random_forest/p1.png" width = "400px">
  <img class="item" src="data/nota_random_forest/p2.png" width = "400px">
  <img class="item" src="data/nota_random_forest/p3.png" width = "400px">
  <img class="item" src="data/nota_random_forest/p4.png" width = "400px">
- -->
+ --></p>
 </div>
 <p>Para decidir si se justifica una segmentación adicional de la data se verifica si este nuevo corte reduciría el error de clasificación, lo que puede ser visto como una especie de función de pérdida. Más formalmente: siendo los datos en un nodo específico <span class="math inline">\((m)\)</span> del ACR <span class="math inline">\(\boldsymbol Y^{(m)} = (y_1^{(m)},...,y_{n^{(m)}}^{(m)})\)</span> y <span class="math inline">\(\boldsymbol X^{(m)} = (X^{(m)}_1,..., X^{(m)}_p)\)</span>, <span class="math inline">\(X^{(m)}_s\)</span> la variable explicativa que está siendo considerada para agregar un corte a los datos, <span class="math inline">\(C^{(m)}= \{x_i^{(m)} \}_{i ∈\{1,…,n^{(m)}\} }\)</span> los valores únicos y <span class="math inline">\(c ∈C^{(m)}\)</span> la observación considerada para hacer el corte. Como resultado de esto, el nodo inicial <span class="math inline">\(Y^{(m)}\)</span> queda subdividido en <span class="math inline">\(Y^{(ml)}\)</span> y <span class="math inline">\(Y^{(mr)}\)</span>, donde <span class="math inline">\(Y^{(ml)}\)</span> corresponde a todos los elementos de <span class="math inline">\(Y^{(m)}\)</span> para los cuales <span class="math inline">\(X_s^{(m)} ≤ c\)</span> y <span class="math inline">\(Y^{(mr)}\)</span> corresponde a todos los elementos de <span class="math inline">\(Y^{(m)}\)</span> para los que <span class="math inline">\(X_s^{(m)} &gt; c\)</span>. El incremento o disminución del error quedaría definido de la siguiente forma.</p>
 <p><span class="math display">\[\Delta(Y^{(m)}) = L(Y^{(m)}) - [\frac{n{(ml)}}{n^{m}}L(Y^{(ml)})\  + \ \frac{n{(mr)}}{n^{m}}L(Y^{(mr)}) ]\]</span>

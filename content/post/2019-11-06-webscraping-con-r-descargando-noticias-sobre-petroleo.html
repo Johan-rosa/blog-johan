@@ -13,6 +13,7 @@ tags:
   - stringr
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>En esta ocasión tengo la intención de darles un paseo breve por la primera parte de un proyecto que inicié con una compañera del trabajo. La idea es navegar por las noticias de ciertos portales como <a href="https://www.reuters.com/"><strong>Reuters</strong></a> y descargar las noticias referentes a diferentes tópicos, como <em>markets</em> y <em>business</em>, al igual que descargar noticias de otros portales que contengan artículos sobre petróleo, conflictos geopolíticos, sobre la guerra comercial entre Estados Unidos y China, ect. Todo con la finalidad de construir un indicador de incertidumbre global y, con el sentimiento de los textos, determinar la fuente coyuntural de incertidumbre.</p>
@@ -264,11 +265,11 @@ news &lt;- bind_rows(news)</code></pre>
 <pre class="r"><code># Ver las primeras observaciones
 head(news, 2) %&gt;%
   glimpse()</code></pre>
-<pre><code>## Observations: 2
-## Variables: 3
+<pre><code>## Rows: 2
+## Columns: 3
 ## $ date   &lt;chr&gt; &quot;Nov 07, 2019, 2:30 PM CST&quot;, &quot;Nov 07, 2019, 1:30 PM CST&quot;
-## $ header &lt;chr&gt; &quot;The Real Reason Big Oil Bailed On Brazil&quot;, &quot;The Ethano...
-## $ text   &lt;chr&gt; &quot;This year’s final oil auction in Brazil ended in a flo...</code></pre>
+## $ header &lt;chr&gt; &quot;The Real Reason Big Oil Bailed On Brazil&quot;, &quot;The Ethanol Crisis~
+## $ text   &lt;chr&gt; &quot;This year’s final oil auction in Brazil ended in a flop on Thu~</code></pre>
 </div>
 </div>
 <div id="resumen-y-conclusión" class="section level2">

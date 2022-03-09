@@ -1,4 +1,4 @@
-/* global Highcharts module window:true */
+/* global Highcharts module */
 (function (factory) {
 	if (typeof module === 'object' && module.exports) {
 		module.exports = factory;
@@ -8,9 +8,9 @@
 }(function (HC) {
 	'use strict';
 	/**
-	 * Grouped Categories v1.1.3 (2017-03-27)
+	 * Grouped Categories v1.2.0 (2021-05-10)
 	 *
-	 * (c) 2012-2016 Black Label
+	 * (c) 2012-2021 Black Label
 	 *
 	 * License: Creative Commons Attribution (CC)
 	 */
@@ -23,8 +23,6 @@
 		merge = HC.merge,
 		pick = HC.pick,
 		each = HC.each,
-		// #74, since Highcharts 4.1.10 HighchartsAdapter is only provided by the Highcharts Standalone Framework
-		inArray = (window.HighchartsAdapter && window.HighchartsAdapter.inArray) || HC.inArray,
 
 		// cache prototypes
 		axisProto = HC.Axis.prototype,
@@ -372,7 +370,12 @@
 	tickProto.addLabel = function () {
 		var tick = this,
 			axis = tick.axis,
-			category;
+			labelOptions = pick(
+				tick.options && tick.options.labels,
+				axis.options.labels
+			),
+			category,
+			formatter;
 		
 		protoTickAddLabel.call(tick);
 		
@@ -382,7 +385,18 @@
 		
 		// set label text - but applied after formatter #46
 		if (tick.label) {
-			tick.label.attr('text', tick.axis.labelFormatter.call({
+			formatter = function (ctx) {
+				if (labelOptions.formatter) {
+					return labelOptions.formatter.call(ctx, ctx);
+				}
+				if (labelOptions.format) {
+					ctx.text = axis.defaultLabelFormatter.call(ctx);
+					return HC.format(labelOptions.format, ctx, axis.chart);
+				}
+				return axis.defaultLabelFormatter.call(ctx, ctx);
+			};
+
+			tick.label.attr('text', formatter({
 				axis: axis,
 				chart: axis.chart,
 				isFirst: tick.isFirst,
@@ -390,6 +404,9 @@
 				value: category.name,
 				pos: tick.pos
 			}));
+
+			// update with new text length, since textSetter removes the size caches when text changes. #137
+			tick.label.textPxLength = tick.label.getBBox().width;
 		}
 		
 		// create elements for parent categories
@@ -433,8 +450,12 @@
 
 				label = chart.renderer.text(name, 0, 0, useHTML)
 					.attr(mergedAttrs)
-					.css(mergedCSS)
 					.add(axis.labelGroup);
+
+				// css should only be set for non styledMode configuration. #167
+				if (label && !chart.styledMode) {
+					label.css(mergedCSS);
+				}
 
 				// tick properties
 				tick.startAt = this.pos;
@@ -452,7 +473,7 @@
 			}
 
 			// set level size, #93
-			if (tick) {
+			if (tick && tick.label) {
 				axis.groupSize(depth, tick.label.getBBox()[size]);
 			}
 
@@ -522,7 +543,7 @@
 		function fixOffset(tCat) {
 			var ret = 0;
 			if (isFirst) {
-				ret = inArray(tCat.name, tCat.parent.categories);
+				ret = tCat.parent.categories.indexOf(tCat.name);
 				ret = ret < 0 ? 0 : ret;
 				return ret;
 			}
@@ -593,5 +614,13 @@
 		}
 		return protoTickGetLabelSize.call(this);
 	};
+	
+	// Since datasorting is not supported by the plugin,
+	// override replaceMovedLabel method, #146.
+	HC.wrap(HC.Tick.prototype, 'replaceMovedLabel', function (proceed) {
+		if (!this.axis.isGrouped) {
+			proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+		}
+	});
 
 }));
