@@ -24,7 +24,13 @@ Eficiente en el desarrollo de aplicaciones web con capacidad de simplificar tare
 
 ## Experiencia
 
-### Economista 2, Banco Central de la República Dominicana, Departamento de Programación Monetaria y Estudios Económicos
+### R/shiny developer, Appsilon
+
+Abr. 2022 - actualidad
+
+- Consultor para empresas internacionales en temas de ciencia de datos y desarrollo de aplicaciones
+
+### Jefe de división, Banco Central de la República Dominicana, Departamento de Programación Monetaria y Estudios Económicos
 Ene. 2018 - actualidad
 
 - Involucrado en el diseño, ejecución y análisis del sistema de encuestas macroeconómicas del Banco Central.
