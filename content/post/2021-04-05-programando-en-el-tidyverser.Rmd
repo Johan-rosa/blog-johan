@@ -22,6 +22,7 @@ library(ggplot2)
 
 Cuando me topé por primera vez con las funciones del `tidyverse`, específicamente con el paquete `dplyr`, lo que más me atrajo fue la posibilidad de usar en las funciones las variables in-data como si fueran objetos del ambiente global (_data masking_).
 
+
 Es como utilizar en un data frame el poco recomendado `attach()`, pero sin el downside que deriva este en distintos escenarios. 
 
 Un ejemplo:
