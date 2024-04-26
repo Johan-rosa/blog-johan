@@ -27,7 +27,7 @@ With that in mind I gave him an option, maybe not exactly what he was looking fo
       <description>Cuando me topé por primera vez con las funciones del tidyverse, específicamente con el paquete dplyr, lo que más me atrajo fue la posibilidad de usar en las funciones las variables in-data como si fueran objetos del ambiente global (data masking).
 Es como utilizar en un data frame el poco recomendado attach(), pero sin el downside que deriva este en distintos escenarios.
 Un ejemplo:
-mtcars[mtcars$cyl == 8 &amp;amp; mtcars$am == 1,] ## mpg cyl disp hp drat wt qsec vs am gear carb ## Ford Pantera L 15.</description>
+mtcars[mtcars$cyl == 8 &amp;amp; mtcars$am == 1,]## mpg cyl disp hp drat wt qsec vs am gear carb## Ford Pantera L 15.</description>
     </item>
     
     <item>
@@ -36,7 +36,7 @@ mtcars[mtcars$cyl == 8 &amp;amp; mtcars$am == 1,] ## mpg cyl disp hp drat wt qse
       <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/post/reacciones-en-docuementos-rmarkdown-con-javascript/</guid>
-      <description>.buttons { display: flex; width: 280px; justify-content: space-around; margin: 0 auto; } .btn { border: solid 2px; padding: 10px; border-radius: 10px; color: white; width: 100px; text-align: center; background-color: #F85B1A; transition: transform 250ms ease-in-out, opasity 250ms linear; } .btn:hover, .btn:focus { background-color: #072083; transform: scale(1.1); opacity: .9; cursor: pointer; color: white; } .character-img { display: block; margin: 0 auto; height: 400px; }  Mi primer contacto con documentos HTML fue mediante Rmarkdown en Rstudio.</description>
+      <description>.buttons {display: flex;width: 280px;justify-content: space-around; margin: 0 auto;}.btn {border: solid 2px;padding: 10px;border-radius: 10px;color: white;width: 100px;text-align: center;background-color: #F85B1A;transition: transform 250ms ease-in-out,opasity 250ms linear;}.btn:hover, .btn:focus {background-color: #072083;transform: scale(1.1);opacity: .9;cursor: pointer;color: white;}.character-img {display: block;margin: 0 auto;height: 400px;}Mi primer contacto con documentos HTML fue mediante Rmarkdown en Rstudio.</description>
     </item>
     
     <item>
@@ -104,7 +104,7 @@ La adopción de este esquema de política por parte de las autoridades monetaria
       <pubDate>Tue, 28 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>/post/la-grandeza-de-kobe-bryant-i-componentes-principales/</guid>
-      <description>kobe %&amp;gt;% as.legend(&#39;forever&#39;) Esta semana recibí una de las noticias más impactantes de los últimos años, la trágica muerte de Kobe Bryant. Los que me conocen saben lo seguidor que soy de Kobe, siempre me he declarado su fanático, casi al extremo del término. Gran parte de mi niñez, toda mi adolescencia y ahora mi vida de adulto me la pasé viendo sus juegos, revisando sus jugadas, tratando imitar lo que hacía, discutiendo con mi hermano a ver quién se quedaría con el honor de decir que era él, comentando sus entrevistas, defendiendo su posición como top 2 histórico, etc.</description>
+      <description>kobe %&amp;gt;% as.legend(&#39;forever&#39;)Esta semana recibí una de las noticias más impactantes de los últimos años, la trágica muerte de Kobe Bryant. Los que me conocen saben lo seguidor que soy de Kobe, siempre me he declarado su fanático, casi al extremo del término. Gran parte de mi niñez, toda mi adolescencia y ahora mi vida de adulto me la pasé viendo sus juegos, revisando sus jugadas, tratando imitar lo que hacía, discutiendo con mi hermano a ver quién se quedaría con el honor de decir que era él, comentando sus entrevistas, defendiendo su posición como top 2 histórico, etc.</description>
     </item>
     
     <item>
@@ -161,7 +161,7 @@ Los software tradicionales para hacer este tipo de cosas son Qgis, ArcGIS y otro
       <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/my-first-kaggle-publication/</guid>
-      <description>Exploratory Data Analysis of Gas Prices in Brazil Intention I have been a kaggle member since 2017 and the analysis that this community share every day have been a good source of learning material in my data science journey. This time I decide to stop been a reader and share with you my first notebook.
+      <description>Exploratory Data Analysis of Gas Prices in BrazilIntentionI have been a kaggle member since 2017 and the analysis that this community share every day have been a good source of learning material in my data science journey. This time I decide to stop been a reader and share with you my first notebook.
 The main intention of the notebook is to make an Exploratory Data Analysis of the Gas Prices in Brazil data set, hoping that new r users and kagglers in general could use this as a useful material to learn and apply in their own analysis.</description>
     </item>
     

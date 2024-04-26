@@ -16,7 +16,7 @@
       <description>Cuando me topé por primera vez con las funciones del tidyverse, específicamente con el paquete dplyr, lo que más me atrajo fue la posibilidad de usar en las funciones las variables in-data como si fueran objetos del ambiente global (data masking).
 Es como utilizar en un data frame el poco recomendado attach(), pero sin el downside que deriva este en distintos escenarios.
 Un ejemplo:
-mtcars[mtcars$cyl == 8 &amp;amp; mtcars$am == 1,] ## mpg cyl disp hp drat wt qsec vs am gear carb ## Ford Pantera L 15.</description>
+mtcars[mtcars$cyl == 8 &amp;amp; mtcars$am == 1,]## mpg cyl disp hp drat wt qsec vs am gear carb## Ford Pantera L 15.</description>
     </item>
     
   </channel>

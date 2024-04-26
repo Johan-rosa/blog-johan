@@ -24,7 +24,7 @@ With that in mind I gave him an option, maybe not exactly what he was looking fo
       <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/post/reacciones-en-docuementos-rmarkdown-con-javascript/</guid>
-      <description>.buttons { display: flex; width: 280px; justify-content: space-around; margin: 0 auto; } .btn { border: solid 2px; padding: 10px; border-radius: 10px; color: white; width: 100px; text-align: center; background-color: #F85B1A; transition: transform 250ms ease-in-out, opasity 250ms linear; } .btn:hover, .btn:focus { background-color: #072083; transform: scale(1.1); opacity: .9; cursor: pointer; color: white; } .character-img { display: block; margin: 0 auto; height: 400px; }  Mi primer contacto con documentos HTML fue mediante Rmarkdown en Rstudio.</description>
+      <description>.buttons {display: flex;width: 280px;justify-content: space-around; margin: 0 auto;}.btn {border: solid 2px;padding: 10px;border-radius: 10px;color: white;width: 100px;text-align: center;background-color: #F85B1A;transition: transform 250ms ease-in-out,opasity 250ms linear;}.btn:hover, .btn:focus {background-color: #072083;transform: scale(1.1);opacity: .9;cursor: pointer;color: white;}.character-img {display: block;margin: 0 auto;height: 400px;}Mi primer contacto con documentos HTML fue mediante Rmarkdown en Rstudio.</description>
     </item>
     
   </channel>
